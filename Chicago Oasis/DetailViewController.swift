@@ -28,6 +28,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
     
     var selectedYear = 0
     var selectedMap: MapType = MapType.Neighborhoods
+    var criticalBusinessesVisible = true
     
     var maxIndex: Double?
     var minIndex: Double?
@@ -74,7 +75,8 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
     }
 
     @IBAction func onShowCriticalChanged(sender: AnyObject) {
-        // TODO: Implement critical business placemarks
+        self.criticalBusinessesVisible = criticalBusinessSelection.on
+        updateCriticalBusinesses()
     }
     
     
@@ -165,6 +167,27 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
         yearSelection.setValue(Float(selectedYear), animated: false)
     }
 
+    func updateCriticalBusinesses() {
+        self.map.removeAnnotations(self.map.annotations)
+
+        if (criticalBusinessesVisible) {
+            CriticalBusinessDAO.getCriticalBusinesses(selectedYear, licenseType: license?.id, onSuccess: { (businesses) in
+                for business in businesses {
+                    let location = CLLocationCoordinate2DMake(business.lat, business.lng)
+                    let pin = MKPointAnnotation()
+                    pin.coordinate = location
+                    pin.title = business.dbaName
+                
+                    self.map.addAnnotation(pin)
+                }
+            
+                }) {
+                    // TODO: Handle error case
+                    print("Failed to get critical businesses")
+            }
+        }
+    }
+    
     private func redrawMap () {
         AccessabilityDAO.getAccessibility(selectedMap, year: selectedYear, licenseType: license?.id, onSuccess:
             { (indexes, min, max) in
@@ -181,6 +204,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
                 }
                 
                 self.updatePolygons()
+                self.updateCriticalBusinesses()
                 self.updateSelectionLabel()
             }) {
                 // TODO: Handle error case

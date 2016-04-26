@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		275D18104439B84288D8119A /* Pods_Chicago_Oasis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64A83E34F40AE447D97B58FC /* Pods_Chicago_Oasis.framework */; };
+		C9155A871CD0171400D6B995 /* CriticalBusinessDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9155A861CD0171400D6B995 /* CriticalBusinessDAO.swift */; };
 		C91BBA421CCBC05F005477D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BBA411CCBC05F005477D4 /* AppDelegate.swift */; };
 		C91BBA441CCBC05F005477D4 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BBA431CCBC05F005477D4 /* MasterViewController.swift */; };
 		C91BBA461CCBC05F005477D4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BBA451CCBC05F005477D4 /* DetailViewController.swift */; };
@@ -48,6 +49,7 @@
 /* Begin PBXFileReference section */
 		479286B830A68E12BDF87D7C /* Pods-Chicago Oasis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chicago Oasis.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chicago Oasis/Pods-Chicago Oasis.debug.xcconfig"; sourceTree = "<group>"; };
 		64A83E34F40AE447D97B58FC /* Pods_Chicago_Oasis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chicago_Oasis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9155A861CD0171400D6B995 /* CriticalBusinessDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CriticalBusinessDAO.swift; sourceTree = "<group>"; };
 		C91BBA3E1CCBC05F005477D4 /* Chicago Oasis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chicago Oasis.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C91BBA411CCBC05F005477D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C91BBA431CCBC05F005477D4 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		C95AC6441CCC180D0068EFEB /* model */ = {
 			isa = PBXGroup;
 			children = (
+				C9155A861CD0171400D6B995 /* CriticalBusinessDAO.swift */,
 				C95AC6451CCC20F00068EFEB /* LicenseDAO.swift */,
 				C999314E1CCC6BD700FB9701 /* PolygonDAO.swift */,
 				C99931581CCD88F500FB9701 /* AccessabilityDAO.swift */,
@@ -397,6 +400,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9155A871CD0171400D6B995 /* CriticalBusinessDAO.swift in Sources */,
 				C91BBA461CCBC05F005477D4 /* DetailViewController.swift in Sources */,
 				C944D8A61CCEF0BA005D136E /* LaunchViewController.swift in Sources */,
 				C944D8A81CCEF3F9005D136E /* SplitViewController.swift in Sources */,
