@@ -1,0 +1,6 @@
+framework module Kml_swift {
+  umbrella header "Kml.swift-umbrella.h"
+
+  export *
+  module * { export * }
+}

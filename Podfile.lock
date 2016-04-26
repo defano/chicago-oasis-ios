@@ -1,0 +1,22 @@
+PODS:
+  - AEXML (2.1.0)
+  - Alamofire (3.3.1)
+  - Kml.swift (0.2.2):
+    - AEXML
+  - SwiftyJSON (2.3.2)
+  - XCGLogger (3.3)
+
+DEPENDENCIES:
+  - Alamofire
+  - Kml.swift
+  - SwiftyJSON
+  - XCGLogger
+
+SPEC CHECKSUMS:
+  AEXML: 0e2f657fdc67e17905682a06d55583a863d80803
+  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  Kml.swift: a05c0a8766e43a880d1e115bbb6befcda9a9c1e5
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  XCGLogger: d6e196e78940ff6daab17d6917107876f973fa31
+
+COCOAPODS: 0.39.0
