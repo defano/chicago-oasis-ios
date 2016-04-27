@@ -9,36 +9,88 @@
 import Foundation
 import UIKit
 
-class LaunchViewController : UIViewController {
+class LaunchViewController : UIViewController, UITableViewDataSource {
     
-    var polygonsReady = false
+    @IBOutlet weak var todoTable: UITableView!
+    
+    var censusReady = false
+    var neighborhoodsReady = false
     var licensesReady = false
+    var socioeconomicReady = false
     
     override func viewDidLoad() {
 
-        PolygonDAO.loadPolygons
-            {
-                self.polygonsReady = true
-                if (self.licensesReady) {
-                    self.segue()
-            }
+        todoTable.dataSource = self
+        todoTable.reloadData()
+        todoTable.separatorColor = UIColor.clearColor()
+        todoTable.rowHeight = 20.0
+        
+        PolygonDAO.loadCensusTractBoundaries {
+            self.censusReady = true
+            self.segue()
+        }
+    
+        PolygonDAO.loadNeighborhoodBoundaries {
+            self.neighborhoodsReady = true
+            self.segue()
         }
         
         LicenseDAO.loadLicenses(
             {
                 self.licensesReady = true
-                if (self.polygonsReady) {
-                    self.segue()
-                }
+                self.segue()
             },
             onFailure: {
                 // TODO: Failed to load
             })
+        
+        SocioeconomicDAO.load(
+            {
+                self.socioeconomicReady = true
+                self.segue()
+            }) {
+                // TODO: Failed to load
+            }
     }
     
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+
+        switch indexPath.row {
+        case 2:
+            cell.textLabel?.text = "Computing neighborhoods..."
+            cell.accessoryType = neighborhoodsReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
+            break;
+        case 3:
+            cell.textLabel?.text = "Computing census tracts..."
+            cell.accessoryType = censusReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
+            break;
+        case 1:
+            cell.textLabel?.text = "Getting socioeconomic data..."
+            cell.accessoryType = socioeconomicReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
+            break;
+        default:
+            cell.textLabel?.text = "Getting business licenses..."
+            cell.accessoryType = licensesReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
+            break;
+        }
+
+        return cell
+    }
+
+    
     private func segue() {
-        dispatch_async(dispatch_get_main_queue()){
-            self.performSegueWithIdentifier("next", sender: self)
+        
+        todoTable.reloadData()
+        
+        if (censusReady && neighborhoodsReady && licensesReady && socioeconomicReady) {
+            dispatch_async(dispatch_get_main_queue()){
+                self.performSegueWithIdentifier("next", sender: self)
+            }
         }
     }
 }

@@ -17,10 +17,8 @@ class PolygonDAO {
     
     private static var neighborhoods:PolyCache = PolyCache()
     private static var tracts:PolyCache = PolyCache()
-    static var neighborhoodsReady = false
-    static var censusReady = false
 
-    static func loadPolygons (onComplete: () -> Void) {
+    static func loadNeighborhoodBoundaries (onComplete: () -> Void) {
         
         load("neighborhoods",
              cache: &self.neighborhoods,
@@ -30,26 +28,22 @@ class PolygonDAO {
                 },
              onComplete:
                 { _ in
-                    neighborhoodsReady = true
-                    if censusReady {
-                        onComplete()
-                    }
+                    onComplete()
                 }
         )
-        
+    }
+    
+    static func loadCensusTractBoundaries (onComplete: () -> Void) {
         load("census",
              cache: &self.tracts,
              nameNormalizer:
-                { name in
-                    return normalizeTractId(name)
-                },
+            { name in
+                return normalizeTractId(name)
+            },
              onComplete:
-                { _ in
-                    censusReady = true
-                    if (neighborhoodsReady) {
-                        onComplete()
-                    }
-                }
+            { _ in
+                onComplete()
+            }
         )
     }
     

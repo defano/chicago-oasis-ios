@@ -12,11 +12,9 @@ import SwiftyJSON
 
 class CriticalBusinessDAO {
     
-    static let baseUrl = "http://www.chicago-oasis.org/json/critical/critical-"
-    
     static func getCriticalBusinesses(year: Int, licenseType: String!, onSuccess: ([CriticalBusinessRecord]) -> Void, onFailure: () -> Void) {
         
-        let url = "\(baseUrl)\(licenseType)-\(year).json";
+        let url = "http://www.chicago-oasis.org/json/critical/critical-\(licenseType)-\(year).json";
         
         Alamofire.request(NSURLRequest(URL: NSURL(string: url)!)).responseJSON { response in
             guard response.result.error == nil else {
