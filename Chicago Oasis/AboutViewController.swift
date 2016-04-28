@@ -14,7 +14,13 @@ class AboutViewController : UIViewController {
     @IBOutlet weak var web: UIWebView!
     
     override func viewDidLoad() {
-        web.backgroundColor = UIColor.clearColor()
-        web.loadRequest(NSURLRequest(URL: NSURL(string: "http://www.chicago-oasis.org/about.md")!))
+        super.viewDidLoad()
+        
+        // Eliminate blank "margin" at top of view on iOS 7+
+        self.automaticallyAdjustsScrollViewInsets = false
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        web.loadRequest(NSURLRequest(URL: NSURL(string: "http://www.chicago-oasis.org/about.md?template=no-header")!))
     }
 }

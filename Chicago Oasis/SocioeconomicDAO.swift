@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class SocioeconomicDAO {
 
-    var data: [String:SocioeconomicRecord] = [:]
+    static var data: [String:SocioeconomicRecord] = [:]
     
     static func load (onSuccess: () -> Void, onFailure: () -> Void) {
         let url = "http://www.chicago-oasis.org/json/socioeconomic.json";
@@ -26,25 +26,20 @@ class SocioeconomicDAO {
                 let json = JSON(value)
                 
                 for (neighborhood, element) in json {
-                    print("Got \(neighborhood) and \(element)")
+                    self.data[neighborhood] = SocioeconomicRecord(
+                        percentHousingCrowded: element["PERCENT OF HOUSING CROWDED"].doubleValue,
+                        percentHouseholdsBelowPoverty: element["PERCENT HOUSEHOLDS BELOW POVERTY"].doubleValue,
+                        percent16Unemployed: element["PERCENT AGED 16+ UNEMPLOYED"].doubleValue,
+                        percent25Unemployed: element["PERCENT AGED 25+ WITHOUT HIGH SCHOOL DIPLOMA"].doubleValue,
+                        percentUnder18Over64: element["PERCENT AGED UNDER 18 OR OVER 64"].doubleValue,
+                        perCapitaIncome: element["PER CAPITA INCOME"].intValue,
+                        hardshipIndex: element["HARDSHIP INDEX"].intValue)
                 }
                 
                 onSuccess()
             }
         }
-
     }
-    
-//    "UPTOWN": {
-//    "PERCENT OF HOUSING CROWDED": 3.8,
-//    "PERCENT HOUSEHOLDS BELOW POVERTY": 24,
-//    "PERCENT AGED 16+ UNEMPLOYED": 8.9,
-//    "PERCENT AGED 25+ WITHOUT HIGH SCHOOL DIPLOMA": 11.8,
-//    "PERCENT AGED UNDER 18 OR OVER 64": 22.2,
-//    "PER CAPITA INCOME": 35787,
-//    "HARDSHIP INDEX": 20
-
-    
 }
 
 class SocioeconomicRecord {

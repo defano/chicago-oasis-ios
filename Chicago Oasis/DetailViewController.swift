@@ -13,6 +13,12 @@ import Kml_swift
 
 class DetailViewController: UIViewController, MKMapViewDelegate {
 
+    // Default centerpoint of the displayed map; Chicago Loop
+    let chicagoLatitude = 41.883229, chicagoLongitude = -87.63239799999999
+    
+    let zoomMeters = 10000.0   // Zoom level of the map; number of meters visible in the longest visible dimension
+    let bucketCount = 5.0      // Number of distinct shades used when coloring the map
+    
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var mapTypeSelection: UISegmentedControl!
     @IBOutlet weak var detailDescriptionLabel: UILabel!
@@ -22,16 +28,10 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var criticalBusinessSelection: UISwitch!
     @IBOutlet weak var relativeShadingSelection: UISwitch!
     @IBOutlet weak var yearSelection: UISlider!
-
-    let chicagoLatitude = 41.883229, chicagoLongitude = -87.63239799999999
-    let zoomMeters = 10000.0
     
     var selectedYear = 0
     var selectedMap: MapType = MapType.Neighborhoods
-    var criticalBusinessesVisible = true
     
-    var maxIndex: Double?
-    var minIndex: Double?
     var neighborhoodIndexes: [String:Double]?
     var censusIndexes: [String:Double]?
     var license: LicenseRecord?
@@ -39,6 +39,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
     // MARK: - View
     
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
         // Possible on iPad devices where detail view is initially shown
         if (license == nil) {
@@ -50,14 +51,18 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
         map.delegate = self
         map.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onMapWasTapped)))
 
-        updateYearRange()
-        redrawMap()
+        yearRangeChanged()
+        redrawMap(true)
+    }
+    
+    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        reshadeVisiblePolygons()
     }
     
     @IBAction func onYearSelectionChanged(sender: UISlider) {
         if (self.selectedYear != Int(yearSelection.value)) {
             self.selectedYear = Int(yearSelection.value)
-            redrawMap()
+            redrawMap(false)
         }
     }
     
@@ -71,17 +76,16 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
             break;
         }
         
-        redrawMap()
+        redrawMap(true)
     }
 
     @IBAction func onShowCriticalChanged(sender: AnyObject) {
-        self.criticalBusinessesVisible = criticalBusinessSelection.on
         updateCriticalBusinesses()
     }
     
     
     @IBAction func onRelativeShadingChanged(sender: AnyObject) {
-        // TODO: Implement relative shading
+        reshadeVisiblePolygons()
     }
     
     // MARK: - Map
@@ -96,11 +100,16 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
             if overlay.isKindOfClass(KMLOverlayPolygon) {
                 let polygon:MKPolygon = overlay as! MKPolygon
                 if (polygon.intersectsMapRect(touchMapRect)) {
-                    // TODO: Display demographic data
-                    // let clickedId = PolygonDAO.getPolygons(selectedMap)[index].id
+                    onPolygonWasTapped(PolygonDAO.getPolygons(selectedMap)[index].id)
                     return
                 }
             }
+        }
+    }
+    
+    func onPolygonWasTapped(polygonId: String) {
+        if (selectedMap == MapType.Neighborhoods) {
+            print(SocioeconomicDAO.data[polygonId]?.perCapitaIncome)
         }
     }
     
@@ -129,7 +138,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
         map.setRegion(map.regionThatFits(visibleRegion), animated: false)
     }
     
-    // MARK: - UI Response
+    // MARK: - UI Updates
     
     private func updateSelectionLabel() {
         switch mapTypeSelection.selectedSegmentIndex {
@@ -144,20 +153,49 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    func updatePolygons() {
-        map.removeOverlays(map.overlays)
-        
-        for poly in PolygonDAO.getPolygons(selectedMap) {
-            self.map.addOverlay(poly.overlay!)
-            if let renderer = map.rendererForOverlay(poly.overlay!) as? MKPolygonRenderer, index = getAccessIndexForId(poly.id) {
-                renderer.strokeColor = UIColor.whiteColor()
-                renderer.lineWidth=2.0
-                renderer.fillColor = UIColor(red:0.4, green:0.6, blue:1.0, alpha:CGFloat(getShadeForPolygon(index)))
+    // Reshade (color) polygons visible on the map using current data selections
+    func reshadeVisiblePolygons() {
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            let visiblePolygons = self.visiblePolygons()
+            let activePolygons = self.relativeShadingSelection.on ? visiblePolygons : PolygonDAO.getPolygons(self.selectedMap)
+            
+            var minIndex = 0.0, maxIndex = 0.0
+            
+            self.indexRangeForPolygons(activePolygons, minIndex: &minIndex, maxIndex: &maxIndex)
+            
+            for poly in visiblePolygons {
+                if let renderer = self.map.rendererForOverlay(poly.overlay!) as? MKPolygonRenderer, index = self.accessabilityIndexForArea(poly.id) {
+                    renderer.strokeColor = UIColor.whiteColor()
+                    renderer.lineWidth=2.0
+                    renderer.fillColor = UIColor(red:0.4, green:0.6, blue:1.0, alpha:CGFloat(self.alphaForAccessibilityIndex(index, minIndex: minIndex, maxIndex: maxIndex)))
+                }
             }
         }
     }
     
-    func updateYearRange() {
+
+    /*
+     * Removes and redraws all polygon overlays (neighborhoods or census tracts) on
+     * the map. This is expensive and should be invoked only when the neighborhood/census
+     * selection is changed.
+     */
+    func redrawPolygons() {
+        self.map.removeOverlays(self.map.overlays)
+        
+        for poly in PolygonDAO.getPolygons(self.selectedMap) {
+            self.map.addOverlay(poly.overlay!)
+        }
+        
+        reshadeVisiblePolygons()
+    }
+    
+    
+    /*
+     * Invoke to indicate range of available data years changed (typically the result of
+     * selecting a new license type. Sets the current year selection to the midpoint 
+     * between available years.
+     */
+    func yearRangeChanged () {
         yearSelection.maximumValue = Float((license?.latestYear)!)
         yearSelection.minimumValue = Float((license?.earliestYear)!)
         earliestYearLabel.text = license?.earliestYear.description
@@ -167,17 +205,21 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
         yearSelection.setValue(Float(selectedYear), animated: false)
     }
 
-    func updateCriticalBusinesses() {
+    /*
+     * Shows or hides critical businesses based on the state of the toggle; when visible, 
+     * refreshes the data based on current license and year selections.
+     */
+    private func updateCriticalBusinesses() {
         self.map.removeAnnotations(self.map.annotations)
 
-        if (criticalBusinessesVisible) {
+        if (criticalBusinessSelection.on) {
             CriticalBusinessDAO.getCriticalBusinesses(selectedYear, licenseType: license?.id, onSuccess: { (businesses) in
                 for business in businesses {
                     let location = CLLocationCoordinate2DMake(business.lat, business.lng)
                     let pin = MKPointAnnotation()
                     pin.coordinate = location
                     pin.title = business.dbaName
-                
+                    
                     self.map.addAnnotation(pin)
                 }
             
@@ -188,12 +230,16 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    private func redrawMap () {
-        AccessabilityDAO.getAccessibility(selectedMap, year: selectedYear, licenseType: license?.id, onSuccess:
-            { (indexes, min, max) in
-                self.maxIndex = max
-                self.minIndex = min
-                
+    
+    /*
+     * Refreshes business accessibility data given current year, map type and license selections
+     * and refreshes the map. When resetPolygons: is true, all polygons (neighborhood/census 
+     * boundaries) will be removed and redrawn; set to true only when changing map types.
+     */
+    private func redrawMap (redrawPolygons: Bool) {
+        AccessibilityDAO.getAccessibility(selectedMap, year: selectedYear, licenseType: license?.id, onSuccess:
+            { (indexes) in
+
                 switch self.selectedMap {
                 case MapType.Neighborhoods:
                     self.neighborhoodIndexes = indexes
@@ -203,7 +249,12 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
                     break
                 }
                 
-                self.updatePolygons()
+                if (redrawPolygons) {
+                    self.redrawPolygons()
+                } else {
+                    self.reshadeVisiblePolygons()
+                }
+                
                 self.updateCriticalBusinesses()
                 self.updateSelectionLabel()
             }) {
@@ -214,7 +265,15 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - Data
     
-    private func getAccessIndexForId (id: String) -> Double? {
+    /*
+     * Determines the "accessability index" for the identified boundary (either the neighborhood
+     * name like 'LINCOLN PARK' or the normalized census tract number like '0719').
+     *
+     * The access index is a relative floating point value meaningful only when comparing one
+     * area with another. It has no absolute meaning and is not comparable across business
+     * licenses or across map types
+     */
+    private func accessabilityIndexForArea (id: String) -> Double? {
         switch selectedMap {
         case .Neighborhoods:
             return neighborhoodIndexes?[id]
@@ -223,12 +282,56 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    func getShadeForPolygon (index: Double) -> Double {
-        let bucketCount = 5.0
-        let value = (index - minIndex!) / (maxIndex! - minIndex!)
-        let bucket = round(value / (1 / bucketCount)) * (1 / bucketCount)
-        let alpha = (bucket == 0.0) ? 0.05 : (bucket == 1.0) ? 0.95 : bucket
-        return alpha
+    /*
+     * Returns the set of polygons whose boundaries intersect the visible region of the map.
+     */
+    func visiblePolygons() -> [Polygon] {
+        var visiblePolygons: [Polygon] = []
+        
+        for (index, overlay) in map.overlays.enumerate() {
+            let polygonRect = overlay.boundingMapRect
+            let mapRect = map.visibleMapRect
+            if (MKMapRectIntersectsRect(mapRect, polygonRect)) {
+                visiblePolygons.append(PolygonDAO.getPolygons(selectedMap)[index])
+            }
+        }
+        
+        return visiblePolygons
+    }
+    
+    /*
+     * Determines the alpha value (shade) for the given accessability index in the context
+     * of given minimum and maximum indicies. 
+     *
+     * This function will return a value between 0.05 and 0.95 in bucketed amounts determined by 
+     * the number alphaBuckets. The intent is to bucket each index so that each polygon/area 
+     * drawn on the map is assigned one of 'bucketCount' shades.
+     */
+    func alphaForAccessibilityIndex (index: Double, minIndex: Double, maxIndex: Double) -> Double {
+        let normalizedIndex = (index - minIndex) / (maxIndex - minIndex)
+        let bucket = round(normalizedIndex / (1 / bucketCount)) * (1 / bucketCount)
+        return (bucket == 0.0) ? 0.05 : (bucket == 1.0) ? 0.95 : bucket
+    }
+    
+    /*
+     * Determines the minimum and maximum accessibility indicies present within the given set
+     * of polygons.
+     */
+    func indexRangeForPolygons(polygons: [Polygon], inout minIndex: Double, inout maxIndex: Double) {
+        minIndex = Double.infinity
+        maxIndex = 0
+        
+        for polygon in polygons {
+            if let accessIndex = accessabilityIndexForArea(polygon.id) {
+                if accessIndex < minIndex {
+                    minIndex = accessIndex
+                }
+                
+                if accessIndex > maxIndex {
+                    maxIndex = accessIndex
+                }
+            }
+        }
     }
 }
 

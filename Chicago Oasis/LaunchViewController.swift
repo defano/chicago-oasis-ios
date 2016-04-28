@@ -17,9 +17,22 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
     var neighborhoodsReady = false
     var licensesReady = false
     var socioeconomicReady = false
+   
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
     
-    override func viewDidLoad() {
-
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
+    override func viewDidAppear(animated: Bool)  {
+        super.viewDidAppear(animated)
+        
         todoTable.dataSource = self
         todoTable.reloadData()
         todoTable.separatorColor = UIColor.clearColor()
@@ -62,19 +75,19 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
 
         switch indexPath.row {
         case 2:
-            cell.textLabel?.text = "Computing neighborhoods..."
+            cell.textLabel?.text = "Precomputing neighborhoods"
             cell.accessoryType = neighborhoodsReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
             break;
         case 3:
-            cell.textLabel?.text = "Computing census tracts..."
+            cell.textLabel?.text = "Precomputing census tracts"
             cell.accessoryType = censusReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
             break;
         case 1:
-            cell.textLabel?.text = "Getting socioeconomic data..."
+            cell.textLabel?.text = "Getting socioeconomic data"
             cell.accessoryType = socioeconomicReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
             break;
         default:
-            cell.textLabel?.text = "Getting business licenses..."
+            cell.textLabel?.text = "Getting business licenses"
             cell.accessoryType = licensesReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
             break;
         }
@@ -84,7 +97,6 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
 
     
     private func segue() {
-        
         todoTable.reloadData()
         
         if (censusReady && neighborhoodsReady && licensesReady && socioeconomicReady) {

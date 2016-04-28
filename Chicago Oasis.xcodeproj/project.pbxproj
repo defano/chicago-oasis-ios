@@ -26,7 +26,7 @@
 		C99931511CCC6EE900FB9701 /* neighborhoods.kml in Resources */ = {isa = PBXBuildFile; fileRef = C99931501CCC6EE900FB9701 /* neighborhoods.kml */; };
 		C99931551CCD1A3800FB9701 /* census.kml in Resources */ = {isa = PBXBuildFile; fileRef = C99931541CCD1A3700FB9701 /* census.kml */; };
 		C99931571CCD862600FB9701 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99931561CCD862600FB9701 /* AboutViewController.swift */; };
-		C99931591CCD88F500FB9701 /* AccessabilityDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99931581CCD88F500FB9701 /* AccessabilityDAO.swift */; };
+		C99931591CCD88F500FB9701 /* AccessibilityDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99931581CCD88F500FB9701 /* AccessibilityDAO.swift */; };
 		C999315B1CCD898D00FB9701 /* MapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C999315A1CCD898D00FB9701 /* MapType.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,7 +74,7 @@
 		C99931501CCC6EE900FB9701 /* neighborhoods.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = neighborhoods.kml; sourceTree = "<group>"; };
 		C99931541CCD1A3700FB9701 /* census.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = census.kml; sourceTree = "<group>"; };
 		C99931561CCD862600FB9701 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
-		C99931581CCD88F500FB9701 /* AccessabilityDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessabilityDAO.swift; sourceTree = "<group>"; };
+		C99931581CCD88F500FB9701 /* AccessibilityDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityDAO.swift; sourceTree = "<group>"; };
 		C999315A1CCD898D00FB9701 /* MapType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapType.swift; sourceTree = "<group>"; };
 		FE7FD2AED55C3EBDF6983B64 /* Pods-Chicago Oasis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chicago Oasis.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chicago Oasis/Pods-Chicago Oasis.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -198,7 +198,7 @@
 				C9155A861CD0171400D6B995 /* CriticalBusinessDAO.swift */,
 				C95AC6451CCC20F00068EFEB /* LicenseDAO.swift */,
 				C999314E1CCC6BD700FB9701 /* PolygonDAO.swift */,
-				C99931581CCD88F500FB9701 /* AccessabilityDAO.swift */,
+				C99931581CCD88F500FB9701 /* AccessibilityDAO.swift */,
 				C999315A1CCD898D00FB9701 /* MapType.swift */,
 			);
 			name = model;
@@ -410,7 +410,7 @@
 				C91BBA441CCBC05F005477D4 /* MasterViewController.swift in Sources */,
 				C99931571CCD862600FB9701 /* AboutViewController.swift in Sources */,
 				C95AC6461CCC20F00068EFEB /* LicenseDAO.swift in Sources */,
-				C99931591CCD88F500FB9701 /* AccessabilityDAO.swift in Sources */,
+				C99931591CCD88F500FB9701 /* AccessibilityDAO.swift in Sources */,
 				C999314F1CCC6BD700FB9701 /* PolygonDAO.swift in Sources */,
 				C91BBA421CCBC05F005477D4 /* AppDelegate.swift in Sources */,
 				C999315B1CCD898D00FB9701 /* MapType.swift in Sources */,

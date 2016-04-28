@@ -10,12 +10,11 @@ import UIKit
 
 class MasterViewController: UITableViewController {
 
-    var detailViewController: DetailViewController? = nil
+    var detailViewController: DetailViewController?
     var licenses: [LicenseRecord] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.licenses = LicenseDAO.licenses
     }
 
