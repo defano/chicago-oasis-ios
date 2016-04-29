@@ -14,7 +14,7 @@ class AccessibilityDAO {
  
     static let baseUrl = "http://www.chicago-oasis.org/json"
     
-    static func getAccessibility(mapType: MapType, year: Int, licenseType: String!, onSuccess: (indicies: [String:Double]!) -> Void, onFailure: () -> Void) {
+    static func getAccessibility(mapType: MapType, year: Int, licenseType: String!, onSuccess: (indicies: [String:AccessibilityRecord]!) -> Void, onFailure: () -> Void) {
 
         let url = "\(baseUrl)/\(getMapTypePath(mapType))/\(licenseType)-\(year).json";
         
@@ -25,14 +25,18 @@ class AccessibilityDAO {
             
             if let value = response.result.value {
                 let json = JSON(value)
-                var indicies: [String:Double] = [:]
+                var indicies: [String:AccessibilityRecord] = [:]
                 
                 for (_, element) in json {
                     let elementType = mapType == .Neighborhoods ? "COMMUNITY_AREA" : "TRACT"
                     let elementId = element[elementType].stringValue
-                    let indexValue = element["ACCESS1"].doubleValue
                     
-                    indicies[elementId] = indexValue
+                    let record = AccessibilityRecord(id: elementId, index: element["ACCESS1"].doubleValue)
+                    record.oneMile = element["ONE_MILE"].intValue
+                    record.twoMile = element["TWO_MILE"].intValue
+                    record.threeMile = element["THREE_MILE"].intValue
+                    
+                    indicies[elementId] = record
                 }
                 
                 onSuccess(indicies: indicies)
@@ -51,10 +55,11 @@ class AccessibilityDAO {
 
 class AccessibilityRecord {
     let id: String
-    let accessibilityIndex: Double
+    let index: Double
+    var oneMile, twoMile, threeMile: Int?
     
-    init (id: String, accessibilityIndex: Double) {
+    init (id: String, index: Double) {
         self.id = id
-        self.accessibilityIndex = accessibilityIndex
+        self.index = index
     }
 }

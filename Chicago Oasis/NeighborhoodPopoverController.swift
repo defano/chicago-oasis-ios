@@ -9,53 +9,20 @@
 import Foundation
 import UIKit
 
-class SociographicPopoverController : UIViewController, UITableViewDataSource {
+class NeighborhoodPopoverController : AreaPopoverController, UITableViewDataSource {
     
     @IBOutlet weak var communityArea: UILabel!
     @IBOutlet weak var accessibilityLevel: UILabel!
     @IBOutlet weak var bodyText: UILabel!
     @IBOutlet weak var table: UITableView!
-    
-    var record: SocioeconomicRecord?
-    var accessibilityAlpha: Double?
-    var areaName: String?
-    var selectedYear: Int?
-    
-    override func viewDidAppear(animated: Bool) {
+        
+    override func viewDidLoad() {
         table.dataSource = self
         table.reloadData()
         
         communityArea.text = areaName
-        accessibilityLevel.text = accessibilityAdjectiveForAlpha(accessibilityAlpha)
+        accessibilityLevel.text = accessibilityAdjectiveForAlpha(accessibilityAlpha).uppercaseString
         bodyText.text = "In \(selectedYear!), the \(areaName!.capitalizedString) community was among the neighborhoods with the \(accessibilityNounForAlpha(accessibilityAlpha).lowercaseString) to businesses of this type."
-    }
-    
-    func accessibilityAdjectiveForAlpha (alpha: Double?) -> String {
-        if (alpha >= 0 && alpha < 0.2) {
-            return "MOST DESERTED"
-        } else if (alpha >= 0.2 && alpha < 0.4) {
-            return "LARGELY DESERTED"
-        } else if (alpha >= 0.4 && alpha < 0.6) {
-            return "SOMEWHAT ACCESSIBLE"
-        } else if (alpha >= 0.6 && alpha < 0.8) {
-            return "LARGELY ACCESSIBLE"
-        } else {
-            return "MOST ACCESSIBLE"
-        }
-    }
-
-    func accessibilityNounForAlpha (alpha: Double?) -> String {
-        if (alpha >= 0 && alpha < 0.2) {
-            return "lowest levels of access"
-        } else if (alpha >= 0.2 && alpha < 0.4) {
-            return "poor access"
-        } else if (alpha >= 0.4 && alpha < 0.6) {
-            return "average access"
-        } else if (alpha >= 0.6 && alpha < 0.8) {
-            return "good access"
-        } else {
-            return "best access"
-        }
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -32,8 +32,8 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     var selectedYear = 0
     var selectedMap: MapType = MapType.Neighborhoods
     
-    var neighborhoodIndexes: [String:Double]?
-    var censusIndexes: [String:Double]?
+    var neighborhoodIndexes: [String:AccessibilityRecord]?
+    var censusIndexes: [String:AccessibilityRecord]?
     var license: LicenseRecord?
     
     // MARK: - View
@@ -108,32 +108,40 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     }
     
     func onPolygonWasTapped(polygon: Polygon) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        var popover: AreaPopoverController
+        
         if (selectedMap == MapType.Neighborhoods) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let popover = storyboard.instantiateViewControllerWithIdentifier("sociographicPopover") as! SociographicPopoverController
-            
-            var minIndex = 0.0, maxIndex = 0.0
-            indexRangeForPolygons(PolygonDAO.getPolygons(selectedMap), minIndex: &minIndex, maxIndex: &maxIndex)
-            
-            
-            popover.record = SocioeconomicDAO.data[polygon.id]
-            popover.areaName = polygon.name
-            popover.accessibilityAlpha = alphaForAccessibilityIndex(accessabilityIndexForArea(polygon.id)!, minIndex: minIndex, maxIndex: maxIndex)
-            popover.selectedYear = Int(yearSelection.value)
-            
-            popover.modalPresentationStyle = UIModalPresentationStyle.Popover
-            
-            // Calculate the bounding rectange of the selected polygon in map and view coords
-            let polygonMapRect = MKCoordinateRegionForMapRect((polygon.overlay?.boundingMapRect)!)
-            let polygonViewRect = map.convertRegion(polygonMapRect, toRectToView: self.view)
-
-            // Anchor the popover to this polygon
-            popover.popoverPresentationController?.sourceView = self.view
-            popover.popoverPresentationController?.sourceRect = polygonViewRect
-            popover.popoverPresentationController?.delegate = self
-            
-            self.presentViewController(popover, animated: true, completion: nil)
+            popover = storyboard.instantiateViewControllerWithIdentifier("neighborhoodPopover") as! NeighborhoodPopoverController
+        } else {
+            popover = storyboard.instantiateViewControllerWithIdentifier("censusPopover") as! CensusPopoverController
         }
+            
+        var minIndex = 0.0, maxIndex = 0.0
+        indexRangeForPolygons(PolygonDAO.getPolygons(selectedMap), minIndex: &minIndex, maxIndex: &maxIndex)
+            
+        popover.record = SocioeconomicDAO.data[polygon.id]
+        popover.accessibilityRecord = accessibilityForArea(polygon.id)
+        popover.areaName = polygon.name
+        popover.accessibilityAlpha = alphaForAccessibilityIndex(accessibilityForArea(polygon.id)!.index, minIndex: minIndex, maxIndex: maxIndex)
+        popover.selectedYear = Int(yearSelection.value)
+            
+        popoverPolygon(popover, polygon: polygon)
+    }
+    
+    func popoverPolygon (popover: UIViewController, polygon: Polygon) {
+        popover.modalPresentationStyle = UIModalPresentationStyle.Popover
+        
+        // Calculate the bounding rectange of the selected polygon in map and view coords
+        let polygonMapRect = MKCoordinateRegionForMapRect((polygon.overlay?.boundingMapRect)!)
+        let polygonViewRect = map.convertRegion(polygonMapRect, toRectToView: self.view)
+        
+        // Anchor the popover to this polygon
+        popover.popoverPresentationController?.sourceView = self.view
+        popover.popoverPresentationController?.sourceRect = polygonViewRect
+        popover.popoverPresentationController?.delegate = self
+        
+        self.presentViewController(popover, animated: true, completion: nil)
     }
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -192,7 +200,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
             self.indexRangeForPolygons(activePolygons, minIndex: &minIndex, maxIndex: &maxIndex)
             
             for poly in visiblePolygons {
-                if let renderer = self.map.rendererForOverlay(poly.overlay!) as? MKPolygonRenderer, index = self.accessabilityIndexForArea(poly.id) {
+                if let renderer = self.map.rendererForOverlay(poly.overlay!) as? MKPolygonRenderer, index = self.accessibilityForArea(poly.id)?.index {
                     renderer.strokeColor = UIColor.whiteColor()
                     renderer.lineWidth=2.0
                     renderer.fillColor = UIColor(red:0.4, green:0.6, blue:1.0, alpha:CGFloat(self.alphaForAccessibilityIndex(index, minIndex: minIndex, maxIndex: maxIndex)))
@@ -301,7 +309,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
      * area with another. It has no absolute meaning and is not comparable across business
      * licenses or across map types
      */
-    private func accessabilityIndexForArea (id: String) -> Double? {
+    private func accessibilityForArea (id: String) -> AccessibilityRecord? {
         switch selectedMap {
         case .Neighborhoods:
             return neighborhoodIndexes?[id]
@@ -350,7 +358,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         maxIndex = 0
         
         for polygon in polygons {
-            if let accessIndex = accessabilityIndexForArea(polygon.id) {
+            if let accessIndex = accessibilityForArea(polygon.id)?.index {
                 if accessIndex < minIndex {
                     minIndex = accessIndex
                 }

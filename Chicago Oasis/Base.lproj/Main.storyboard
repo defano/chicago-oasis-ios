@@ -125,21 +125,22 @@
                                 </constraints>
                             </view>
                             <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPt-1d-Dug">
-                                <rect key="frame" x="0.0" y="64" width="600" height="32"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="20"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2b-hC-Qlr">
-                                        <rect key="frame" x="8" y="16" width="584" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2b-hC-Qlr">
+                                        <rect key="frame" x="8" y="0.0" width="584" height="20"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="r2b-hC-Qlr" firstAttribute="leading" secondItem="qPt-1d-Dug" secondAttribute="leading" constant="8" id="0cR-lA-oSk"/>
-                                    <constraint firstItem="r2b-hC-Qlr" firstAttribute="centerY" secondItem="qPt-1d-Dug" secondAttribute="centerY" id="2ms-6m-1UF"/>
-                                    <constraint firstAttribute="height" constant="32" id="XIm-93-pUd"/>
-                                    <constraint firstAttribute="trailing" secondItem="r2b-hC-Qlr" secondAttribute="trailing" constant="8" id="dg7-Xb-Gkp"/>
+                                    <constraint firstAttribute="bottom" secondItem="r2b-hC-Qlr" secondAttribute="bottom" id="O0j-s1-WCX"/>
+                                    <constraint firstAttribute="height" constant="20" id="XIm-93-pUd"/>
+                                    <constraint firstItem="r2b-hC-Qlr" firstAttribute="top" secondItem="qPt-1d-Dug" secondAttribute="top" id="ah0-Ny-the"/>
+                                    <constraint firstItem="r2b-hC-Qlr" firstAttribute="leading" secondItem="qPt-1d-Dug" secondAttribute="leading" constant="8" id="baB-M4-L4p"/>
+                                    <constraint firstAttribute="trailing" secondItem="r2b-hC-Qlr" secondAttribute="trailing" constant="8" id="lS1-uK-XdM"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -247,10 +248,10 @@
             </objects>
             <point key="canvasLocation" x="1468" y="129"/>
         </scene>
-        <!--Sociographic Popover Controller-->
+        <!--Neighborhood Popover Controller-->
         <scene sceneID="cM1-g4-AEk">
             <objects>
-                <viewController storyboardIdentifier="sociographicPopover" modalPresentationStyle="currentContext" id="39o-l4-9D3" customClass="SociographicPopoverController" customModule="Chicago_Oasis" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="neighborhoodPopover" modalPresentationStyle="currentContext" id="39o-l4-9D3" customClass="NeighborhoodPopoverController" customModule="Chicago_Oasis" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FSO-0m-lUH"/>
                         <viewControllerLayoutGuide type="bottom" id="XxG-pU-h7W"/>
@@ -339,7 +340,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pii-ei-Pkl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1468" y="805"/>
+            <point key="canvasLocation" x="352" y="805"/>
         </scene>
         <!--Launch View Controller-->
         <scene sceneID="QyP-Dm-xE3">
@@ -585,6 +586,72 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLD-UC-DBI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-45" y="129"/>
+        </scene>
+        <!--Census Popover Controller-->
+        <scene sceneID="6jT-gz-SpT">
+            <objects>
+                <viewController storyboardIdentifier="censusPopover" modalPresentationStyle="currentContext" id="JF6-UU-zWj" customClass="CensusPopoverController" customModule="Chicago_Oasis" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Y7Q-Rb-jaU"/>
+                        <viewControllerLayoutGuide type="bottom" id="eb2-JD-Wfe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="center" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="300" id="qaz-0Y-Cay">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Census Tract" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzE-AT-o91">
+                                <rect key="frame" x="20" y="27" width="144" height="22"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCESSABILITY LEVEL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihM-N7-H4U">
+                                <rect key="frame" x="20" y="52" width="152" height="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C7A-aT-IZy">
+                                <rect key="frame" x="20" y="72" width="234" height="57"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="234" id="uv6-Sv-kwa"/>
+                                </constraints>
+                                <string key="text">In 2015, Census Tract 8413 had an average of 1 business(es) of this kind within one mile of every resident, 6 within two miles, and 17 within three miles.</string>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This makes Census Tract 8413 among the most deserted census tracts in Chicago." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FyF-zA-vGv">
+                                <rect key="frame" x="20" y="137" width="234" height="28.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="234" id="cJE-QU-cqX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="C7A-aT-IZy" firstAttribute="leading" secondItem="qaz-0Y-Cay" secondAttribute="leadingMargin" id="4Hl-xQ-0hz"/>
+                            <constraint firstItem="hzE-AT-o91" firstAttribute="top" secondItem="Y7Q-Rb-jaU" secondAttribute="bottom" constant="7" id="79q-Ye-JH2"/>
+                            <constraint firstItem="C7A-aT-IZy" firstAttribute="top" secondItem="hzE-AT-o91" secondAttribute="bottom" constant="23" id="8Ct-Uv-Gkz"/>
+                            <constraint firstItem="hzE-AT-o91" firstAttribute="leading" secondItem="qaz-0Y-Cay" secondAttribute="leadingMargin" id="PSk-bE-suM"/>
+                            <constraint firstItem="FyF-zA-vGv" firstAttribute="leading" secondItem="qaz-0Y-Cay" secondAttribute="leadingMargin" id="Wkt-IB-abv"/>
+                            <constraint firstItem="ihM-N7-H4U" firstAttribute="top" secondItem="Y7Q-Rb-jaU" secondAttribute="bottom" constant="32" id="ZHt-ec-eaa"/>
+                            <constraint firstItem="FyF-zA-vGv" firstAttribute="top" secondItem="C7A-aT-IZy" secondAttribute="bottom" constant="8" id="bBX-6K-brQ"/>
+                            <constraint firstItem="ihM-N7-H4U" firstAttribute="leading" secondItem="qaz-0Y-Cay" secondAttribute="leadingMargin" id="f7X-lD-hL9"/>
+                        </constraints>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="260" height="175"/>
+                    <connections>
+                        <outlet property="accessibilityLevel" destination="ihM-N7-H4U" id="Y2U-sd-GQ8"/>
+                        <outlet property="bodySubtext" destination="FyF-zA-vGv" id="CuB-ij-K2G"/>
+                        <outlet property="bodyText" destination="C7A-aT-IZy" id="lye-U8-Npe"/>
+                        <outlet property="communityArea" destination="hzE-AT-o91" id="hkR-h7-XKc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fLn-7a-yFv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1020" y="805"/>
         </scene>
     </scenes>
     <resources>
