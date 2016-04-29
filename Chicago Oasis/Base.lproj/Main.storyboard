@@ -358,7 +358,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="jMF-ag-mnt">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                     </imageView>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yzc-V3-EG5">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -366,7 +366,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
-                                        <blurEffect style="light"/>
+                                        <blurEffect style="dark"/>
                                     </visualEffectView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -378,7 +378,7 @@
                                     <constraint firstAttribute="trailing" secondItem="Yzc-V3-EG5" secondAttribute="trailing" id="BWV-yB-cw1"/>
                                     <constraint firstAttribute="bottom" secondItem="Yzc-V3-EG5" secondAttribute="bottom" id="LvZ-wh-l5P"/>
                                     <constraint firstAttribute="trailing" secondItem="jMF-ag-mnt" secondAttribute="trailing" id="MPY-88-jS6"/>
-                                    <constraint firstAttribute="bottom" secondItem="jMF-ag-mnt" secondAttribute="bottom" constant="20" id="h7H-6f-w8P"/>
+                                    <constraint firstAttribute="bottom" secondItem="jMF-ag-mnt" secondAttribute="bottom" id="h7H-6f-w8P"/>
                                     <constraint firstItem="jMF-ag-mnt" firstAttribute="leading" secondItem="tmz-4L-77U" secondAttribute="leading" id="vrj-Dj-82H"/>
                                 </constraints>
                             </view>
@@ -396,7 +396,7 @@
                                     </fragment>
                                     <fragment content="Oasis">
                                         <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="NSColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" size="34" name="HelveticaNeue-Bold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
