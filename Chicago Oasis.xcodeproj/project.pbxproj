@@ -20,6 +20,7 @@
 		C91BBA641CCBC060005477D4 /* Chicago_OasisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BBA631CCBC060005477D4 /* Chicago_OasisUITests.swift */; };
 		C944D8A61CCEF0BA005D136E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C944D8A51CCEF0BA005D136E /* LaunchViewController.swift */; };
 		C944D8A81CCEF3F9005D136E /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C944D8A71CCEF3F9005D136E /* SplitViewController.swift */; };
+		C956BD941CD2740D00B080E6 /* SociographicPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C956BD931CD2740D00B080E6 /* SociographicPopoverController.swift */; };
 		C95AC6431CCBC27A0068EFEB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C95AC6421CCBC27A0068EFEB /* MapKit.framework */; };
 		C95AC6461CCC20F00068EFEB /* LicenseDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95AC6451CCC20F00068EFEB /* LicenseDAO.swift */; };
 		C999314F1CCC6BD700FB9701 /* PolygonDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C999314E1CCC6BD700FB9701 /* PolygonDAO.swift */; };
@@ -68,6 +69,7 @@
 		C91BBA651CCBC060005477D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C944D8A51CCEF0BA005D136E /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		C944D8A71CCEF3F9005D136E /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		C956BD931CD2740D00B080E6 /* SociographicPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SociographicPopoverController.swift; sourceTree = "<group>"; };
 		C95AC6421CCBC27A0068EFEB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C95AC6451CCC20F00068EFEB /* LicenseDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseDAO.swift; sourceTree = "<group>"; };
 		C999314E1CCC6BD700FB9701 /* PolygonDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonDAO.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				C99931561CCD862600FB9701 /* AboutViewController.swift */,
 				C944D8A51CCEF0BA005D136E /* LaunchViewController.swift */,
 				C944D8A71CCEF3F9005D136E /* SplitViewController.swift */,
+				C956BD931CD2740D00B080E6 /* SociographicPopoverController.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				C944D8A61CCEF0BA005D136E /* LaunchViewController.swift in Sources */,
 				C944D8A81CCEF3F9005D136E /* SplitViewController.swift in Sources */,
 				C91BBA441CCBC05F005477D4 /* MasterViewController.swift in Sources */,
+				C956BD941CD2740D00B080E6 /* SociographicPopoverController.swift in Sources */,
 				C99931571CCD862600FB9701 /* AboutViewController.swift in Sources */,
 				C95AC6461CCC20F00068EFEB /* LicenseDAO.swift in Sources */,
 				C99931591CCD88F500FB9701 /* AccessibilityDAO.swift in Sources */,

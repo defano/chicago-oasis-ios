@@ -65,7 +65,7 @@ class PolygonDAO {
         if let path = NSBundle.mainBundle().pathForResource(file, ofType: "kml") {
             KMLDocument.parse(NSURL(fileURLWithPath: path), callback: { (kml) in
                 for placemark in kml.placemarks {
-                    cache.data.append(Polygon(id: nameNormalizer(placemark.name)))
+                    cache.data.append(Polygon(id: nameNormalizer(placemark.name), name: placemark.name))
                 }
                 
                 for (index, overlay) in kml.overlays.enumerate() {
@@ -104,16 +104,13 @@ class PolygonDAO {
 }
 
 class Polygon {
-    var id:String!
+    var id:String
+    var name:String
     var overlay:MKOverlay?
     
-    init (id: String!) {
+    init (id: String, name: String) {
         self.id = id
-    }
-    
-    deinit {
-        self.id = nil
-        self.overlay = nil
+        self.name = name
     }
 }
 

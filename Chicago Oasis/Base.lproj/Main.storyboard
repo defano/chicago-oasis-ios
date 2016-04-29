@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Master-->
@@ -246,6 +247,100 @@
             </objects>
             <point key="canvasLocation" x="1468" y="129"/>
         </scene>
+        <!--Sociographic Popover Controller-->
+        <scene sceneID="cM1-g4-AEk">
+            <objects>
+                <viewController storyboardIdentifier="sociographicPopover" modalPresentationStyle="currentContext" id="39o-l4-9D3" customClass="SociographicPopoverController" customModule="Chicago_Oasis" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FSO-0m-lUH"/>
+                        <viewControllerLayoutGuide type="bottom" id="XxG-pU-h7W"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="center" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="300" id="Lmn-Qk-KIN">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Community Area" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aM-3F-3Xn">
+                                <rect key="frame" x="20" y="27" width="144" height="22"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCESSABILITY LEVEL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="it5-up-Nl7">
+                                <rect key="frame" x="20" y="52" width="152" height="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In 2015, the Near West Side community was among the neighborhoods with fair accessiblity to businesses of the selected type." lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAF-nb-bsS">
+                                <rect key="frame" x="20" y="72" width="234" height="57"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="234" id="9MJ-hY-lfg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="22" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eoF-xZ-vB6">
+                                <rect key="frame" x="5" y="137" width="234" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="Eb5-Re-SVN"/>
+                                    <constraint firstAttribute="width" constant="234" id="ppH-gc-HkI"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sociographicCell" textLabel="Xdh-JT-5a7" detailTextLabel="sSu-CJ-SET" style="IBUITableViewCellStyleValue1" id="0xI-wC-0GD">
+                                        <rect key="frame" x="0.0" y="28" width="234" height="22"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0xI-wC-0GD" id="Z7c-x4-07E">
+                                            <rect key="frame" x="0.0" y="0.0" width="234" height="21.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xdh-JT-5a7">
+                                                    <rect key="frame" x="15" y="3" width="26.5" height="16.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sSu-CJ-SET">
+                                                    <rect key="frame" x="183" y="3" width="36" height="16.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" notEnabled="YES"/>
+                                        </accessibility>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4aM-3F-3Xn" firstAttribute="leading" secondItem="Lmn-Qk-KIN" secondAttribute="leadingMargin" id="0Aq-3I-BNo"/>
+                            <constraint firstItem="jAF-nb-bsS" firstAttribute="top" secondItem="4aM-3F-3Xn" secondAttribute="bottom" constant="23" id="Atv-O6-dpH"/>
+                            <constraint firstItem="eoF-xZ-vB6" firstAttribute="top" secondItem="jAF-nb-bsS" secondAttribute="bottom" constant="8" id="BT5-i4-wdL"/>
+                            <constraint firstItem="jAF-nb-bsS" firstAttribute="leading" secondItem="Lmn-Qk-KIN" secondAttribute="leadingMargin" id="I42-il-io0"/>
+                            <constraint firstItem="it5-up-Nl7" firstAttribute="leading" secondItem="Lmn-Qk-KIN" secondAttribute="leadingMargin" id="Qr1-2g-XS8"/>
+                            <constraint firstItem="it5-up-Nl7" firstAttribute="top" secondItem="FSO-0m-lUH" secondAttribute="bottom" constant="32" id="ReP-Vk-VNX"/>
+                            <constraint firstItem="4aM-3F-3Xn" firstAttribute="top" secondItem="FSO-0m-lUH" secondAttribute="bottom" constant="7" id="grQ-tv-UsS"/>
+                            <constraint firstItem="eoF-xZ-vB6" firstAttribute="leading" secondItem="Lmn-Qk-KIN" secondAttribute="leadingMargin" constant="-15" id="zXM-6a-1lz"/>
+                        </constraints>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="260" height="240"/>
+                    <connections>
+                        <outlet property="accessibilityLevel" destination="it5-up-Nl7" id="ke4-M9-M1u"/>
+                        <outlet property="bodyText" destination="jAF-nb-bsS" id="thc-Yk-1Oj"/>
+                        <outlet property="communityArea" destination="4aM-3F-3Xn" id="OlF-6O-unJ"/>
+                        <outlet property="table" destination="eoF-xZ-vB6" id="hLW-jy-IWP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pii-ei-Pkl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1468" y="805"/>
+        </scene>
         <!--Launch View Controller-->
         <scene sceneID="QyP-Dm-xE3">
             <objects>
@@ -309,7 +404,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYj-Hd-kan">
-                                <rect key="frame" x="176" y="322" width="247.5" height="17"/>
+                                <rect key="frame" x="176" y="322" width="248" height="17"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Finding businesses in the Chicago desert">
                                         <attributes>

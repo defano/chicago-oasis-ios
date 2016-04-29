@@ -11,7 +11,7 @@ import MapKit
 import CoreGraphics
 import Kml_swift
 
-class DetailViewController: UIViewController, MKMapViewDelegate {
+class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentationControllerDelegate {
 
     // Default centerpoint of the displayed map; Chicago Loop
     let chicagoLatitude = 41.883229, chicagoLongitude = -87.63239799999999
@@ -100,17 +100,45 @@ class DetailViewController: UIViewController, MKMapViewDelegate {
             if overlay.isKindOfClass(KMLOverlayPolygon) {
                 let polygon:MKPolygon = overlay as! MKPolygon
                 if (polygon.intersectsMapRect(touchMapRect)) {
-                    onPolygonWasTapped(PolygonDAO.getPolygons(selectedMap)[index].id)
+                    onPolygonWasTapped(PolygonDAO.getPolygons(selectedMap)[index])
                     return
                 }
             }
         }
     }
     
-    func onPolygonWasTapped(polygonId: String) {
+    func onPolygonWasTapped(polygon: Polygon) {
         if (selectedMap == MapType.Neighborhoods) {
-            print(SocioeconomicDAO.data[polygonId]?.perCapitaIncome)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let popover = storyboard.instantiateViewControllerWithIdentifier("sociographicPopover") as! SociographicPopoverController
+            
+            var minIndex = 0.0, maxIndex = 0.0
+            indexRangeForPolygons(PolygonDAO.getPolygons(selectedMap), minIndex: &minIndex, maxIndex: &maxIndex)
+            
+            
+            popover.record = SocioeconomicDAO.data[polygon.id]
+            popover.areaName = polygon.name
+            popover.accessibilityAlpha = alphaForAccessibilityIndex(accessabilityIndexForArea(polygon.id)!, minIndex: minIndex, maxIndex: maxIndex)
+            popover.selectedYear = Int(yearSelection.value)
+            
+            popover.modalPresentationStyle = UIModalPresentationStyle.Popover
+            
+            // Calculate the bounding rectange of the selected polygon in map and view coords
+            let polygonMapRect = MKCoordinateRegionForMapRect((polygon.overlay?.boundingMapRect)!)
+            let polygonViewRect = map.convertRegion(polygonMapRect, toRectToView: self.view)
+
+            // Anchor the popover to this polygon
+            popover.popoverPresentationController?.sourceView = self.view
+            popover.popoverPresentationController?.sourceRect = polygonViewRect
+            popover.popoverPresentationController?.delegate = self
+            
+            self.presentViewController(popover, animated: true, completion: nil)
         }
+    }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        // Return no adaptive presentation style, use default presentation behaviour
+        return .None
     }
     
     func MKMapRectForCoordinateRegion(region: MKCoordinateRegion!) -> MKMapRect {
