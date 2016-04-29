@@ -11,10 +11,11 @@ import UIKit
 
 class AreaPopoverController : UIViewController {
     
+    var polygon: Polygon?
     var record: SocioeconomicRecord?
     var accessibilityRecord: AccessibilityRecord?
+    var criticalBusiness: CriticalBusinessRecord?
     var accessibilityAlpha: Double?
-    var areaName: String?
     var selectedYear: Int?
     
     func accessibilityAdjectiveForAlpha (alpha: Double?) -> String {
@@ -33,7 +34,7 @@ class AreaPopoverController : UIViewController {
     
     func accessibilityNounForAlpha (alpha: Double?) -> String {
         if (alpha >= 0 && alpha < 0.2) {
-            return "lowest levels of access"
+            return "very poor access"
         } else if (alpha >= 0.2 && alpha < 0.4) {
             return "poor access"
         } else if (alpha >= 0.4 && alpha < 0.6) {

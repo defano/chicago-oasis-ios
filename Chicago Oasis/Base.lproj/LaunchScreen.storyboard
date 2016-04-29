@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="ujA-dB-DbJ">
-                                <rect key="frame" x="20" y="0.0" width="560" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tCF-5M-yzI">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -32,9 +32,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="ujA-dB-DbJ" secondAttribute="trailing" id="BOO-fI-X5c"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ujA-dB-DbJ" secondAttribute="trailing" constant="-20" id="BOO-fI-X5c"/>
                             <constraint firstAttribute="trailing" secondItem="tCF-5M-yzI" secondAttribute="trailing" id="G7u-cl-opV"/>
-                            <constraint firstItem="ujA-dB-DbJ" firstAttribute="leading" secondItem="FqX-1b-UfQ" secondAttribute="leadingMargin" id="JVz-Tp-vTW"/>
+                            <constraint firstItem="ujA-dB-DbJ" firstAttribute="leading" secondItem="FqX-1b-UfQ" secondAttribute="leadingMargin" constant="-20" id="JVz-Tp-vTW"/>
                             <constraint firstItem="5TN-NW-G8R" firstAttribute="top" secondItem="tCF-5M-yzI" secondAttribute="bottom" id="OJ9-XQ-dZo"/>
                             <constraint firstItem="tCF-5M-yzI" firstAttribute="top" secondItem="8Cn-40-o9o" secondAttribute="bottom" constant="-20" id="Z45-2a-HtJ"/>
                             <constraint firstItem="ujA-dB-DbJ" firstAttribute="top" secondItem="FqX-1b-UfQ" secondAttribute="topMargin" id="klv-Gw-M6Z"/>

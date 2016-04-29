@@ -31,6 +31,12 @@
 		C99931571CCD862600FB9701 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99931561CCD862600FB9701 /* AboutViewController.swift */; };
 		C99931591CCD88F500FB9701 /* AccessibilityDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99931581CCD88F500FB9701 /* AccessibilityDAO.swift */; };
 		C999315B1CCD898D00FB9701 /* MapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C999315A1CCD898D00FB9701 /* MapType.swift */; };
+		C9C352161CD3E35400392A99 /* CriticalBusinessRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C352151CD3E35400392A99 /* CriticalBusinessRecord.swift */; };
+		C9C352181CD3E37D00392A99 /* SocioeconomicRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C352171CD3E37D00392A99 /* SocioeconomicRecord.swift */; };
+		C9C3521A1CD3E39F00392A99 /* LicenseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C352191CD3E39F00392A99 /* LicenseRecord.swift */; };
+		C9C3521C1CD3E3B200392A99 /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C3521B1CD3E3B200392A99 /* Polygon.swift */; };
+		C9C3521E1CD3E3C800392A99 /* AccessibilityRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C3521D1CD3E3C800392A99 /* AccessibilityRecord.swift */; };
+		C9C352201CD4076900392A99 /* BusinessPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C3521F1CD4076900392A99 /* BusinessPopoverController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +88,12 @@
 		C99931561CCD862600FB9701 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		C99931581CCD88F500FB9701 /* AccessibilityDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityDAO.swift; sourceTree = "<group>"; };
 		C999315A1CCD898D00FB9701 /* MapType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapType.swift; sourceTree = "<group>"; };
+		C9C352151CD3E35400392A99 /* CriticalBusinessRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CriticalBusinessRecord.swift; sourceTree = "<group>"; };
+		C9C352171CD3E37D00392A99 /* SocioeconomicRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocioeconomicRecord.swift; sourceTree = "<group>"; };
+		C9C352191CD3E39F00392A99 /* LicenseRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseRecord.swift; sourceTree = "<group>"; };
+		C9C3521B1CD3E3B200392A99 /* Polygon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
+		C9C3521D1CD3E3C800392A99 /* AccessibilityRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityRecord.swift; sourceTree = "<group>"; };
+		C9C3521F1CD4076900392A99 /* BusinessPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessPopoverController.swift; sourceTree = "<group>"; };
 		FE7FD2AED55C3EBDF6983B64 /* Pods-Chicago Oasis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chicago Oasis.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chicago Oasis/Pods-Chicago Oasis.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +154,7 @@
 				C944D8A71CCEF3F9005D136E /* SplitViewController.swift */,
 				C956BD931CD2740D00B080E6 /* NeighborhoodPopoverController.swift */,
 				C99691981CD2F4D2007DE451 /* CensusPopoverController.swift */,
+				C9C3521F1CD4076900392A99 /* BusinessPopoverController.swift */,
 				C996919A1CD2F4F9007DE451 /* AreaPopoverController.swift */,
 			);
 			name = UI;
@@ -174,8 +187,8 @@
 			children = (
 				C91BBA4A1CCBC060005477D4 /* Assets.xcassets */,
 				C91BBA411CCBC05F005477D4 /* AppDelegate.swift */,
-				C908CB701CD00E920069F694 /* UI */,
 				C95AC6471CCC2A300068EFEB /* kml */,
+				C908CB701CD00E920069F694 /* UI */,
 				C95AC6441CCC180D0068EFEB /* model */,
 				C91BBA4F1CCBC060005477D4 /* Info.plist */,
 			);
@@ -204,10 +217,15 @@
 			isa = PBXGroup;
 			children = (
 				C9155A881CD0474300D6B995 /* SocioeconomicDAO.swift */,
+				C9C352171CD3E37D00392A99 /* SocioeconomicRecord.swift */,
 				C9155A861CD0171400D6B995 /* CriticalBusinessDAO.swift */,
+				C9C352151CD3E35400392A99 /* CriticalBusinessRecord.swift */,
 				C95AC6451CCC20F00068EFEB /* LicenseDAO.swift */,
+				C9C352191CD3E39F00392A99 /* LicenseRecord.swift */,
 				C999314E1CCC6BD700FB9701 /* PolygonDAO.swift */,
+				C9C3521B1CD3E3B200392A99 /* Polygon.swift */,
 				C99931581CCD88F500FB9701 /* AccessibilityDAO.swift */,
+				C9C3521D1CD3E3C800392A99 /* AccessibilityRecord.swift */,
 				C999315A1CCD898D00FB9701 /* MapType.swift */,
 			);
 			name = model;
@@ -413,19 +431,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9155A871CD0171400D6B995 /* CriticalBusinessDAO.swift in Sources */,
+				C9C352201CD4076900392A99 /* BusinessPopoverController.swift in Sources */,
 				C996919B1CD2F4F9007DE451 /* AreaPopoverController.swift in Sources */,
 				C91BBA461CCBC05F005477D4 /* DetailViewController.swift in Sources */,
 				C944D8A61CCEF0BA005D136E /* LaunchViewController.swift in Sources */,
 				C944D8A81CCEF3F9005D136E /* SplitViewController.swift in Sources */,
+				C9C352161CD3E35400392A99 /* CriticalBusinessRecord.swift in Sources */,
+				C9C3521C1CD3E3B200392A99 /* Polygon.swift in Sources */,
 				C91BBA441CCBC05F005477D4 /* MasterViewController.swift in Sources */,
 				C956BD941CD2740D00B080E6 /* NeighborhoodPopoverController.swift in Sources */,
 				C99931571CCD862600FB9701 /* AboutViewController.swift in Sources */,
 				C95AC6461CCC20F00068EFEB /* LicenseDAO.swift in Sources */,
 				C99691991CD2F4D2007DE451 /* CensusPopoverController.swift in Sources */,
 				C99931591CCD88F500FB9701 /* AccessibilityDAO.swift in Sources */,
+				C9C352181CD3E37D00392A99 /* SocioeconomicRecord.swift in Sources */,
 				C999314F1CCC6BD700FB9701 /* PolygonDAO.swift in Sources */,
+				C9C3521E1CD3E3C800392A99 /* AccessibilityRecord.swift in Sources */,
 				C91BBA421CCBC05F005477D4 /* AppDelegate.swift in Sources */,
 				C999315B1CCD898D00FB9701 /* MapType.swift in Sources */,
+				C9C3521A1CD3E39F00392A99 /* LicenseRecord.swift in Sources */,
 				C9155A891CD0474300D6B995 /* SocioeconomicDAO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

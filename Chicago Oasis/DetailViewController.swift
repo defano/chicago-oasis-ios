@@ -34,6 +34,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     
     var neighborhoodIndexes: [String:AccessibilityRecord]?
     var censusIndexes: [String:AccessibilityRecord]?
+    var criticalBusinesses: [String:CriticalBusinessRecord] = [:]
     var license: LicenseRecord?
     
     // MARK: - View
@@ -60,8 +61,8 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     }
     
     @IBAction func onYearSelectionChanged(sender: UISlider) {
-        if (self.selectedYear != Int(yearSelection.value)) {
-            self.selectedYear = Int(yearSelection.value)
+        if (self.selectedYear != Int(round(yearSelection.value))) {
+            self.selectedYear = Int(round(yearSelection.value))
             redrawMap(false)
         }
     }
@@ -96,6 +97,17 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         let tapCoordinateRegion: MKCoordinateRegion = MKCoordinateRegionMake(tapCoordinate, MKCoordinateSpanMake(0, 0))
         let touchMapRect: MKMapRect = MKMapRectForCoordinateRegion(tapCoordinateRegion)
         
+        for annotation in map.annotations {
+            if let annotationView = map.viewForAnnotation(annotation) {
+                let annotationBounds = annotationView.convertRect(annotationView.bounds, toView: map)
+                if annotationBounds.intersects(CGRectMake(tapPoint.x, tapPoint.y, 0, 0)) {
+                    annotationView.canShowCallout = false
+                    onAnnotationWasTapped(annotationView)
+                    return
+                }
+            }
+        }
+        
         for (index, overlay) in map.overlays.enumerate() {
             if overlay.isKindOfClass(KMLOverlayPolygon) {
                 let polygon:MKPolygon = overlay as! MKPolygon
@@ -107,38 +119,68 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         }
     }
     
+    func onAnnotationWasTapped(annotationView: MKAnnotationView) {
+        let popover = storyboard!.instantiateViewControllerWithIdentifier("businessPopover") as! BusinessPopoverController
+        
+        popover.criticalBusiness = criticalBusinesses[annotationView.annotation!.title!!]
+
+        presentAnnotationPopover(popover, annotation: annotationView)
+    }
+    
     func onPolygonWasTapped(polygon: Polygon) {
+        // Instantiate the popover
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        var popover: AreaPopoverController
+        var areaPopover: AreaPopoverController?
+        
+        guard accessibilityForArea(polygon.id) != nil else {
+            // Nothing to show if no data available for this polygon
+            return
+        }
         
         if (selectedMap == MapType.Neighborhoods) {
-            popover = storyboard.instantiateViewControllerWithIdentifier("neighborhoodPopover") as! NeighborhoodPopoverController
+            areaPopover = storyboard.instantiateViewControllerWithIdentifier("neighborhoodPopover") as! NeighborhoodPopoverController
         } else {
-            popover = storyboard.instantiateViewControllerWithIdentifier("censusPopover") as! CensusPopoverController
+            areaPopover = storyboard.instantiateViewControllerWithIdentifier("censusPopover") as! CensusPopoverController
         }
-            
+        
+        // Initialize it with statistical data
         var minIndex = 0.0, maxIndex = 0.0
         indexRangeForPolygons(PolygonDAO.getPolygons(selectedMap), minIndex: &minIndex, maxIndex: &maxIndex)
             
-        popover.record = SocioeconomicDAO.data[polygon.id]
-        popover.accessibilityRecord = accessibilityForArea(polygon.id)
-        popover.areaName = polygon.name
-        popover.accessibilityAlpha = alphaForAccessibilityIndex(accessibilityForArea(polygon.id)!.index, minIndex: minIndex, maxIndex: maxIndex)
-        popover.selectedYear = Int(yearSelection.value)
-            
-        popoverPolygon(popover, polygon: polygon)
+        areaPopover!.record = SocioeconomicDAO.data[polygon.id]
+        areaPopover!.accessibilityRecord = accessibilityForArea(polygon.id)
+        areaPopover!.polygon = polygon
+        areaPopover!.accessibilityAlpha = alphaForAccessibilityIndex(accessibilityForArea(polygon.id)?.index, minIndex: minIndex, maxIndex: maxIndex)
+        areaPopover!.selectedYear = Int(yearSelection.value)
+        
+        // ... and display it
+        presentPolygonPopover(areaPopover!, polygon: polygon)
     }
     
-    func popoverPolygon (popover: UIViewController, polygon: Polygon) {
-        popover.modalPresentationStyle = UIModalPresentationStyle.Popover
+    func presentAnnotationPopover(popover: UIViewController, annotation: MKAnnotationView) {
+        
+        let anchorPoint = map.convertCoordinate(annotation.annotation!.coordinate, toPointToView: self.view)
+        let anchorRect = CGRectMake(anchorPoint.x, anchorPoint.y, 0, 0)
+        
+        presentPopover(popover, anchor: anchorRect)
+    }
+    
+    func presentPolygonPopover (popover: UIViewController, polygon: Polygon) {
         
         // Calculate the bounding rectange of the selected polygon in map and view coords
-        let polygonMapRect = MKCoordinateRegionForMapRect((polygon.overlay?.boundingMapRect)!)
+        let polygonBounds = polygon.overlay?.boundingMapRect
+        let polygonMapRect = MKCoordinateRegionForMapRect(polygonBounds!)
         let polygonViewRect = map.convertRegion(polygonMapRect, toRectToView: self.view)
         
-        // Anchor the popover to this polygon
+        presentPopover(popover, anchor: polygonViewRect)
+    }
+    
+    func presentPopover (popover: UIViewController, anchor: CGRect) {
+        popover.modalPresentationStyle = UIModalPresentationStyle.Popover
+
+        // Anchor the popover
         popover.popoverPresentationController?.sourceView = self.view
-        popover.popoverPresentationController?.sourceRect = polygonViewRect
+        popover.popoverPresentationController?.sourceRect = anchor
         popover.popoverPresentationController?.delegate = self
         
         self.presentViewController(popover, animated: true, completion: nil)
@@ -250,13 +292,18 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
 
         if (criticalBusinessSelection.on) {
             CriticalBusinessDAO.getCriticalBusinesses(selectedYear, licenseType: license?.id, onSuccess: { (businesses) in
+                
+                self.criticalBusinesses = [:]
                 for business in businesses {
                     let location = CLLocationCoordinate2DMake(business.lat, business.lng)
                     let pin = MKPointAnnotation()
+                    
                     pin.coordinate = location
                     pin.title = business.dbaName
                     
+                    self.criticalBusinesses[business.dbaName] = business
                     self.map.addAnnotation(pin)
+                    self.map.viewForAnnotation(pin)?.canShowCallout = false
                 }
             
                 }) {
@@ -309,12 +356,16 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
      * area with another. It has no absolute meaning and is not comparable across business
      * licenses or across map types
      */
-    private func accessibilityForArea (id: String) -> AccessibilityRecord? {
+    private func accessibilityForArea (id: String?) -> AccessibilityRecord? {
+        guard id != nil else {
+            return nil
+        }
+        
         switch selectedMap {
         case .Neighborhoods:
-            return neighborhoodIndexes?[id]
+            return neighborhoodIndexes?[id!]
         case .CensusTracts:
-            return censusIndexes?[id]
+            return censusIndexes?[id!]
         }
     }
     
@@ -343,8 +394,12 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
      * the number alphaBuckets. The intent is to bucket each index so that each polygon/area 
      * drawn on the map is assigned one of 'bucketCount' shades.
      */
-    func alphaForAccessibilityIndex (index: Double, minIndex: Double, maxIndex: Double) -> Double {
-        let normalizedIndex = (index - minIndex) / (maxIndex - minIndex)
+    func alphaForAccessibilityIndex (index: Double?, minIndex: Double, maxIndex: Double) -> Double {
+        guard index != nil else {
+            return 0.0
+        }
+        
+        let normalizedIndex = (index! - minIndex) / (maxIndex - minIndex)
         let bucket = round(normalizedIndex / (1 / bucketCount)) * (1 / bucketCount)
         return (bucket == 0.0) ? 0.05 : (bucket == 1.0) ? 0.95 : bucket
     }

@@ -30,26 +30,13 @@ class CriticalBusinessDAO {
                     let lng = element["LONGITUDE"].doubleValue
                     let dbaName = element["DOING_BUSINESS_AS_NAME"].stringValue
                     let atRiskPop = element["POP_AT_RISK"].intValue
+                    let address = element["ADDRESS"].stringValue
                     
-                    criticalBusinesses.append(CriticalBusinessRecord(lat: lat, lng: lng, dbaName: dbaName, atRiskPop: atRiskPop))
+                    criticalBusinesses.append(CriticalBusinessRecord(lat: lat, lng: lng, address: address, dbaName: dbaName, atRiskPop: atRiskPop))
                 }
                 
                 onSuccess(criticalBusinesses)
             }
         }
-    }
-}
-
-class CriticalBusinessRecord {
-    var lat: Double
-    var lng: Double
-    var dbaName: String
-    var atRiskPop: Int
-
-    init (lat: Double, lng: Double, dbaName: String, atRiskPop: Int) {
-        self.lat = lat
-        self.lng = lng
-        self.dbaName = dbaName
-        self.atRiskPop = atRiskPop
     }
 }

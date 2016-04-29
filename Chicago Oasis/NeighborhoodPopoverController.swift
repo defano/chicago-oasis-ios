@@ -11,8 +11,8 @@ import UIKit
 
 class NeighborhoodPopoverController : AreaPopoverController, UITableViewDataSource {
     
-    @IBOutlet weak var communityArea: UILabel!
-    @IBOutlet weak var accessibilityLevel: UILabel!
+    @IBOutlet weak var heading: UILabel!
+    @IBOutlet weak var subtitle: UILabel!
     @IBOutlet weak var bodyText: UILabel!
     @IBOutlet weak var table: UITableView!
         
@@ -20,9 +20,18 @@ class NeighborhoodPopoverController : AreaPopoverController, UITableViewDataSour
         table.dataSource = self
         table.reloadData()
         
-        communityArea.text = areaName
-        accessibilityLevel.text = accessibilityAdjectiveForAlpha(accessibilityAlpha).uppercaseString
-        bodyText.text = "In \(selectedYear!), the \(areaName!.capitalizedString) community was among the neighborhoods with the \(accessibilityNounForAlpha(accessibilityAlpha).lowercaseString) to businesses of this type."
+        if let
+            areaName = super.polygon?.name,
+            selectedYear = super.selectedYear,
+            accessAlpha = super.accessibilityAlpha
+        {
+            let accessAdjective = accessibilityAdjectiveForAlpha(accessAlpha)
+            let accessNoun = accessibilityNounForAlpha(accessAlpha)
+            
+            heading.text = areaName
+            subtitle.text = accessAdjective.uppercaseString
+            bodyText.text = "In \(selectedYear), the \(areaName.capitalizedString) community was among the neighborhoods with \(accessNoun.lowercaseString) to businesses of this type."
+        }
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -32,29 +41,37 @@ class NeighborhoodPopoverController : AreaPopoverController, UITableViewDataSour
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCellWithIdentifier("sociographicCell")
         
-        switch indexPath.row {
-        case 0:
-            cell?.textLabel?.text = "Per-capita income"
-            let currencyFormatter = NSNumberFormatter()
-            currencyFormatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
-            cell?.detailTextLabel?.text = currencyFormatter.stringFromNumber((record?.perCapitaIncome)!)
-            break
-        case 1:
-            cell?.textLabel?.text = "Below poverty"
-            cell?.detailTextLabel?.text = (record?.percentHouseholdsBelowPoverty.description)! + "%"
-            break
-        case 2:
-            cell?.textLabel?.text = "Unemployed (ages 16+)"
-            cell?.detailTextLabel?.text = (record?.percent16Unemployed.description)! + "%"
-            break
-        case 3:
-            cell?.textLabel?.text = "Unemployed (ages 25+)"
-            cell?.detailTextLabel?.text = (record?.percent25Unemployed.description)! + "%"
-            break
-        default:
-            cell?.textLabel?.text = "Hardship index"
-            cell?.detailTextLabel?.text = record?.hardshipIndex.description
-            break
+        if let
+            perCapitaIncome = super.record?.perCapitaIncome,
+            percentPoverty = super.record?.percentHouseholdsBelowPoverty,
+            percent16Unemployed = super.record?.percent16Unemployed,
+            percent25Unemployed = super.record?.percent25Unemployed,
+            hardshipIndex = super.record?.hardshipIndex
+        {
+            switch indexPath.row {
+            case 0:
+                cell?.textLabel?.text = "Per-capita income"
+                let currencyFormatter = NSNumberFormatter()
+                currencyFormatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+                cell?.detailTextLabel?.text = currencyFormatter.stringFromNumber(perCapitaIncome)
+                break
+            case 1:
+                cell?.textLabel?.text = "Below poverty"
+                cell?.detailTextLabel?.text = percentPoverty.description + "%"
+                break
+            case 2:
+                cell?.textLabel?.text = "Unemployed (ages 16+)"
+                cell?.detailTextLabel?.text = percent16Unemployed.description + "%"
+                break
+            case 3:
+                cell?.textLabel?.text = "Unemployed (ages 25+)"
+                cell?.detailTextLabel?.text = percent25Unemployed.description + "%"
+                break
+            default:
+                cell?.textLabel?.text = "Hardship index"
+                cell?.detailTextLabel?.text = hardshipIndex.description
+                break
+            }
         }
         
         return cell!

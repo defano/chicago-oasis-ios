@@ -11,6 +11,10 @@ import MapKit
 import Kml_swift
 import XCGLogger
 
+private class PolyCache {
+    var data:[Polygon] = []
+}
+
 class PolygonDAO {
     
     private static let logger = XCGLogger()
@@ -101,19 +105,4 @@ class PolygonDAO {
         
         return normalizedId
     }
-}
-
-class Polygon {
-    var id:String
-    var name:String
-    var overlay:MKOverlay?
-    
-    init (id: String, name: String) {
-        self.id = id
-        self.name = name
-    }
-}
-
-private class PolyCache {
-    var data:[Polygon] = []
 }

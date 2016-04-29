@@ -36,6 +36,7 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
         todoTable.dataSource = self
         todoTable.reloadData()
         todoTable.separatorColor = UIColor.clearColor()
+        todoTable.backgroundColor = UIColor.clearColor() // Fix for some iPad models that override the UI builder values. Doh!
         todoTable.rowHeight = 20.0
         
         PolygonDAO.loadCensusTractBoundaries {
@@ -72,7 +73,8 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-
+        cell.backgroundColor = UIColor.clearColor()  // Fix for some iPad models that override the UI builder values. Doh!
+        
         switch indexPath.row {
         case 2:
             cell.textLabel?.text = "Precomputing neighborhoods"
