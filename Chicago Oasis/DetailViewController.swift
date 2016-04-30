@@ -14,9 +14,9 @@ import Kml_swift
 class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentationControllerDelegate {
 
     // Default centerpoint of the displayed map; Chicago Loop
-    let chicagoLatitude = 41.883229, chicagoLongitude = -87.63239799999999
+    let chicagoLatitude = 41.870311265875358, chicagoLongitude = -87.68412364213323
     
-    let zoomMeters = 10000.0   // Zoom level of the map; number of meters visible in the longest visible dimension
+    let zoomMeters = 20000.0   // Zoom level of the map; number of meters visible in the longest visible dimension
     let bucketCount = 5.0      // Number of distinct shades used when coloring the map
     
     @IBOutlet weak var map: MKMapView!
