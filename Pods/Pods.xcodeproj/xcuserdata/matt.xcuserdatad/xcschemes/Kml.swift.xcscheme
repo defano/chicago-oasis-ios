@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '4B08E1262C88563305BA9D94'
+               BlueprintIdentifier = '8806F25FBF23D729ED2246BD'
                BlueprintName = 'Kml.swift'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Kml_swift.framework'>

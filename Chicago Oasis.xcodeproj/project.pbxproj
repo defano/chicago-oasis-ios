@@ -256,6 +256,7 @@
 				C91BBA3C1CCBC05F005477D4 /* Resources */,
 				D143FE2476A26D2BEF792EA1 /* Embed Pods Frameworks */,
 				9228542FEFA64B5C734AD648 /* Copy Pods Resources */,
+				C9C352231CD563BD00392A99 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -395,6 +396,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chicago Oasis/Pods-Chicago Oasis-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		C9C352231CD563BD00392A99 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" ad023fbc3daa1d73711964511b6c6e602c25046a 62921c369b327e959af13be043875afe7e99a1b6f769e98373f6ad5faa41d9b4";
 		};
 		CE9AF5BC753CC9BEAABFC919 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

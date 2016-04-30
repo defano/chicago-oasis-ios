@@ -5,6 +5,8 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'Chicago Oasis' do
+  pod 'Fabric'
+  pod 'Crashlytics'
   pod 'SwiftyJSON'
   pod 'XCGLogger'
   pod 'Alamofire'
