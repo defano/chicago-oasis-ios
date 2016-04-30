@@ -18,6 +18,8 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
     var licensesReady = false
     var socioeconomicReady = false
    
+    // MARK: - UIVIewController
+    
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent
     }
@@ -55,7 +57,7 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
                 self.segue()
             },
             onFailure: {
-                // TODO: Failed to load
+                AlertFacade.fatalAlert(FatalError.CantLoadRequiredData, from: self)
             })
         
         SocioeconomicDAO.load(
@@ -63,9 +65,11 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
                 self.socioeconomicReady = true
                 self.segue()
             }) {
-                // TODO: Failed to load
+                AlertFacade.fatalAlert(FatalError.CantLoadRequiredData, from: self)
             }
     }
+    
+    // MARK: - UITableViewDataSource
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
@@ -97,6 +101,7 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
         return cell
     }
 
+    // MARK: - Segue
     
     private func segue() {
         todoTable.reloadData()
