@@ -39,7 +39,7 @@ class MasterViewController: UITableViewController, UISearchBarDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let license = licenses[indexPath.row]
+                let license = visibleLicenses[indexPath.row]
                 let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
                 controller.license = license
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
@@ -59,13 +59,12 @@ class MasterViewController: UITableViewController, UISearchBarDelegate {
         
         else {
             for thisLicense in licenses {
-                
                 // Name of license matches search text
                 if thisLicense.title.uppercaseString.containsString(searchText.uppercaseString) {
                     visibleLicenses.append(thisLicense)
                 }
                     
-                    // Search text is an integer; see if its within the range of available years
+                // Search text is an integer; see if its within the range of available years
                 else if let searchYear = Int(searchText) {
                     if searchYear >= thisLicense.earliestYear && searchYear <= thisLicense.latestYear {
                         visibleLicenses.append(thisLicense)

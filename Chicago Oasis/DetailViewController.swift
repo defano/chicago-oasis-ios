@@ -37,8 +37,6 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     var criticalBusinesses: [String:CriticalBusinessRecord] = [:]
     var license: LicenseRecord?
     
-    // MARK: - View
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -56,9 +54,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         redrawMap(true)
     }
     
-    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        reshadeVisiblePolygons()
-    }
+    // MARK: - Controls Interaction
     
     @IBAction func onYearSelectionChanged(sender: UISlider) {
         if (self.selectedYear != Int(round(yearSelection.value))) {
@@ -89,7 +85,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         reshadeVisiblePolygons()
     }
     
-    // MARK: - Map
+    // MARK: - Map Interaction
     
     func onMapWasTapped (tap: UIGestureRecognizer) {
         let tapPoint:CGPoint = tap.locationInView(map)
@@ -191,6 +187,12 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         return .None
     }
     
+    // MARK: - MKMapViewDelegate
+    
+    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        reshadeVisiblePolygons()
+    }
+    
     func MKMapRectForCoordinateRegion(region: MKCoordinateRegion!) -> MKMapRect {
         let a:MKMapPoint = MKMapPointForCoordinate(CLLocationCoordinate2DMake(region.center.latitude + region.span.latitudeDelta / 2, region.center.longitude - region.span.longitudeDelta / 2))
         
@@ -201,14 +203,19 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         let polygonView = MKPolygonRenderer(overlay: overlay)
-        let grey = UIColor.grayColor()
-        let alphaGrey = grey.colorWithAlphaComponent(0.5)
         
-        polygonView.strokeColor = grey
+        // By default, area polys are shaded grey; if they don't change color its because we're missing data
+        polygonView.strokeColor = UIColor.grayColor()
         polygonView.lineWidth=2.0
-        polygonView.fillColor = alphaGrey
+        polygonView.fillColor = UIColor.grayColor().colorWithAlphaComponent(0.5)
         
         return polygonView
+    }
+    
+    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+        for thisAnnotationView in views {
+            thisAnnotationView.canShowCallout = false
+        }
     }
     
     func centerMap (coordinates: CLLocationCoordinate2D!, latMeters: Double!, lngMeters: Double!) {
@@ -303,7 +310,6 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
                     
                     self.criticalBusinesses[business.dbaName] = business
                     self.map.addAnnotation(pin)
-                    self.map.viewForAnnotation(pin)?.canShowCallout = false
                 }
             
                 }) {
@@ -312,7 +318,6 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
             }
         }
     }
-    
     
     /*
      * Refreshes business accessibility data given current year, map type and license selections
