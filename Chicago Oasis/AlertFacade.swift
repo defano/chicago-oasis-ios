@@ -11,7 +11,7 @@ import UIKit
 
 class AlertFacade {
     
-    static func fatalAlert (forCondition: FatalError, from: UIViewController) {
+    static func alertFatal (forCondition: FatalError, from: UIViewController) {
         let alert = UIAlertController(title: "Oops!", message: forCondition.rawValue, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Quit", style: UIAlertActionStyle.Default, handler: { (action) in
             assertionFailure(forCondition.rawValue)

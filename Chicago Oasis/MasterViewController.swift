@@ -16,6 +16,8 @@ class MasterViewController: UITableViewController, UISearchBarDelegate {
     var licenses: [LicenseRecord] = []
     var visibleLicenses: [LicenseRecord] = []
 
+    // MARK: - UITableViewController
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,10 +30,6 @@ class MasterViewController: UITableViewController, UISearchBarDelegate {
     override func viewWillAppear(animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 
     // MARK: - Segues
@@ -76,7 +74,7 @@ class MasterViewController: UITableViewController, UISearchBarDelegate {
         tableView.reloadData()
     }
 
-    // MARK: - Table View
+    // MARK: - UITableViewDataSource
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return visibleLicenses.count

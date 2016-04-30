@@ -57,7 +57,7 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
                 self.segue()
             },
             onFailure: {
-                AlertFacade.fatalAlert(FatalError.CantLoadRequiredData, from: self)
+                AlertFacade.alertFatal(FatalError.CantLoadRequiredData, from: self)
             })
         
         SocioeconomicDAO.load(
@@ -65,7 +65,7 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
                 self.socioeconomicReady = true
                 self.segue()
             }) {
-                AlertFacade.fatalAlert(FatalError.CantLoadRequiredData, from: self)
+                AlertFacade.alertFatal(FatalError.CantLoadRequiredData, from: self)
             }
     }
     

@@ -10,9 +10,12 @@ import UIKit
 import MapKit
 import CoreGraphics
 import Kml_swift
+import XCGLogger
 
 class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentationControllerDelegate {
 
+    let logger = XCGLogger()
+    
     // Default centerpoint of the displayed map; Chicago Loop
     let chicagoLatitude = 41.870311265875358, chicagoLongitude = -87.68412364213323
     
@@ -37,6 +40,8 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     var criticalBusinesses: [String:CriticalBusinessRecord] = [:]
     var license: LicenseRecord?
     
+    // MARK: - UIViewController
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -45,8 +50,10 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
             license = LicenseDAO.licenses[0]
         }
         
-        centerMap(CLLocationCoordinate2D(latitude: chicagoLatitude, longitude: chicagoLongitude), latMeters: zoomMeters, lngMeters: zoomMeters)
-
+        let centerCoordinate = CLLocationCoordinate2D(latitude: chicagoLatitude, longitude: chicagoLongitude)
+        let visibleRegion = MKCoordinateRegionMakeWithDistance(centerCoordinate, zoomMeters, zoomMeters)
+        map.setRegion(map.regionThatFits(visibleRegion), animated: false)
+        
         map.delegate = self
         map.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onMapWasTapped)))
 
@@ -54,7 +61,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         redrawMap(true)
     }
     
-    // MARK: - Controls Interaction
+    // MARK: - IB Actions
     
     @IBAction func onYearSelectionChanged(sender: UISlider) {
         if (self.selectedYear != Int(round(yearSelection.value))) {
@@ -98,7 +105,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
                 let annotationBounds = annotationView.convertRect(annotationView.bounds, toView: map)
                 if annotationBounds.intersects(CGRectMake(tapPoint.x, tapPoint.y, 0, 0)) {
                     annotationView.canShowCallout = false
-                    onAnnotationWasTapped(annotationView)
+                    annotationWasTapped(annotationView)
                     return
                 }
             }
@@ -108,14 +115,14 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
             if overlay.isKindOfClass(KMLOverlayPolygon) {
                 let polygon:MKPolygon = overlay as! MKPolygon
                 if (polygon.intersectsMapRect(touchMapRect)) {
-                    onPolygonWasTapped(PolygonDAO.getPolygons(selectedMap)[index])
+                    polygonWasTapped(PolygonDAO.getPolygons(selectedMap)[index])
                     return
                 }
             }
         }
     }
     
-    func onAnnotationWasTapped(annotationView: MKAnnotationView) {
+    func annotationWasTapped(annotationView: MKAnnotationView) {
         let popover = storyboard!.instantiateViewControllerWithIdentifier("businessPopover") as! BusinessPopoverController
         
         popover.criticalBusiness = criticalBusinesses[annotationView.annotation!.title!!]
@@ -123,7 +130,8 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         presentAnnotationPopover(popover, annotation: annotationView)
     }
     
-    func onPolygonWasTapped(polygon: Polygon) {
+    func polygonWasTapped(polygon: Polygon) {
+        
         // Instantiate the popover
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         var areaPopover: AreaPopoverController?
@@ -182,6 +190,8 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         self.presentViewController(popover, animated: true, completion: nil)
     }
     
+    // MARK: - UIPopoverPresentationControllerDelegate
+    
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         // Return no adaptive presentation style, use default presentation behaviour
         return .None
@@ -218,27 +228,18 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         }
     }
     
-    func centerMap (coordinates: CLLocationCoordinate2D!, latMeters: Double!, lngMeters: Double!) {
-        let visibleRegion = MKCoordinateRegionMakeWithDistance(coordinates, latMeters, lngMeters)
-        map.setRegion(map.regionThatFits(visibleRegion), animated: false)
-    }
-    
     // MARK: - UI Updates
     
+    /*
+     * Updates the selection label (at the top of the map) to represent current selections.
+     */
     private func updateSelectionLabel() {
-        switch mapTypeSelection.selectedSegmentIndex {
-        case 0:
-            selectionLabel.text = "\((license?.title)!) accessibility in \(selectedYear)"
-            break;
-        case 1:
-            selectionLabel.text = "\((license?.title)!) accessibility in \(selectedYear)"
-            break
-        default:
-            break
-        }
+        selectionLabel.text = "\((license?.title)!) accessibility in \(selectedYear)"
     }
     
-    // Reshade (color) polygons visible on the map using current data selections
+    /*
+     * Reshades (colors) polygons visible on the map using current data selections
+     */
     func reshadeVisiblePolygons() {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
             let visiblePolygons = self.visiblePolygons()
@@ -313,8 +314,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
                 }
             
                 }) {
-                    // TODO: Handle error case
-                    print("Failed to get critical businesses")
+                    self.logger.error("Failed to get critical businesses.")
             }
         }
     }
@@ -346,12 +346,15 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
                 self.updateCriticalBusinesses()
                 self.updateSelectionLabel()
             }) {
-                // TODO: Handle error case
-                print("Fail!")
+                self.logger.error("Failed to get accessibility data for \(self.selectedMap) in year \(self.selectedYear) for license type \(self.license?.id)")
         }
     }
     
-    // MARK: - Data
+    private func redrawMapNoData (redrawPolygons: Bool) {
+        
+    }
+    
+    // MARK: - Data Utilities
     
     /*
      * Determines the "accessability index" for the identified boundary (either the neighborhood
