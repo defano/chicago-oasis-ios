@@ -32,24 +32,18 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
         return UIInterfaceOrientationMask.Portrait
     }
     
-    override func viewDidAppear(animated: Bool)  {
-        super.viewDidAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         todoTable.dataSource = self
         todoTable.reloadData()
         todoTable.separatorColor = UIColor.clearColor()
         todoTable.backgroundColor = UIColor.clearColor() // Fix for some iPad models that override the UI builder values. Doh!
         todoTable.rowHeight = 20.0
-        
-        PolygonDAO.loadCensusTractBoundaries {
-            self.censusReady = true
-            self.segue()
-        }
+    }
     
-        PolygonDAO.loadNeighborhoodBoundaries {
-            self.neighborhoodsReady = true
-            self.segue()
-        }
+    override func viewDidAppear(animated: Bool)  {
+        super.viewDidAppear(animated)
         
         LicenseDAO.loadLicenses(
             {
@@ -67,6 +61,16 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
             }) {
                 AlertFacade.alertFatal(FatalError.CantLoadRequiredData, from: self)
             }
+        
+        PolygonDAO.loadCensusTractBoundaries {
+            self.censusReady = true
+            self.segue()
+        }
+        
+        PolygonDAO.loadNeighborhoodBoundaries {
+            self.neighborhoodsReady = true
+            self.segue()
+        }
     }
     
     // MARK: - UITableViewDataSource

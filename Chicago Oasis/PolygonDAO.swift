@@ -22,33 +22,72 @@ class PolygonDAO {
     private static var neighborhoods:PolyCache = PolyCache()
     private static var tracts:PolyCache = PolyCache()
 
+    static var neighborhoodCache:String {
+        let paths = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)
+        let documentsDirectory = paths[0]
+        return documentsDirectory + "neighborhoods.cache"
+    }
+
+    static var censusCache:String {
+        let paths = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)
+        let documentsDirectory = paths[0]
+        return documentsDirectory + "census-tracts.cache"
+    }
+
     static func loadNeighborhoodBoundaries (onComplete: () -> Void) {
-        
-        load("neighborhoods",
-             cache: &self.neighborhoods,
-             nameNormalizer:
-                { name in
-                    return name
-                },
-             onComplete:
-                { _ in
-                    onComplete()
-                }
-        )
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            logger.debug("Loading neighborhood boundaries.")
+            
+            if let hoods = unarchive(self.neighborhoodCache) {
+                logger.debug("Loaded neighborhood boundaries from cache.")
+                neighborhoods.data = hoods
+                onComplete()
+            }
+            else {
+                load("neighborhoods",
+                     cache: &self.neighborhoods,
+                     idNormalizer:
+                        { name in
+                            return name
+                        },
+                     onComplete:
+                        { _ in
+                            logger.debug("Loaded neighborhood boundaries from KML. Archiving to cache.")
+                            NSKeyedArchiver.archiveRootObject(neighborhoods.data, toFile: self.neighborhoodCache)
+                            logger.debug("Archived neighborhood boundaires to cache.")
+                            onComplete()
+                        }
+                )
+            }
+        }
     }
     
     static func loadCensusTractBoundaries (onComplete: () -> Void) {
-        load("census",
-             cache: &self.tracts,
-             nameNormalizer:
-            { name in
-                return normalizeTractId(name)
-            },
-             onComplete:
-            { _ in
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            logger.debug("Loading census boundaries.")
+
+            if let tracts = unarchive(self.censusCache) {
+                logger.debug("Loaded census boundaries from cache.")
+                self.tracts.data = tracts
                 onComplete()
             }
-        )
+            else {
+                load("census",
+                     cache: &self.tracts,
+                     idNormalizer:
+                        { name in
+                            return normalizeTractId(name)
+                        },
+                     onComplete:
+                        { _ in
+                            logger.debug("Loaded census boundaries from KML. Archiving to cache.")
+                            NSKeyedArchiver.archiveRootObject(tracts.data, toFile: self.censusCache)
+                            logger.debug("Archived census boundaires to cache.")
+                            onComplete()
+                        }
+                )
+            }
+        }
     }
     
     static func getPolygons(mapType: MapType) -> [Polygon] {
@@ -60,7 +99,15 @@ class PolygonDAO {
         }
     }
     
-    static private func load (file:String!, inout cache:PolyCache, nameNormalizer: (String) -> String, onComplete: () -> Void) {
+    static private func unarchive (file: String) -> [Polygon]? {
+        if let data = NSKeyedUnarchiver.unarchiveObjectWithFile(file) as? [Polygon] {
+            return data.count > 0 ? data : nil
+        }
+
+        return nil
+    }
+    
+    static private func load (file:String!, inout cache:PolyCache, idNormalizer: (String) -> String, onComplete: () -> Void) {
         if cache.data.count > 0 {
             onComplete()
             return
@@ -68,13 +115,14 @@ class PolygonDAO {
         
         if let path = NSBundle.mainBundle().pathForResource(file, ofType: "kml") {
             KMLDocument.parse(NSURL(fileURLWithPath: path), callback: { (kml) in
+                
                 for placemark in kml.placemarks {
-                    cache.data.append(Polygon(id: nameNormalizer(placemark.name), name: placemark.name))
+                    cache.data.append(Polygon(id: idNormalizer(placemark.name), name: placemark.name))
                 }
                 
                 for (index, overlay) in kml.overlays.enumerate() {
                     if index < cache.data.count {
-                        cache.data[index].overlay = overlay
+                        cache.data[index].overlay = overlay as? MKPolygon
                     } else {
                         logger.error("Mismatched number of polygons to placemarks in KML: " + file)
                     }

@@ -112,7 +112,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         }
         
         for (index, overlay) in map.overlays.enumerate() {
-            if overlay.isKindOfClass(KMLOverlayPolygon) {
+            if overlay.isKindOfClass(MKPolygon) {
                 let polygon:MKPolygon = overlay as! MKPolygon
                 if (polygon.intersectsMapRect(touchMapRect)) {
                     polygonWasTapped(PolygonDAO.getPolygons(selectedMap)[index])
