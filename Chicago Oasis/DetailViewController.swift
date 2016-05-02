@@ -171,12 +171,11 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     
     func presentPolygonPopover (popover: UIViewController, polygon: Polygon) {
         
-        // Calculate the bounding rectange of the selected polygon in map and view coords
-        let polygonBounds = polygon.overlay?.boundingMapRect
-        let polygonMapRect = MKCoordinateRegionForMapRect(polygonBounds!)
-        let polygonViewRect = map.convertRegion(polygonMapRect, toRectToView: self.view)
+        let centroidRect = zeroSizedMapRectForCoordinate(polygon.overlay!.coordinate)
+        let centroidMapRect = MKCoordinateRegionForMapRect(centroidRect)
+        let centroidViewRect = map.convertRegion(centroidMapRect, toRectToView: self.view)
         
-        presentPopover(popover, anchor: polygonViewRect)
+        presentPopover(popover, anchor: centroidViewRect)
     }
     
     func presentPopover (popover: UIViewController, anchor: CGRect) {
@@ -209,6 +208,13 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         let b:MKMapPoint = MKMapPointForCoordinate(CLLocationCoordinate2DMake(region.center.latitude - region.span.latitudeDelta / 2, region.center.longitude + region.span.longitudeDelta / 2))
         
         return MKMapRectMake(min(a.x, b.x), min(a.y,b.y), abs(a.x-b.x), abs(a.y-b.y))
+    }
+    
+    func zeroSizedMapRectForCoordinate (point: CLLocationCoordinate2D) -> MKMapRect {
+        let p1 = MKMapPointForCoordinate (point);
+        let p2 = MKMapPointForCoordinate (point);
+        
+        return MKMapRectMake(fmin(p1.x,p2.x), fmin(p1.y,p2.y), fabs(p1.x-p2.x), fabs(p1.y-p2.y));
     }
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {

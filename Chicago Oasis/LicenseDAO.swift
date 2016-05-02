@@ -40,6 +40,9 @@ class LicenseDAO {
                     )
                 }
                 
+                // Alphabetize by license title
+                licenses.sortInPlace({$0.title < $1.title})
+                
                 onSuccess()
             }
         }
