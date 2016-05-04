@@ -17,8 +17,9 @@ private class PolyCache {
 
 class PolygonDAO {
     
-    private static let logger = XCGLogger()
+    private static let useCache = true
     
+    private static let logger = XCGLogger()
     private static var neighborhoods:PolyCache = PolyCache()
     private static var tracts:PolyCache = PolyCache()
 
@@ -100,6 +101,8 @@ class PolygonDAO {
     }
     
     static private func unarchive (file: String) -> [Polygon]? {
+        if (!useCache) { return nil }
+        
         if let data = NSKeyedUnarchiver.unarchiveObjectWithFile(file) as? [Polygon] {
             return data.count > 0 ? data : nil
         }
@@ -124,7 +127,7 @@ class PolygonDAO {
                     if index < cache.data.count {
                         cache.data[index].overlay = overlay as? MKPolygon
                     } else {
-                        logger.error("Mismatched number of polygons to placemarks in KML: " + file)
+                        logger.error("Mismatched number of polygons [\(kml.overlays.count)] to placemarks [\(kml.placemarks.count)] in KML: " + file)
                     }
                 }
                 
