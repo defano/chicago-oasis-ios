@@ -21,6 +21,6 @@ class AboutViewController : UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        web.loadRequest(NSURLRequest(URL: NSURL(string: "http://www.chicago-oasis.org/about.md?template=no-header")!))
+        web.loadRequest(NSURLRequest(URL: NSURL(string: "http://www.chicago-oasis.org/about-ios.md?template=no-header")!))
     }
 }

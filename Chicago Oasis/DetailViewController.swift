@@ -413,8 +413,8 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
             return 0.0
         }
         
-        let normalizedIndex = (index! - minIndex) / (maxIndex - minIndex)
-        let bucket = round(normalizedIndex / (1 / bucketCount)) * (1 / bucketCount)
+        let penetration = (index! - minIndex) / (maxIndex - minIndex)
+        let bucket = round(penetration / (1 / bucketCount)) * (1 / bucketCount)
         return (bucket == 0.0) ? 0.05 : (bucket == 1.0) ? 0.95 : bucket
     }
     

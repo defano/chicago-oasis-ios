@@ -11,7 +11,7 @@ import MapKit
 import Kml_swift
 import XCGLogger
 
-private class PolyCache {
+private class PolygonHolder {
     var data:[Polygon] = []
 }
 
@@ -20,8 +20,8 @@ class PolygonDAO {
     private static let useCache = true
     
     private static let logger = XCGLogger()
-    private static var neighborhoods:PolyCache = PolyCache()
-    private static var tracts:PolyCache = PolyCache()
+    private static var neighborhoods:PolygonHolder = PolygonHolder()
+    private static var tracts:PolygonHolder = PolygonHolder()
 
     static var neighborhoodCache:String {
         let paths = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)
@@ -42,11 +42,13 @@ class PolygonDAO {
             if let hoods = unarchive(self.neighborhoodCache) {
                 logger.debug("Loaded neighborhood boundaries from cache.")
                 neighborhoods.data = hoods
-                onComplete()
+                dispatch_async(dispatch_get_main_queue()) {
+                    onComplete()
+                }
             }
             else {
                 load("neighborhoods",
-                     cache: &self.neighborhoods,
+                     holder: &self.neighborhoods,
                      idNormalizer:
                         { name in
                             return name
@@ -70,11 +72,13 @@ class PolygonDAO {
             if let tracts = unarchive(self.censusCache) {
                 logger.debug("Loaded census boundaries from cache.")
                 self.tracts.data = tracts
-                onComplete()
+                dispatch_async(dispatch_get_main_queue()) {
+                    onComplete()
+                }
             }
             else {
                 load("census",
-                     cache: &self.tracts,
+                     holder: &self.tracts,
                      idNormalizer:
                         { name in
                             return normalizeTractId(name)
@@ -110,8 +114,8 @@ class PolygonDAO {
         return nil
     }
     
-    static private func load (file:String!, inout cache:PolyCache, idNormalizer: (String) -> String, onComplete: () -> Void) {
-        if cache.data.count > 0 {
+    static private func load (file:String!, inout holder:PolygonHolder, idNormalizer: (String) -> String, onComplete: () -> Void) {
+        if holder.data.count > 0 {
             onComplete()
             return
         }
@@ -120,12 +124,12 @@ class PolygonDAO {
             KMLDocument.parse(NSURL(fileURLWithPath: path), callback: { (kml) in
                 
                 for placemark in kml.placemarks {
-                    cache.data.append(Polygon(id: idNormalizer(placemark.name), name: placemark.name))
+                    holder.data.append(Polygon(id: idNormalizer(placemark.name), name: placemark.name))
                 }
                 
                 for (index, overlay) in kml.overlays.enumerate() {
-                    if index < cache.data.count {
-                        cache.data[index].overlay = overlay as? MKPolygon
+                    if index < holder.data.count {
+                        holder.data[index].overlay = overlay as? MKPolygon
                     } else {
                         logger.error("Mismatched number of polygons [\(kml.overlays.count)] to placemarks [\(kml.placemarks.count)] in KML: " + file)
                     }
