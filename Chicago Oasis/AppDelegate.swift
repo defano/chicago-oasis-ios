@@ -17,6 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics.self])
+
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.registerDefaults([UserDefaults.polygonCacheEnabledIdentifier:true])
+        
         return true
     }
 

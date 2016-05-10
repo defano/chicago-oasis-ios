@@ -17,8 +17,6 @@ private class PolygonHolder {
 
 class PolygonDAO {
     
-    private static let useCache = true
-    
     private static let logger = XCGLogger()
     private static var neighborhoods:PolygonHolder = PolygonHolder()
     private static var tracts:PolygonHolder = PolygonHolder()
@@ -105,7 +103,10 @@ class PolygonDAO {
     }
     
     static private func unarchive (file: String) -> [Polygon]? {
-        if (!useCache) { return nil }
+        if (!UserDefaults.polygonCacheEnabled) {
+            logger.debug("Polygon cache disabled in settings. Loading from KML.")
+            return nil
+        }
         
         if let data = NSKeyedUnarchiver.unarchiveObjectWithFile(file) as? [Polygon] {
             return data.count > 0 ? data : nil

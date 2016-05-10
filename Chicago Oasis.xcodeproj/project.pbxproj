@@ -18,6 +18,9 @@
 		C91BBA4E1CCBC060005477D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C91BBA4C1CCBC060005477D4 /* LaunchScreen.storyboard */; };
 		C91BBA591CCBC060005477D4 /* Chicago_OasisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BBA581CCBC060005477D4 /* Chicago_OasisTests.swift */; };
 		C91BBA641CCBC060005477D4 /* Chicago_OasisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BBA631CCBC060005477D4 /* Chicago_OasisUITests.swift */; };
+		C943D1EF1CDE317F00941B5C /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943D1EE1CDE317F00941B5C /* UserDefaults.swift */; };
+		C943D1F51CDE361B00941B5C /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C943D1F41CDE361B00941B5C /* Settings.bundle */; };
+		C943D1F71CDE381100941B5C /* Acknowledgements.txt in Resources */ = {isa = PBXBuildFile; fileRef = C943D1F61CDE381100941B5C /* Acknowledgements.txt */; };
 		C944D8A61CCEF0BA005D136E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C944D8A51CCEF0BA005D136E /* LaunchViewController.swift */; };
 		C944D8A81CCEF3F9005D136E /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C944D8A71CCEF3F9005D136E /* SplitViewController.swift */; };
 		C956BD941CD2740D00B080E6 /* NeighborhoodPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C956BD931CD2740D00B080E6 /* NeighborhoodPopoverController.swift */; };
@@ -76,6 +79,9 @@
 		C91BBA5F1CCBC060005477D4 /* Chicago OasisUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chicago OasisUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C91BBA631CCBC060005477D4 /* Chicago_OasisUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chicago_OasisUITests.swift; sourceTree = "<group>"; };
 		C91BBA651CCBC060005477D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C943D1EE1CDE317F00941B5C /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		C943D1F41CDE361B00941B5C /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
+		C943D1F61CDE381100941B5C /* Acknowledgements.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Acknowledgements.txt; sourceTree = "<group>"; };
 		C944D8A51CCEF0BA005D136E /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		C944D8A71CCEF3F9005D136E /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		C956BD931CD2740D00B080E6 /* NeighborhoodPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeighborhoodPopoverController.swift; sourceTree = "<group>"; };
@@ -189,11 +195,14 @@
 			isa = PBXGroup;
 			children = (
 				C91BBA4A1CCBC060005477D4 /* Assets.xcassets */,
+				C943D1F41CDE361B00941B5C /* Settings.bundle */,
 				C91BBA411CCBC05F005477D4 /* AppDelegate.swift */,
+				C943D1EE1CDE317F00941B5C /* UserDefaults.swift */,
 				C95AC6471CCC2A300068EFEB /* kml */,
 				C908CB701CD00E920069F694 /* UI */,
 				C95AC6441CCC180D0068EFEB /* model */,
 				C91BBA4F1CCBC060005477D4 /* Info.plist */,
+				C943D1F61CDE381100941B5C /* Acknowledgements.txt */,
 			);
 			path = "Chicago Oasis";
 			sourceTree = "<group>";
@@ -359,8 +368,10 @@
 			files = (
 				C91BBA4E1CCBC060005477D4 /* LaunchScreen.storyboard in Resources */,
 				C91BBA4B1CCBC060005477D4 /* Assets.xcassets in Resources */,
+				C943D1F71CDE381100941B5C /* Acknowledgements.txt in Resources */,
 				C91BBA491CCBC05F005477D4 /* Main.storyboard in Resources */,
 				C99931551CCD1A3800FB9701 /* census.kml in Resources */,
+				C943D1F51CDE361B00941B5C /* Settings.bundle in Resources */,
 				C99931511CCC6EE900FB9701 /* neighborhoods.kml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -461,6 +472,7 @@
 				C95AC6461CCC20F00068EFEB /* LicenseDAO.swift in Sources */,
 				C99691991CD2F4D2007DE451 /* CensusPopoverController.swift in Sources */,
 				C99931591CCD88F500FB9701 /* AccessibilityDAO.swift in Sources */,
+				C943D1EF1CDE317F00941B5C /* UserDefaults.swift in Sources */,
 				C9C352181CD3E37D00392A99 /* SocioeconomicRecord.swift in Sources */,
 				C999314F1CCC6BD700FB9701 /* PolygonDAO.swift in Sources */,
 				C9C3521E1CD3E3C800392A99 /* AccessibilityRecord.swift in Sources */,
