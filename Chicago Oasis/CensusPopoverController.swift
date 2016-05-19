@@ -30,9 +30,8 @@ class CensusPopoverController : AreaPopoverController {
             heading.text = areaName
             subtitle.text = accessAdjective.uppercaseString
             
-            bodyText.text = "In \(selectedYear), \(areaName) had an average of \(oneMile) business(es) of this kind within one mile of every resident, \(twoMile) within two miles, and \(threeMile) within three miles."
-        
-            bodySubtext.text = "This makes \(areaName) among the \(accessAdjective.lowercaseString) census tracts in Chicago."
+            bodyText.text = String(format: "In %d, %@ had an average of %d business(es) of this kind within one mile of every resident, %d within two miles, and %d within three miles.".localized, selectedYear, areaName, oneMile, twoMile, threeMile)
+            bodySubtext.text = String(format: "This makes %@ among the %@ census tracts in Chicago.".localized, areaName, accessAdjective.lowercaseString)
         }
     }
 }

@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class AccessibilityDAO {
  
-    static func getAccessibility(mapType: MapType, year: Int, licenseType: String!, onSuccess: (indicies: [String:AccessibilityRecord]!) -> Void, onFailure: () -> Void) {
+    static func getAccessibility(mapType: MapType, year: Int, licenseType: String, onSuccess: (indicies: [String:AccessibilityRecord]!) -> Void, onFailure: () -> Void) {
 
         let url = "http://www.chicago-oasis.org/json/\(getMapTypePath(mapType))/\(licenseType)-\(year).json";
         
@@ -45,7 +45,7 @@ class AccessibilityDAO {
 
     }
     
-    private static func getMapTypePath(mapType: MapType) -> String! {
+    private static func getMapTypePath(mapType: MapType) -> String {
         switch mapType {
         case MapType.Neighborhoods: return "community"
         default: return "census"

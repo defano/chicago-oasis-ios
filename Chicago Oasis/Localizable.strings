@@ -1,0 +1,35 @@
+/* 
+  Localizable.strings
+  Chicago Oasis
+
+  Created by Matt DeFano on 5/18/16.
+  Copyright © 2016 Matt DeFano. All rights reserved.
+*/
+
+"Oops!" = "Oops!";
+"Quit" = "Quit";
+
+"An error occured loading neighborhood and census tract boundaries. Please reinstall the app and try again." = "An error occured loading neighborhood and census tract boundaries. Please reinstall the app and try again.";
+"An error occured fetching data from the server. Check that you have a working internet connection and that the chicago-oasis.org site is accessible." = "An error occured fetching data from the server. Check that you have a working internet connection and that the chicago-oasis.org site is accessible.";
+
+"most deserted" = "most deserted";
+"largely deserted" = "largely deserted";
+"somewhat accessible" = "somewhat accessible";
+"largely accessible" = "largely accessible";
+"most accessible" = "most accessible";
+
+"very poor access" = "very poor access";
+"poor access" = "poor access";
+"average access" = "average access";
+"good access" = "good access";
+"best access" = "best access";
+
+"If this business were to close, a population of %@ would live more than a mile away from a competing business." = "If this business were to close, a population of %@ would live more than a mile away from a competing business.";
+"In %d, %@ had an average of %d business(es) of this kind within one mile of every resident, %d within two miles, and %d within three miles." = "In %d, %@ had an average of %d business(es) of this kind within one mile of every resident, %d within two miles, and %d within three miles.";
+"This makes %@ among the %@ census tracts in Chicago." = "This makes %@ among the %@ census tracts in Chicago.";
+"In %d, the %@ community was among the neighborhoods with %@ to businesses of this type." = "In %d, the %@ community was among the neighborhoods with %@ to businesses of this type.";
+
+"Precomputing neighborhoods" = "Precomputing neighborhoods";
+"Precomputing census tracts" = "Precomputing census tracts";
+"Getting socioeconomic data" = "Getting socioeconomic data";
+"Getting business licenses" = "Getting business licenses";

@@ -20,29 +20,29 @@ class AreaPopoverController : UIViewController {
     
     func accessibilityAdjectiveForAlpha (alpha: Double?) -> String {
         if (alpha >= 0 && alpha < 0.2) {
-            return "most deserted"
+            return "most deserted".localized
         } else if (alpha >= 0.2 && alpha < 0.4) {
-            return "largely deserted"
+            return "largely deserted".localized
         } else if (alpha >= 0.4 && alpha < 0.6) {
-            return "somewhat accessible"
+            return "somewhat accessible".localized
         } else if (alpha >= 0.6 && alpha < 0.8) {
-            return "largely accessible"
+            return "largely accessible".localized
         } else {
-            return "most accessible"
+            return "most accessible".localized
         }
     }
     
     func accessibilityNounForAlpha (alpha: Double?) -> String {
         if (alpha >= 0 && alpha < 0.2) {
-            return "very poor access"
+            return "very poor access".localized
         } else if (alpha >= 0.2 && alpha < 0.4) {
-            return "poor access"
+            return "poor access".localized
         } else if (alpha >= 0.4 && alpha < 0.6) {
-            return "average access"
+            return "average access".localized
         } else if (alpha >= 0.6 && alpha < 0.8) {
-            return "good access"
+            return "good access".localized
         } else {
-            return "best access"
+            return "best access".localized
         }
     }
 }

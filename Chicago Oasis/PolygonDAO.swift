@@ -18,8 +18,8 @@ private class PolygonHolder {
 class PolygonDAO {
     
     private static let logger = XCGLogger()
-    private static var neighborhoods:PolygonHolder = PolygonHolder()
-    private static var tracts:PolygonHolder = PolygonHolder()
+    private static var neighborhoods = PolygonHolder()
+    private static var tracts = PolygonHolder()
 
     static var neighborhoodCache:String {
         let paths = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)
@@ -115,7 +115,7 @@ class PolygonDAO {
         return nil
     }
     
-    static private func load (file:String!, inout holder:PolygonHolder, idNormalizer: (String) -> String, onComplete: () -> Void) {
+    static private func load (file:String, inout holder:PolygonHolder, idNormalizer: (String) -> String, onComplete: () -> Void) {
         if holder.data.count > 0 {
             onComplete()
             return

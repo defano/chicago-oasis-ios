@@ -30,7 +30,7 @@ class NeighborhoodPopoverController : AreaPopoverController, UITableViewDataSour
             
             heading.text = areaName
             subtitle.text = accessAdjective.uppercaseString
-            bodyText.text = "In \(selectedYear), the \(areaName.capitalizedString) community was among the neighborhoods with \(accessNoun.lowercaseString) to businesses of this type."
+            bodyText.text = String(format: "In %d, the %@ community was among the neighborhoods with %@ to businesses of this type.".localized, selectedYear, areaName.capitalizedString, accessNoun.lowercaseString)
         }
     }
 

@@ -26,7 +26,7 @@ class BusinessPopoverController : AreaPopoverController {
 
             heading.text = businessName.capitalizedString
             subtitle.text = address.uppercaseString
-            body.text = "If this business were to close, a population of \(numberFormatter.stringFromNumber(atRiskPop)!) would live more than a mile away from a competing business."
+            body.text = String(format: "If this business were to close, a population of %@ would live more than a mile away from a competing business.".localized, numberFormatter.stringFromNumber(atRiskPop)!)
         }
     }
 }

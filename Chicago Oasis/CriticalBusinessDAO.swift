@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class CriticalBusinessDAO {
     
-    static func getCriticalBusinesses(year: Int, licenseType: String!, onSuccess: ([CriticalBusinessRecord]) -> Void, onFailure: () -> Void) {
+    static func getCriticalBusinesses(year: Int, licenseType: String, onSuccess: ([CriticalBusinessRecord]) -> Void, onFailure: () -> Void) {
         
         let url = "http://www.chicago-oasis.org/json/critical/critical-\(licenseType)-\(year).json";
         

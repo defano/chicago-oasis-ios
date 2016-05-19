@@ -305,7 +305,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         self.map.removeAnnotations(self.map.annotations)
 
         if (criticalBusinessSelection.on) {
-            CriticalBusinessDAO.getCriticalBusinesses(selectedYear, licenseType: license?.id, onSuccess: { (businesses) in
+            CriticalBusinessDAO.getCriticalBusinesses(selectedYear, licenseType: (license?.id)!, onSuccess: { (businesses) in
                 
                 self.criticalBusinesses = [:]
                 for business in businesses {
@@ -331,7 +331,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
      * boundaries) will be removed and redrawn; set to true only when changing map types.
      */
     private func redrawMap (redrawPolygons: Bool) {
-        AccessibilityDAO.getAccessibility(selectedMap, year: selectedYear, licenseType: license?.id, onSuccess:
+        AccessibilityDAO.getAccessibility(selectedMap, year: selectedYear, licenseType: (license?.id)!, onSuccess:
             { (indexes) in
 
                 switch self.selectedMap {

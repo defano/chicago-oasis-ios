@@ -85,19 +85,19 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
         
         switch indexPath.row {
         case 2:
-            cell.textLabel?.text = "Precomputing neighborhoods"
+            cell.textLabel?.text = "Precomputing neighborhoods".localized
             cell.accessoryType = neighborhoodsReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
             break;
         case 3:
-            cell.textLabel?.text = "Precomputing census tracts"
+            cell.textLabel?.text = "Precomputing census tracts".localized
             cell.accessoryType = censusReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
             break;
         case 1:
-            cell.textLabel?.text = "Getting socioeconomic data"
+            cell.textLabel?.text = "Getting socioeconomic data".localized
             cell.accessoryType = socioeconomicReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
             break;
         default:
-            cell.textLabel?.text = "Getting business licenses"
+            cell.textLabel?.text = "Getting business licenses".localized
             cell.accessoryType = licensesReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
             break;
         }
