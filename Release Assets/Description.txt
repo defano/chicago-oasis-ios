@@ -1,0 +1,3 @@
+See how accessible your Chicago neighborhood is to different types of businesses from the serious to the inane: Do you live in a food desert or within an oasis of kennels and catteries? Is your census tract home to more tattoo parlors than anywhere else in the Second City? 
+
+Use Chicago Oasis to explore and discover business accessibility throughout the city. Learn which businesses would create a desert if they were to close and examine the demographic profiles of each of Chicago's 77 officially recognized community areas. Chicago Oasis offers a visualization of each business license category issued by the City of Chicago for each year that data is publicly available.
