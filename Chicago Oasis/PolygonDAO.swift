@@ -54,8 +54,10 @@ class PolygonDAO {
                      onComplete:
                         { _ in
                             logger.debug("Loaded neighborhood boundaries from KML. Archiving to cache.")
-                            NSKeyedArchiver.archiveRootObject(neighborhoods.data, toFile: self.neighborhoodCache)
-                            logger.debug("Archived neighborhood boundaires to cache.")
+                            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
+                                NSKeyedArchiver.archiveRootObject(neighborhoods.data, toFile: self.neighborhoodCache)
+                                logger.debug("Archived neighborhood boundaires to cache.")
+                            }
                             onComplete()
                         }
                 )
@@ -84,8 +86,10 @@ class PolygonDAO {
                      onComplete:
                         { _ in
                             logger.debug("Loaded census boundaries from KML. Archiving to cache.")
-                            NSKeyedArchiver.archiveRootObject(tracts.data, toFile: self.censusCache)
-                            logger.debug("Archived census boundaires to cache.")
+                            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
+                                NSKeyedArchiver.archiveRootObject(tracts.data, toFile: self.censusCache)
+                                logger.debug("Archived census boundaires to cache.")
+                            }
                             onComplete()
                         }
                 )
