@@ -16,8 +16,6 @@
 		C91BBA491CCBC05F005477D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C91BBA471CCBC05F005477D4 /* Main.storyboard */; };
 		C91BBA4B1CCBC060005477D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C91BBA4A1CCBC060005477D4 /* Assets.xcassets */; };
 		C91BBA4E1CCBC060005477D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C91BBA4C1CCBC060005477D4 /* LaunchScreen.storyboard */; };
-		C91BBA591CCBC060005477D4 /* Chicago_OasisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BBA581CCBC060005477D4 /* Chicago_OasisTests.swift */; };
-		C91BBA641CCBC060005477D4 /* Chicago_OasisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BBA631CCBC060005477D4 /* Chicago_OasisUITests.swift */; };
 		C943D1EF1CDE317F00941B5C /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943D1EE1CDE317F00941B5C /* UserDefaults.swift */; };
 		C943D1F51CDE361B00941B5C /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C943D1F41CDE361B00941B5C /* Settings.bundle */; };
 		C944D8A61CCEF0BA005D136E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C944D8A51CCEF0BA005D136E /* LaunchViewController.swift */; };
@@ -44,23 +42,6 @@
 		C9C352221CD50DAA00392A99 /* AlertFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C352211CD50DAA00392A99 /* AlertFacade.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		C91BBA551CCBC060005477D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C91BBA361CCBC05F005477D4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C91BBA3D1CCBC05F005477D4;
-			remoteInfo = "Chicago Oasis";
-		};
-		C91BBA601CCBC060005477D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C91BBA361CCBC05F005477D4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C91BBA3D1CCBC05F005477D4;
-			remoteInfo = "Chicago Oasis";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		479286B830A68E12BDF87D7C /* Pods-Chicago Oasis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chicago Oasis.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chicago Oasis/Pods-Chicago Oasis.debug.xcconfig"; sourceTree = "<group>"; };
 		64A83E34F40AE447D97B58FC /* Pods_Chicago_Oasis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chicago_Oasis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,12 +55,6 @@
 		C91BBA4A1CCBC060005477D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C91BBA4D1CCBC060005477D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C91BBA4F1CCBC060005477D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C91BBA541CCBC060005477D4 /* Chicago OasisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chicago OasisTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C91BBA581CCBC060005477D4 /* Chicago_OasisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chicago_OasisTests.swift; sourceTree = "<group>"; };
-		C91BBA5A1CCBC060005477D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C91BBA5F1CCBC060005477D4 /* Chicago OasisUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chicago OasisUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C91BBA631CCBC060005477D4 /* Chicago_OasisUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chicago_OasisUITests.swift; sourceTree = "<group>"; };
-		C91BBA651CCBC060005477D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C943D1EE1CDE317F00941B5C /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		C943D1F41CDE361B00941B5C /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
 		C944D8A51CCEF0BA005D136E /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
@@ -114,20 +89,6 @@
 			files = (
 				C95AC6431CCBC27A0068EFEB /* MapKit.framework in Frameworks */,
 				275D18104439B84288D8119A /* Pods_Chicago_Oasis.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C91BBA511CCBC060005477D4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C91BBA5C1CCBC060005477D4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,8 +136,6 @@
 			isa = PBXGroup;
 			children = (
 				C91BBA401CCBC05F005477D4 /* Chicago Oasis */,
-				C91BBA571CCBC060005477D4 /* Chicago OasisTests */,
-				C91BBA621CCBC060005477D4 /* Chicago OasisUITests */,
 				C91BBA3F1CCBC05F005477D4 /* Products */,
 				C4855A9123A60C370E9BF6C3 /* Pods */,
 				C23DA39CD5B838C11CD502A3 /* Frameworks */,
@@ -187,8 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				C91BBA3E1CCBC05F005477D4 /* Chicago Oasis.app */,
-				C91BBA541CCBC060005477D4 /* Chicago OasisTests.xctest */,
-				C91BBA5F1CCBC060005477D4 /* Chicago OasisUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -208,24 +165,6 @@
 				C95BBF531CECE23600E44F18 /* Localizable.strings */,
 			);
 			path = "Chicago Oasis";
-			sourceTree = "<group>";
-		};
-		C91BBA571CCBC060005477D4 /* Chicago OasisTests */ = {
-			isa = PBXGroup;
-			children = (
-				C91BBA581CCBC060005477D4 /* Chicago_OasisTests.swift */,
-				C91BBA5A1CCBC060005477D4 /* Info.plist */,
-			);
-			path = "Chicago OasisTests";
-			sourceTree = "<group>";
-		};
-		C91BBA621CCBC060005477D4 /* Chicago OasisUITests */ = {
-			isa = PBXGroup;
-			children = (
-				C91BBA631CCBC060005477D4 /* Chicago_OasisUITests.swift */,
-				C91BBA651CCBC060005477D4 /* Info.plist */,
-			);
-			path = "Chicago OasisUITests";
 			sourceTree = "<group>";
 		};
 		C95AC6441CCC180D0068EFEB /* model */ = {
@@ -279,42 +218,6 @@
 			productReference = C91BBA3E1CCBC05F005477D4 /* Chicago Oasis.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C91BBA531CCBC060005477D4 /* Chicago OasisTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C91BBA6B1CCBC060005477D4 /* Build configuration list for PBXNativeTarget "Chicago OasisTests" */;
-			buildPhases = (
-				C91BBA501CCBC060005477D4 /* Sources */,
-				C91BBA511CCBC060005477D4 /* Frameworks */,
-				C91BBA521CCBC060005477D4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C91BBA561CCBC060005477D4 /* PBXTargetDependency */,
-			);
-			name = "Chicago OasisTests";
-			productName = "Chicago OasisTests";
-			productReference = C91BBA541CCBC060005477D4 /* Chicago OasisTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		C91BBA5E1CCBC060005477D4 /* Chicago OasisUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C91BBA6E1CCBC060005477D4 /* Build configuration list for PBXNativeTarget "Chicago OasisUITests" */;
-			buildPhases = (
-				C91BBA5B1CCBC060005477D4 /* Sources */,
-				C91BBA5C1CCBC060005477D4 /* Frameworks */,
-				C91BBA5D1CCBC060005477D4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C91BBA611CCBC060005477D4 /* PBXTargetDependency */,
-			);
-			name = "Chicago OasisUITests";
-			productName = "Chicago OasisUITests";
-			productReference = C91BBA5F1CCBC060005477D4 /* Chicago OasisUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -334,14 +237,6 @@
 							};
 						};
 					};
-					C91BBA531CCBC060005477D4 = {
-						CreatedOnToolsVersion = 7.3;
-						TestTargetID = C91BBA3D1CCBC05F005477D4;
-					};
-					C91BBA5E1CCBC060005477D4 = {
-						CreatedOnToolsVersion = 7.3;
-						TestTargetID = C91BBA3D1CCBC05F005477D4;
-					};
 				};
 			};
 			buildConfigurationList = C91BBA391CCBC05F005477D4 /* Build configuration list for PBXProject "Chicago Oasis" */;
@@ -358,8 +253,6 @@
 			projectRoot = "";
 			targets = (
 				C91BBA3D1CCBC05F005477D4 /* Chicago Oasis */,
-				C91BBA531CCBC060005477D4 /* Chicago OasisTests */,
-				C91BBA5E1CCBC060005477D4 /* Chicago OasisUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -376,20 +269,6 @@
 				C99931551CCD1A3800FB9701 /* census.kml in Resources */,
 				C943D1F51CDE361B00941B5C /* Settings.bundle in Resources */,
 				C99931511CCC6EE900FB9701 /* neighborhoods.kml in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C91BBA521CCBC060005477D4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C91BBA5D1CCBC060005477D4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,36 +367,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C91BBA501CCBC060005477D4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C91BBA591CCBC060005477D4 /* Chicago_OasisTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C91BBA5B1CCBC060005477D4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C91BBA641CCBC060005477D4 /* Chicago_OasisUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C91BBA561CCBC060005477D4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C91BBA3D1CCBC05F005477D4 /* Chicago Oasis */;
-			targetProxy = C91BBA551CCBC060005477D4 /* PBXContainerItemProxy */;
-		};
-		C91BBA611CCBC060005477D4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C91BBA3D1CCBC05F005477D4 /* Chicago Oasis */;
-			targetProxy = C91BBA601CCBC060005477D4 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C91BBA471CCBC05F005477D4 /* Main.storyboard */ = {
@@ -656,52 +506,6 @@
 			};
 			name = Release;
 		};
-		C91BBA6C1CCBC060005477D4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = "Chicago OasisTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.defano.Chicago-OasisTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chicago Oasis.app/Chicago Oasis";
-			};
-			name = Debug;
-		};
-		C91BBA6D1CCBC060005477D4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = "Chicago OasisTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.defano.Chicago-OasisTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chicago Oasis.app/Chicago Oasis";
-			};
-			name = Release;
-		};
-		C91BBA6F1CCBC060005477D4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = "Chicago OasisUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.defano.Chicago-OasisUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = "Chicago Oasis";
-			};
-			name = Debug;
-		};
-		C91BBA701CCBC060005477D4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = "Chicago OasisUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.defano.Chicago-OasisUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = "Chicago Oasis";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -719,24 +523,6 @@
 			buildConfigurations = (
 				C91BBA691CCBC060005477D4 /* Debug */,
 				C91BBA6A1CCBC060005477D4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C91BBA6B1CCBC060005477D4 /* Build configuration list for PBXNativeTarget "Chicago OasisTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C91BBA6C1CCBC060005477D4 /* Debug */,
-				C91BBA6D1CCBC060005477D4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C91BBA6E1CCBC060005477D4 /* Build configuration list for PBXNativeTarget "Chicago OasisUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C91BBA6F1CCBC060005477D4 /* Debug */,
-				C91BBA701CCBC060005477D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
