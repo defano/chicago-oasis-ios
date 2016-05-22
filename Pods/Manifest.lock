@@ -10,12 +10,13 @@ PODS:
   - XCGLogger (3.3)
 
 DEPENDENCIES:
-  - Alamofire
+  - AEXML (= 2.1.0)
+  - Alamofire (= 3.3.1)
   - Crashlytics
   - Fabric
-  - Kml.swift
-  - SwiftyJSON
-  - XCGLogger
+  - Kml.swift (= 0.2.2)
+  - SwiftyJSON (= 2.3.2)
+  - XCGLogger (= 3.3)
 
 SPEC CHECKSUMS:
   AEXML: 0e2f657fdc67e17905682a06d55583a863d80803
