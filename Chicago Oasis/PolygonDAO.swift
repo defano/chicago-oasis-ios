@@ -21,23 +21,31 @@ class PolygonDAO {
     private static var neighborhoods = PolygonHolder()
     private static var tracts = PolygonHolder()
 
-    static var neighborhoodCache:String {
-        let paths = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)
-        let documentsDirectory = paths[0]
-        return documentsDirectory + "neighborhoods.cache"
+    static var neighborhoodCachePath:String {
+        var cacheUrl:NSURL = try! NSFileManager().URLForDirectory(.CachesDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
+        cacheUrl = cacheUrl.URLByAppendingPathComponent("neighborhoods.cache")
+        if !NSFileManager().fileExistsAtPath(cacheUrl.path!) {
+            NSFileManager().createFileAtPath(cacheUrl.path!, contents: nil, attributes: nil)
+        }
+        try! cacheUrl.setResourceValue(NSNumber(bool: true), forKey: NSURLIsExcludedFromBackupKey)
+        return cacheUrl.path!
     }
 
-    static var censusCache:String {
-        let paths = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)
-        let documentsDirectory = paths[0]
-        return documentsDirectory + "census-tracts.cache"
+    static var censusCachePath:String {
+        var cacheUrl:NSURL = try! NSFileManager().URLForDirectory(.CachesDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
+        cacheUrl = cacheUrl.URLByAppendingPathComponent("census-tracts.cache")
+        if !NSFileManager().fileExistsAtPath(cacheUrl.path!) {
+            NSFileManager().createFileAtPath(cacheUrl.path!, contents: nil, attributes: nil)
+        }
+        try! cacheUrl.setResourceValue(NSNumber(bool: true), forKey: NSURLIsExcludedFromBackupKey)
+        return cacheUrl.path!
     }
 
     static func loadNeighborhoodBoundaries (onComplete: () -> Void) {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
             logger.debug("Loading neighborhood boundaries.")
             
-            if let hoods = unarchive(self.neighborhoodCache) {
+            if let hoods = unarchive(neighborhoodCachePath) {
                 logger.debug("Loaded neighborhood boundaries from cache.")
                 neighborhoods.data = hoods
                 dispatch_async(dispatch_get_main_queue()) {
@@ -55,7 +63,7 @@ class PolygonDAO {
                         { _ in
                             logger.debug("Loaded neighborhood boundaries from KML. Archiving to cache.")
                             dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
-                                NSKeyedArchiver.archiveRootObject(neighborhoods.data, toFile: self.neighborhoodCache)
+                                NSKeyedArchiver.archiveRootObject(neighborhoods.data, toFile: neighborhoodCachePath)
                                 logger.debug("Archived neighborhood boundaires to cache.")
                             }
                             onComplete()
@@ -69,7 +77,7 @@ class PolygonDAO {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
             logger.debug("Loading census boundaries.")
 
-            if let tracts = unarchive(self.censusCache) {
+            if let tracts = unarchive(censusCachePath) {
                 logger.debug("Loaded census boundaries from cache.")
                 self.tracts.data = tracts
                 dispatch_async(dispatch_get_main_queue()) {
@@ -87,7 +95,7 @@ class PolygonDAO {
                         { _ in
                             logger.debug("Loaded census boundaries from KML. Archiving to cache.")
                             dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
-                                NSKeyedArchiver.archiveRootObject(tracts.data, toFile: self.censusCache)
+                                NSKeyedArchiver.archiveRootObject(tracts.data, toFile: censusCachePath)
                                 logger.debug("Archived census boundaires to cache.")
                             }
                             onComplete()
