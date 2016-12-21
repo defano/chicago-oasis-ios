@@ -9,17 +9,21 @@
 import UIKit
 import Fabric
 import Crashlytics
+import XCGLogger
+
+let logger = XCGLogger()
 
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Crashlytics.self])
 
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.registerDefaults([UserDefaults.polygonCacheEnabledIdentifier:true])
+        let defaults = Foundation.UserDefaults.standard
+        defaults.register(defaults: [UserDefaults.polygonCacheEnabledIdentifier:true])
         
         return true
     }

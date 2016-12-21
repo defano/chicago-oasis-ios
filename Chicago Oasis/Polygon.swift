@@ -9,8 +9,7 @@
 import Foundation
 import MapKit
 
-@objc
-class Polygon : NSObject, NSCoding {
+@objc class Polygon : NSObject, NSCoding {
     var id:String
     var name:String
     var overlay:MKPolygon?
@@ -26,20 +25,20 @@ class Polygon : NSObject, NSCoding {
         self.name = name
     }
     
-    @objc func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self.id, forKey: "id")
-        aCoder.encodeObject(self.name, forKey: "name")
+    @objc func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.id, forKey: "id")
+        aCoder.encode(self.name, forKey: "name")
         
         if (self.overlay != nil) {
-            aCoder.encodeObject(SerializableMKPolygon(polygon: self.overlay!), forKey: "overlay")
+            aCoder.encode(SerializableMKPolygon(polygon: self.overlay!), forKey: "overlay")
         }
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         guard let
-            id = aDecoder.decodeObjectForKey("id") as? String,
-            name = aDecoder.decodeObjectForKey("name") as? String,
-            overlay = aDecoder.decodeObjectForKey("overlay") as? SerializableMKPolygon
+            id = aDecoder.decodeObject(forKey: "id") as? String,
+            let name = aDecoder.decodeObject(forKey: "name") as? String,
+            let overlay = aDecoder.decodeObject(forKey: "overlay") as? SerializableMKPolygon
             else
         {
             return nil
@@ -49,8 +48,7 @@ class Polygon : NSObject, NSCoding {
     }
 }
 
-@objc
-class SerializableMKPolygon : NSObject, NSCoding {
+@objc class SerializableMKPolygon : NSObject, NSCoding {
     
     let polygon: MKPolygon
     
@@ -58,36 +56,36 @@ class SerializableMKPolygon : NSObject, NSCoding {
         self.polygon = polygon
     }
     
-    @objc func encodeWithCoder(aCoder: NSCoder) {
+    @objc func encode(with aCoder: NSCoder) {
         var coordinateRecords: [[String:Double]] = [[:]]
-        let coordinatePtr = UnsafeMutablePointer<CLLocationCoordinate2D>.alloc(polygon.pointCount)
+        let coordinatePtr = UnsafeMutablePointer<CLLocationCoordinate2D>.allocate(capacity: polygon.pointCount)
         polygon.getCoordinates(coordinatePtr, range: NSRange(location: 0, length: polygon.pointCount))
         
         for index in 0 ... polygon.pointCount - 1 {
-            let lat = coordinatePtr.advancedBy(index).memory.latitude
-            let lng = coordinatePtr.advancedBy(index).memory.longitude
+            let lat = coordinatePtr.advanced(by: index).pointee.latitude
+            let lng = coordinatePtr.advanced(by: index).pointee.longitude
             
             coordinateRecords.append(["lat":lat, "lng":lng])
         }
         
-        aCoder.encodeObject(coordinateRecords, forKey: "coordinates")
-        aCoder.encodeObject(polygon.title, forKey: "title")
+        aCoder.encode(coordinateRecords, forKey: "coordinates")
+        aCoder.encode(polygon.title, forKey: "title")
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        guard let coordinateRecords = aDecoder.decodeObjectForKey("coordinates") as? [[String:Double]] else {
+        guard let coordinateRecords = aDecoder.decodeObject(forKey: "coordinates") as? [[String:Double]] else {
             return nil
         }
 
         var coordinates: [CLLocationCoordinate2D] = []
         for thisCoordinateRecord in coordinateRecords {
-            if let lat = thisCoordinateRecord["lat"], lng = thisCoordinateRecord["lng"] {
+            if let lat = thisCoordinateRecord["lat"], let lng = thisCoordinateRecord["lng"] {
                 coordinates.append(CLLocationCoordinate2DMake(lat, lng))
             }
         }
         
-        let polygon: MKPolygon = MKPolygon(coordinates: UnsafeMutablePointer<CLLocationCoordinate2D>(coordinates), count: coordinates.count)
-        polygon.title = aDecoder.decodeObjectForKey("title") as? String
+        let polygon: MKPolygon = MKPolygon(coordinates: UnsafeMutablePointer<CLLocationCoordinate2D>(mutating: coordinates), count: coordinates.count)
+        polygon.title = aDecoder.decodeObject(forKey: "title") as? String
         
         self.init(polygon: polygon)
     }

@@ -22,38 +22,38 @@ class NeighborhoodPopoverController : AreaPopoverController, UITableViewDataSour
         
         if let
             areaName = super.polygon?.name,
-            selectedYear = super.selectedYear,
-            accessAlpha = super.accessibilityAlpha
+            let selectedYear = super.selectedYear,
+            let accessAlpha = super.accessibilityAlpha
         {
             let accessAdjective = accessibilityAdjectiveForAlpha(accessAlpha)
             let accessNoun = accessibilityNounForAlpha(accessAlpha)
             
             heading.text = areaName
-            subtitle.text = accessAdjective.uppercaseString
-            bodyText.text = String(format: "In %d, the %@ community was among the neighborhoods with %@ to businesses of this type.".localized, selectedYear, areaName.capitalizedString, accessNoun.lowercaseString)
+            subtitle.text = accessAdjective.uppercased()
+            bodyText.text = String(format: "In %d, the %@ community was among the neighborhoods with %@ to businesses of this type.".localized, selectedYear, areaName.capitalized, accessNoun.lowercased())
         }
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = table.dequeueReusableCellWithIdentifier("sociographicCell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = table.dequeueReusableCell(withIdentifier: "sociographicCell")
         
         if let
             perCapitaIncome = super.record?.perCapitaIncome,
-            percentPoverty = super.record?.percentHouseholdsBelowPoverty,
-            percent16Unemployed = super.record?.percent16Unemployed,
-            percent25Unemployed = super.record?.percent25Unemployed,
-            hardshipIndex = super.record?.hardshipIndex
+            let percentPoverty = super.record?.percentHouseholdsBelowPoverty,
+            let percent16Unemployed = super.record?.percent16Unemployed,
+            let percent25Unemployed = super.record?.percent25Unemployed,
+            let hardshipIndex = super.record?.hardshipIndex
         {
-            switch indexPath.row {
+            switch (indexPath as NSIndexPath).row {
             case 0:
                 cell?.textLabel?.text = "Per-capita income"
-                let currencyFormatter = NSNumberFormatter()
-                currencyFormatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
-                cell?.detailTextLabel?.text = currencyFormatter.stringFromNumber(perCapitaIncome)
+                let currencyFormatter = NumberFormatter()
+                currencyFormatter.numberStyle = NumberFormatter.Style.currency
+                cell?.detailTextLabel?.text = currencyFormatter.string(from: NSNumber(value: perCapitaIncome))
                 break
             case 1:
                 cell?.textLabel?.text = "Below poverty"

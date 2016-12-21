@@ -20,7 +20,7 @@ class AboutViewController : UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
     }
     
-    override func viewDidAppear(animated: Bool) {
-        web.loadRequest(NSURLRequest(URL: NSURL(string: "http://www.chicago-oasis.org/about-ios.md?template=no-header")!))
+    override func viewDidAppear(_ animated: Bool) {
+        web.loadRequest(URLRequest(url: URL(string: "http://www.chicago-oasis.org/about-ios.md?template=no-header")!))
     }
 }

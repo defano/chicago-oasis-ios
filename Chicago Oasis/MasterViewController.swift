@@ -13,34 +13,34 @@ class MasterViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
     var detailViewController: DetailViewController?
-    var licenses: [LicenseRecord] = []
-    var visibleLicenses: [LicenseRecord] = []
+    var licenses: [License] = []
+    var visibleLicenses: [License] = []
 
     // MARK: - UITableViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.licenses = LicenseDAO.licenses
+        self.licenses = LicenseService.sharedInstance.licenses
         self.visibleLicenses = licenses
         
         searchBar.delegate = self
     }
 
-    override func viewWillAppear(animated: Bool) {
-        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+    override func viewWillAppear(_ animated: Bool) {
+        self.clearsSelectionOnViewWillAppear = self.splitViewController!.isCollapsed
         super.viewWillAppear(animated)
     }
 
     // MARK: - Segues
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let license = visibleLicenses[indexPath.row]
-                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
+                let license = visibleLicenses[(indexPath as NSIndexPath).row]
+                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
                 controller.license = license
-                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
         }
@@ -48,7 +48,7 @@ class MasterViewController: UITableViewController, UISearchBarDelegate {
     
     // MARK: - Search Bar
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         visibleLicenses = []
         
         if (searchText.isEmpty) {
@@ -58,7 +58,7 @@ class MasterViewController: UITableViewController, UISearchBarDelegate {
         else {
             for thisLicense in licenses {
                 // Name of license matches search text
-                if thisLicense.title.uppercaseString.containsString(searchText.uppercaseString) {
+                if thisLicense.title.uppercased().contains(searchText.uppercased()) {
                     visibleLicenses.append(thisLicense)
                 }
                     
@@ -76,14 +76,14 @@ class MasterViewController: UITableViewController, UISearchBarDelegate {
 
     // MARK: - UITableViewDataSource
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return visibleLicenses.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
-        let license = visibleLicenses[indexPath.row]
+        let license = visibleLicenses[(indexPath as NSIndexPath).row]
         cell.textLabel!.text = license.title
         cell.detailTextLabel!.text = "\(license.earliestYear) - \(license.latestYear)"
         

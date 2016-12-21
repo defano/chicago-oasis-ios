@@ -18,17 +18,16 @@ class BusinessPopoverController : AreaPopoverController {
     override func viewDidLoad() {
         if let
             businessName = super.criticalBusiness?.dbaName,
-            address = super.criticalBusiness?.address,
-            atRiskPop = super.criticalBusiness?.atRiskPop
+            let address = super.criticalBusiness?.address,
+            let atRiskPop = super.criticalBusiness?.atRiskPop
         {
-            let numberFormatter = NSNumberFormatter()
-            numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = NumberFormatter.Style.decimal
 
-            heading.text = businessName.capitalizedString
-            subtitle.text = address.uppercaseString
-            body.text = String(format: "If this business were to close, a population of %@ would live more than a mile away from a competing business.".localized, numberFormatter.stringFromNumber(atRiskPop)!)
+            heading.text = businessName.capitalized
+            subtitle.text = address.uppercased()
+            
+            body.text = String(format: "If this business were to close, a population of %@ would live more than a mile away from a competing business.".localized, numberFormatter.string(from: NSNumber(value: atRiskPop))!)
         }
     }
 }
-
-//If this business were to close, a population of 236,652 would live more than a mile away from a competing business.

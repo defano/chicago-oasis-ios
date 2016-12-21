@@ -19,19 +19,19 @@ class CensusPopoverController : AreaPopoverController {
     override func viewDidLoad() {
         if let
             selectedYear = super.selectedYear,
-            areaName = super.polygon?.name,
-            accessAlpha = super.accessibilityAlpha,
-            oneMile = super.accessibilityRecord?.oneMile,
-            twoMile = super.accessibilityRecord?.twoMile,
-            threeMile = super.accessibilityRecord?.threeMile
+            let areaName = super.polygon?.name,
+            let accessAlpha = super.accessibilityAlpha,
+            let oneMile = super.accessibilityRecord?.oneMile,
+            let twoMile = super.accessibilityRecord?.twoMile,
+            let threeMile = super.accessibilityRecord?.threeMile
         {
             let accessAdjective = accessibilityAdjectiveForAlpha(accessAlpha)
             
             heading.text = areaName
-            subtitle.text = accessAdjective.uppercaseString
+            subtitle.text = accessAdjective.uppercased()
             
             bodyText.text = String(format: "In %d, %@ had an average of %d business(es) of this kind within one mile of every resident, %d within two miles, and %d within three miles.".localized, selectedYear, areaName, oneMile, twoMile, threeMile)
-            bodySubtext.text = String(format: "This makes %@ among the %@ census tracts in Chicago.".localized, areaName, accessAdjective.lowercaseString)
+            bodySubtext.text = String(format: "This makes %@ among the %@ census tracts in Chicago.".localized, areaName, accessAdjective.lowercased())
         }
     }
 }

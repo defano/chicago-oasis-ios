@@ -9,5 +9,5 @@
 import Foundation
 
 enum MapType {
-    case Neighborhoods, CensusTracts
+    case neighborhoods, censusTracts
 }

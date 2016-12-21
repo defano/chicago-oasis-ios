@@ -13,8 +13,6 @@ import Kml_swift
 import XCGLogger
 
 class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentationControllerDelegate {
-
-    let logger = XCGLogger()
     
     // Default centerpoint of the displayed map; Chicago Loop
     let chicagoLatitude = 41.870311265875358, chicagoLongitude = -87.68412364213323
@@ -33,21 +31,21 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     @IBOutlet weak var yearSelection: UISlider!
     
     var selectedYear = 0
-    var selectedMap: MapType = MapType.Neighborhoods
+    var selectedMap: MapType = MapType.neighborhoods
     
     var neighborhoodIndexes: [String:AccessibilityRecord]?
     var censusIndexes: [String:AccessibilityRecord]?
-    var criticalBusinesses: [String:CriticalBusinessRecord] = [:]
-    var license: LicenseRecord?
+    var criticalBusinesses: [String:CriticalBusiness] = [:]
+    var license: License?
     
     // MARK: - UIViewController
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         // Possible on iPad devices where detail view is initially shown
         if (license == nil) {
-            license = LicenseDAO.licenses[0]
+            license = LicenseService.sharedInstance.licenses[0]
         }
         
         let centerCoordinate = CLLocationCoordinate2D(latitude: chicagoLatitude, longitude: chicagoLongitude)
@@ -63,7 +61,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     
     // MARK: - IB Actions
     
-    @IBAction func onYearSelectionChanged(sender: UISlider) {
+    @IBAction func onYearSelectionChanged(_ sender: UISlider) {
         if (self.selectedYear != Int(round(yearSelection.value))) {
             self.selectedYear = Int(round(yearSelection.value))
             redrawMap(false)
@@ -73,37 +71,37 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     @IBAction func onMapTypeSelectionChanged() {
         switch mapTypeSelection.selectedSegmentIndex {
         case 0:
-            self.selectedMap = MapType.Neighborhoods
+            self.selectedMap = MapType.neighborhoods
             break;
         default:
-            self.selectedMap = MapType.CensusTracts
+            self.selectedMap = MapType.censusTracts
             break;
         }
         
         redrawMap(true)
     }
 
-    @IBAction func onShowCriticalChanged(sender: AnyObject) {
+    @IBAction func onShowCriticalChanged(_ sender: AnyObject) {
         updateCriticalBusinesses()
     }
     
     
-    @IBAction func onRelativeShadingChanged(sender: AnyObject) {
+    @IBAction func onRelativeShadingChanged(_ sender: AnyObject) {
         reshadeVisiblePolygons()
     }
     
     // MARK: - Map Interaction
     
-    func onMapWasTapped (tap: UIGestureRecognizer) {
-        let tapPoint:CGPoint = tap.locationInView(map)
-        let tapCoordinate:CLLocationCoordinate2D = map.convertPoint(tapPoint, toCoordinateFromView: map)
+    func onMapWasTapped (_ tap: UIGestureRecognizer) {
+        let tapPoint:CGPoint = tap.location(in: map)
+        let tapCoordinate:CLLocationCoordinate2D = map.convert(tapPoint, toCoordinateFrom: map)
         let tapCoordinateRegion: MKCoordinateRegion = MKCoordinateRegionMake(tapCoordinate, MKCoordinateSpanMake(0, 0))
         let touchMapRect: MKMapRect = MKMapRectForCoordinateRegion(tapCoordinateRegion)
         
         for annotation in map.annotations {
-            if let annotationView = map.viewForAnnotation(annotation) {
-                let annotationBounds = annotationView.convertRect(annotationView.bounds, toView: map)
-                if annotationBounds.intersects(CGRectMake(tapPoint.x, tapPoint.y, 0, 0)) {
+            if let annotationView = map.view(for: annotation) {
+                let annotationBounds = annotationView.convert(annotationView.bounds, to: map)
+                if annotationBounds.intersects(CGRect(x: tapPoint.x, y: tapPoint.y, width: 0, height: 0)) {
                     annotationView.canShowCallout = false
                     annotationWasTapped(annotationView)
                     return
@@ -111,26 +109,26 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
             }
         }
         
-        for (index, overlay) in map.overlays.enumerate() {
-            if overlay.isKindOfClass(MKPolygon) {
+        for (index, overlay) in map.overlays.enumerated() {
+            if overlay.isKind(of: MKPolygon.self) {
                 let polygon:MKPolygon = overlay as! MKPolygon
-                if (polygon.intersectsMapRect(touchMapRect)) {
-                    polygonWasTapped(PolygonDAO.getPolygons(selectedMap)[index])
+                if (polygon.intersects(touchMapRect)) {
+                    polygonWasTapped(PolygonService.sharedInstance.getPolygons(selectedMap)[index])
                     return
                 }
             }
         }
     }
     
-    func annotationWasTapped(annotationView: MKAnnotationView) {
-        let popover = storyboard!.instantiateViewControllerWithIdentifier("businessPopover") as! BusinessPopoverController
+    func annotationWasTapped(_ annotationView: MKAnnotationView) {
+        let popover = storyboard!.instantiateViewController(withIdentifier: "businessPopover") as! BusinessPopoverController
         
         popover.criticalBusiness = criticalBusinesses[annotationView.annotation!.title!!]
 
         presentAnnotationPopover(popover, annotation: annotationView)
     }
     
-    func polygonWasTapped(polygon: Polygon) {
+    func polygonWasTapped(_ polygon: Polygon) {
         
         // Instantiate the popover
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -141,17 +139,17 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
             return
         }
         
-        if (selectedMap == MapType.Neighborhoods) {
-            areaPopover = storyboard.instantiateViewControllerWithIdentifier("neighborhoodPopover") as! NeighborhoodPopoverController
+        if (selectedMap == MapType.neighborhoods) {
+            areaPopover = storyboard.instantiateViewController(withIdentifier: "neighborhoodPopover") as! NeighborhoodPopoverController
         } else {
-            areaPopover = storyboard.instantiateViewControllerWithIdentifier("censusPopover") as! CensusPopoverController
+            areaPopover = storyboard.instantiateViewController(withIdentifier: "censusPopover") as! CensusPopoverController
         }
         
         // Initialize it with statistical data
         var minIndex = 0.0, maxIndex = 0.0
-        indexRangeForPolygons(PolygonDAO.getPolygons(selectedMap), minIndex: &minIndex, maxIndex: &maxIndex)
+        indexRangeForPolygons(PolygonService.sharedInstance.getPolygons(selectedMap), minIndex: &minIndex, maxIndex: &maxIndex)
             
-        areaPopover!.record = SocioeconomicDAO.data[polygon.id]
+        areaPopover!.record = SocioeconomicService.sharedInstance.data[polygon.id]
         areaPopover!.accessibilityRecord = accessibilityForArea(polygon.id)
         areaPopover!.polygon = polygon
         areaPopover!.accessibilityAlpha = alphaForAccessibilityIndex(accessibilityForArea(polygon.id)?.index, minIndex: minIndex, maxIndex: maxIndex)
@@ -161,48 +159,48 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         presentPolygonPopover(areaPopover!, polygon: polygon)
     }
     
-    func presentAnnotationPopover(popover: UIViewController, annotation: MKAnnotationView) {
+    func presentAnnotationPopover(_ popover: UIViewController, annotation: MKAnnotationView) {
         
-        let anchorPoint = map.convertCoordinate(annotation.annotation!.coordinate, toPointToView: self.view)
-        let anchorRect = CGRectMake(anchorPoint.x, anchorPoint.y, 0, 0)
+        let anchorPoint = map.convert(annotation.annotation!.coordinate, toPointTo: self.view)
+        let anchorRect = CGRect(x: anchorPoint.x, y: anchorPoint.y, width: 0, height: 0)
         
         presentPopover(popover, anchor: anchorRect)
     }
     
-    func presentPolygonPopover (popover: UIViewController, polygon: Polygon) {
+    func presentPolygonPopover (_ popover: UIViewController, polygon: Polygon) {
         
         let centroidRect = zeroSizedMapRectForCoordinate(polygon.overlay!.coordinate)
         let centroidMapRect = MKCoordinateRegionForMapRect(centroidRect)
-        let centroidViewRect = map.convertRegion(centroidMapRect, toRectToView: self.view)
+        let centroidViewRect = map.convertRegion(centroidMapRect, toRectTo: self.view)
         
         presentPopover(popover, anchor: centroidViewRect)
     }
     
-    func presentPopover (popover: UIViewController, anchor: CGRect) {
-        popover.modalPresentationStyle = UIModalPresentationStyle.Popover
+    func presentPopover (_ popover: UIViewController, anchor: CGRect) {
+        popover.modalPresentationStyle = UIModalPresentationStyle.popover
 
         // Anchor the popover
         popover.popoverPresentationController?.sourceView = self.view
         popover.popoverPresentationController?.sourceRect = anchor
         popover.popoverPresentationController?.delegate = self
         
-        self.presentViewController(popover, animated: true, completion: nil)
+        self.present(popover, animated: true, completion: nil)
     }
     
     // MARK: - UIPopoverPresentationControllerDelegate
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         // Return no adaptive presentation style, use default presentation behaviour
-        return .None
+        return .none
     }
     
     // MARK: - MKMapViewDelegate
     
-    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         reshadeVisiblePolygons()
     }
     
-    func MKMapRectForCoordinateRegion(region: MKCoordinateRegion!) -> MKMapRect {
+    func MKMapRectForCoordinateRegion(_ region: MKCoordinateRegion!) -> MKMapRect {
         let a:MKMapPoint = MKMapPointForCoordinate(CLLocationCoordinate2DMake(region.center.latitude + region.span.latitudeDelta / 2, region.center.longitude - region.span.longitudeDelta / 2))
         
         let b:MKMapPoint = MKMapPointForCoordinate(CLLocationCoordinate2DMake(region.center.latitude - region.span.latitudeDelta / 2, region.center.longitude + region.span.longitudeDelta / 2))
@@ -210,25 +208,25 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         return MKMapRectMake(min(a.x, b.x), min(a.y,b.y), abs(a.x-b.x), abs(a.y-b.y))
     }
     
-    func zeroSizedMapRectForCoordinate (point: CLLocationCoordinate2D) -> MKMapRect {
+    func zeroSizedMapRectForCoordinate (_ point: CLLocationCoordinate2D) -> MKMapRect {
         let p1 = MKMapPointForCoordinate (point);
         let p2 = MKMapPointForCoordinate (point);
         
         return MKMapRectMake(fmin(p1.x,p2.x), fmin(p1.y,p2.y), fabs(p1.x-p2.x), fabs(p1.y-p2.y));
     }
     
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let polygonView = MKPolygonRenderer(overlay: overlay)
         
         // By default, area polys are shaded grey; if they don't change color its because we're missing data
-        polygonView.strokeColor = UIColor.grayColor()
+        polygonView.strokeColor = UIColor.gray
         polygonView.lineWidth=2.0
-        polygonView.fillColor = UIColor.grayColor().colorWithAlphaComponent(0.5)
+        polygonView.fillColor = UIColor.gray.withAlphaComponent(0.5)
         
         return polygonView
     }
     
-    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         for thisAnnotationView in views {
             thisAnnotationView.canShowCallout = false
         }
@@ -247,17 +245,17 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
      * Reshades (colors) polygons visible on the map using current data selections
      */
     func reshadeVisiblePolygons() {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async {
             let visiblePolygons = self.visiblePolygons()
-            let activePolygons = self.relativeShadingSelection.on ? visiblePolygons : PolygonDAO.getPolygons(self.selectedMap)
+            let activePolygons = self.relativeShadingSelection.isOn ? visiblePolygons : PolygonService.sharedInstance.getPolygons(self.selectedMap)
             
             var minIndex = 0.0, maxIndex = 0.0
             
             self.indexRangeForPolygons(activePolygons, minIndex: &minIndex, maxIndex: &maxIndex)
             
             for poly in visiblePolygons {
-                if let renderer = self.map.rendererForOverlay(poly.overlay!) as? MKPolygonRenderer, index = self.accessibilityForArea(poly.id)?.index {
-                    renderer.strokeColor = UIColor.whiteColor()
+                if let renderer = self.map.renderer(for: poly.overlay!) as? MKPolygonRenderer, let index = self.accessibilityForArea(poly.id)?.index {
+                    renderer.strokeColor = UIColor.white
                     renderer.lineWidth=2.0
                     renderer.fillColor = UIColor(red:0.4, green:0.6, blue:1.0, alpha:CGFloat(self.alphaForAccessibilityIndex(index, minIndex: minIndex, maxIndex: maxIndex)))
                 }
@@ -274,8 +272,8 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     func redrawPolygons() {
         self.map.removeOverlays(self.map.overlays)
         
-        for poly in PolygonDAO.getPolygons(self.selectedMap) {
-            self.map.addOverlay(poly.overlay!)
+        for poly in PolygonService.sharedInstance.getPolygons(self.selectedMap) {
+            self.map.add(poly.overlay!)
         }
         
         reshadeVisiblePolygons()
@@ -304,8 +302,8 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     private func updateCriticalBusinesses() {
         self.map.removeAnnotations(self.map.annotations)
 
-        if (criticalBusinessSelection.on) {
-            CriticalBusinessDAO.getCriticalBusinesses(selectedYear, licenseType: (license?.id)!, onSuccess: { (businesses) in
+        if (criticalBusinessSelection.isOn) {
+            CriticalBusinessService.sharedInstance.getCriticalBusinesses(selectedYear, licenseType: (license?.id)!, onSuccess: { (businesses) in
                 
                 self.criticalBusinesses = [:]
                 for business in businesses {
@@ -320,7 +318,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
                 }
             
                 }) {
-                    self.logger.error("Failed to get critical businesses.")
+                    logger.error("Failed to get critical businesses.")
             }
         }
     }
@@ -330,15 +328,15 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
      * and refreshes the map. When resetPolygons: is true, all polygons (neighborhood/census 
      * boundaries) will be removed and redrawn; set to true only when changing map types.
      */
-    private func redrawMap (redrawPolygons: Bool) {
-        AccessibilityDAO.getAccessibility(selectedMap, year: selectedYear, licenseType: (license?.id)!, onSuccess:
+    private func redrawMap (_ redrawPolygons: Bool) {
+        AccessibilityService.sharedInstance.getAccessibility(selectedMap, year: selectedYear, licenseType: (license?.id)!, onSuccess:
             { (indexes) in
 
                 switch self.selectedMap {
-                case MapType.Neighborhoods:
+                case MapType.neighborhoods:
                     self.neighborhoodIndexes = indexes
                     break
-                case MapType.CensusTracts:
+                case MapType.censusTracts:
                     self.censusIndexes = indexes
                     break
                 }
@@ -352,11 +350,11 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
                 self.updateCriticalBusinesses()
                 self.updateSelectionLabel()
             }) {
-                self.logger.error("Failed to get accessibility data for \(self.selectedMap) in year \(self.selectedYear) for license type \(self.license?.id)")
+                logger.error("Failed to get accessibility data for \(self.selectedMap) in year \(self.selectedYear) for license type \(self.license?.id)")
         }
     }
     
-    private func redrawMapNoData (redrawPolygons: Bool) {
+    private func redrawMapNoData (_ redrawPolygons: Bool) {
         
     }
     
@@ -370,15 +368,15 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
      * area with another. It has no absolute meaning and is not comparable across business
      * licenses or across map types
      */
-    private func accessibilityForArea (id: String?) -> AccessibilityRecord? {
+    private func accessibilityForArea (_ id: String?) -> AccessibilityRecord? {
         guard id != nil else {
             return nil
         }
         
         switch selectedMap {
-        case .Neighborhoods:
+        case .neighborhoods:
             return neighborhoodIndexes?[id!]
-        case .CensusTracts:
+        case .censusTracts:
             return censusIndexes?[id!]
         }
     }
@@ -389,11 +387,11 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     func visiblePolygons() -> [Polygon] {
         var visiblePolygons: [Polygon] = []
         
-        for (index, overlay) in map.overlays.enumerate() {
+        for (index, overlay) in map.overlays.enumerated() {
             let polygonRect = overlay.boundingMapRect
             let mapRect = map.visibleMapRect
             if (MKMapRectIntersectsRect(mapRect, polygonRect)) {
-                visiblePolygons.append(PolygonDAO.getPolygons(selectedMap)[index])
+                visiblePolygons.append(PolygonService.sharedInstance.getPolygons(selectedMap)[index])
             }
         }
         
@@ -408,7 +406,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
      * the number alphaBuckets. The intent is to bucket each index so that each polygon/area 
      * drawn on the map is assigned one of 'bucketCount' shades.
      */
-    func alphaForAccessibilityIndex (index: Double?, minIndex: Double, maxIndex: Double) -> Double {
+    func alphaForAccessibilityIndex (_ index: Double?, minIndex: Double, maxIndex: Double) -> Double {
         guard index != nil else {
             return 0.0
         }
@@ -422,7 +420,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
      * Determines the minimum and maximum accessibility indicies present within the given set
      * of polygons.
      */
-    func indexRangeForPolygons(polygons: [Polygon], inout minIndex: Double, inout maxIndex: Double) {
+    func indexRangeForPolygons(_ polygons: [Polygon], minIndex: inout Double, maxIndex: inout Double) {
         minIndex = Double.infinity
         maxIndex = 0
         

@@ -14,12 +14,12 @@ class AreaPopoverController : UIViewController {
     var polygon: Polygon?
     var record: SocioeconomicRecord?
     var accessibilityRecord: AccessibilityRecord?
-    var criticalBusiness: CriticalBusinessRecord?
+    var criticalBusiness: CriticalBusiness?
     var accessibilityAlpha: Double?
     var selectedYear: Int?
     
-    func accessibilityAdjectiveForAlpha (alpha: Double?) -> String {
-        if (alpha >= 0 && alpha < 0.2) {
+    func accessibilityAdjectiveForAlpha (_ alpha: Double) -> String {
+        if (alpha >= 0.0 && alpha < 0.2) {
             return "most deserted".localized
         } else if (alpha >= 0.2 && alpha < 0.4) {
             return "largely deserted".localized
@@ -32,7 +32,7 @@ class AreaPopoverController : UIViewController {
         }
     }
     
-    func accessibilityNounForAlpha (alpha: Double?) -> String {
+    func accessibilityNounForAlpha (_ alpha: Double) -> String {
         if (alpha >= 0 && alpha < 0.2) {
             return "very poor access".localized
         } else if (alpha >= 0.2 && alpha < 0.4) {

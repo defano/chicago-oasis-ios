@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		275D18104439B84288D8119A /* Pods_Chicago_Oasis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64A83E34F40AE447D97B58FC /* Pods_Chicago_Oasis.framework */; };
-		C9155A871CD0171400D6B995 /* CriticalBusinessDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9155A861CD0171400D6B995 /* CriticalBusinessDAO.swift */; };
-		C9155A891CD0474300D6B995 /* SocioeconomicDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9155A881CD0474300D6B995 /* SocioeconomicDAO.swift */; };
+		12B0E80C1D7D2F96FD41BF5F /* Pods_Chicago_Oasis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27C7D08FA1725F5A5DDE3033 /* Pods_Chicago_Oasis.framework */; };
+		C9155A871CD0171400D6B995 /* CriticalBusinessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9155A861CD0171400D6B995 /* CriticalBusinessService.swift */; };
+		C9155A891CD0474300D6B995 /* SocioeconomicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9155A881CD0474300D6B995 /* SocioeconomicService.swift */; };
 		C91BBA421CCBC05F005477D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BBA411CCBC05F005477D4 /* AppDelegate.swift */; };
 		C91BBA441CCBC05F005477D4 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BBA431CCBC05F005477D4 /* MasterViewController.swift */; };
 		C91BBA461CCBC05F005477D4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BBA451CCBC05F005477D4 /* DetailViewController.swift */; };
@@ -22,31 +22,28 @@
 		C944D8A81CCEF3F9005D136E /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C944D8A71CCEF3F9005D136E /* SplitViewController.swift */; };
 		C956BD941CD2740D00B080E6 /* NeighborhoodPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C956BD931CD2740D00B080E6 /* NeighborhoodPopoverController.swift */; };
 		C95AC6431CCBC27A0068EFEB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C95AC6421CCBC27A0068EFEB /* MapKit.framework */; };
-		C95AC6461CCC20F00068EFEB /* LicenseDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95AC6451CCC20F00068EFEB /* LicenseDAO.swift */; };
+		C95AC6461CCC20F00068EFEB /* LicenseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95AC6451CCC20F00068EFEB /* LicenseService.swift */; };
 		C95BBF521CECE06C00E44F18 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95BBF511CECE06C00E44F18 /* String+Localized.swift */; };
 		C95BBF541CECE23600E44F18 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C95BBF531CECE23600E44F18 /* Localizable.strings */; };
 		C99691991CD2F4D2007DE451 /* CensusPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99691981CD2F4D2007DE451 /* CensusPopoverController.swift */; };
 		C996919B1CD2F4F9007DE451 /* AreaPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C996919A1CD2F4F9007DE451 /* AreaPopoverController.swift */; };
-		C999314F1CCC6BD700FB9701 /* PolygonDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C999314E1CCC6BD700FB9701 /* PolygonDAO.swift */; };
+		C999314F1CCC6BD700FB9701 /* PolygonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C999314E1CCC6BD700FB9701 /* PolygonService.swift */; };
 		C99931511CCC6EE900FB9701 /* neighborhoods.kml in Resources */ = {isa = PBXBuildFile; fileRef = C99931501CCC6EE900FB9701 /* neighborhoods.kml */; };
 		C99931551CCD1A3800FB9701 /* census.kml in Resources */ = {isa = PBXBuildFile; fileRef = C99931541CCD1A3700FB9701 /* census.kml */; };
 		C99931571CCD862600FB9701 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99931561CCD862600FB9701 /* AboutViewController.swift */; };
-		C99931591CCD88F500FB9701 /* AccessibilityDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99931581CCD88F500FB9701 /* AccessibilityDAO.swift */; };
+		C99931591CCD88F500FB9701 /* AccessibilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99931581CCD88F500FB9701 /* AccessibilityService.swift */; };
 		C999315B1CCD898D00FB9701 /* MapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C999315A1CCD898D00FB9701 /* MapType.swift */; };
-		C9C352161CD3E35400392A99 /* CriticalBusinessRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C352151CD3E35400392A99 /* CriticalBusinessRecord.swift */; };
-		C9C352181CD3E37D00392A99 /* SocioeconomicRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C352171CD3E37D00392A99 /* SocioeconomicRecord.swift */; };
-		C9C3521A1CD3E39F00392A99 /* LicenseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C352191CD3E39F00392A99 /* LicenseRecord.swift */; };
 		C9C3521C1CD3E3B200392A99 /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C3521B1CD3E3B200392A99 /* Polygon.swift */; };
-		C9C3521E1CD3E3C800392A99 /* AccessibilityRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C3521D1CD3E3C800392A99 /* AccessibilityRecord.swift */; };
 		C9C352201CD4076900392A99 /* BusinessPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C3521F1CD4076900392A99 /* BusinessPopoverController.swift */; };
 		C9C352221CD50DAA00392A99 /* AlertFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C352211CD50DAA00392A99 /* AlertFacade.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		479286B830A68E12BDF87D7C /* Pods-Chicago Oasis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chicago Oasis.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chicago Oasis/Pods-Chicago Oasis.debug.xcconfig"; sourceTree = "<group>"; };
-		64A83E34F40AE447D97B58FC /* Pods_Chicago_Oasis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chicago_Oasis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C9155A861CD0171400D6B995 /* CriticalBusinessDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CriticalBusinessDAO.swift; sourceTree = "<group>"; };
-		C9155A881CD0474300D6B995 /* SocioeconomicDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocioeconomicDAO.swift; sourceTree = "<group>"; };
+		27C7D08FA1725F5A5DDE3033 /* Pods_Chicago_Oasis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chicago_Oasis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		36D7E4676CFCDEF9D1DC7228 /* Pods-Chicago Oasis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chicago Oasis.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chicago Oasis/Pods-Chicago Oasis.debug.xcconfig"; sourceTree = "<group>"; };
+		A5DE96D6D90A735B6FD07E6D /* Pods-Chicago Oasis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chicago Oasis.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chicago Oasis/Pods-Chicago Oasis.release.xcconfig"; sourceTree = "<group>"; };
+		C9155A861CD0171400D6B995 /* CriticalBusinessService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CriticalBusinessService.swift; sourceTree = "<group>"; };
+		C9155A881CD0474300D6B995 /* SocioeconomicService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocioeconomicService.swift; sourceTree = "<group>"; };
 		C91BBA3E1CCBC05F005477D4 /* Chicago Oasis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chicago Oasis.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C91BBA411CCBC05F005477D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C91BBA431CCBC05F005477D4 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -61,25 +58,20 @@
 		C944D8A71CCEF3F9005D136E /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		C956BD931CD2740D00B080E6 /* NeighborhoodPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeighborhoodPopoverController.swift; sourceTree = "<group>"; };
 		C95AC6421CCBC27A0068EFEB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		C95AC6451CCC20F00068EFEB /* LicenseDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseDAO.swift; sourceTree = "<group>"; };
+		C95AC6451CCC20F00068EFEB /* LicenseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseService.swift; sourceTree = "<group>"; };
 		C95BBF511CECE06C00E44F18 /* String+Localized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		C95BBF531CECE23600E44F18 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		C99691981CD2F4D2007DE451 /* CensusPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CensusPopoverController.swift; sourceTree = "<group>"; };
 		C996919A1CD2F4F9007DE451 /* AreaPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AreaPopoverController.swift; sourceTree = "<group>"; };
-		C999314E1CCC6BD700FB9701 /* PolygonDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonDAO.swift; sourceTree = "<group>"; };
+		C999314E1CCC6BD700FB9701 /* PolygonService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonService.swift; sourceTree = "<group>"; };
 		C99931501CCC6EE900FB9701 /* neighborhoods.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = neighborhoods.kml; sourceTree = "<group>"; };
 		C99931541CCD1A3700FB9701 /* census.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = census.kml; sourceTree = "<group>"; };
 		C99931561CCD862600FB9701 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
-		C99931581CCD88F500FB9701 /* AccessibilityDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityDAO.swift; sourceTree = "<group>"; };
+		C99931581CCD88F500FB9701 /* AccessibilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityService.swift; sourceTree = "<group>"; };
 		C999315A1CCD898D00FB9701 /* MapType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapType.swift; sourceTree = "<group>"; };
-		C9C352151CD3E35400392A99 /* CriticalBusinessRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CriticalBusinessRecord.swift; sourceTree = "<group>"; };
-		C9C352171CD3E37D00392A99 /* SocioeconomicRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocioeconomicRecord.swift; sourceTree = "<group>"; };
-		C9C352191CD3E39F00392A99 /* LicenseRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseRecord.swift; sourceTree = "<group>"; };
 		C9C3521B1CD3E3B200392A99 /* Polygon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
-		C9C3521D1CD3E3C800392A99 /* AccessibilityRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityRecord.swift; sourceTree = "<group>"; };
 		C9C3521F1CD4076900392A99 /* BusinessPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessPopoverController.swift; sourceTree = "<group>"; };
 		C9C352211CD50DAA00392A99 /* AlertFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertFacade.swift; sourceTree = "<group>"; };
-		FE7FD2AED55C3EBDF6983B64 /* Pods-Chicago Oasis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chicago Oasis.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chicago Oasis/Pods-Chicago Oasis.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,29 +80,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				C95AC6431CCBC27A0068EFEB /* MapKit.framework in Frameworks */,
-				275D18104439B84288D8119A /* Pods_Chicago_Oasis.framework in Frameworks */,
+				12B0E80C1D7D2F96FD41BF5F /* Pods_Chicago_Oasis.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4694EBF53EEE23177F496A4D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				36D7E4676CFCDEF9D1DC7228 /* Pods-Chicago Oasis.debug.xcconfig */,
+				A5DE96D6D90A735B6FD07E6D /* Pods-Chicago Oasis.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		C23DA39CD5B838C11CD502A3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				C95AC6421CCBC27A0068EFEB /* MapKit.framework */,
-				64A83E34F40AE447D97B58FC /* Pods_Chicago_Oasis.framework */,
+				27C7D08FA1725F5A5DDE3033 /* Pods_Chicago_Oasis.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		C4855A9123A60C370E9BF6C3 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				479286B830A68E12BDF87D7C /* Pods-Chicago Oasis.debug.xcconfig */,
-				FE7FD2AED55C3EBDF6983B64 /* Pods-Chicago Oasis.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		C908CB701CD00E920069F694 /* UI */ = {
@@ -137,8 +129,8 @@
 			children = (
 				C91BBA401CCBC05F005477D4 /* Chicago Oasis */,
 				C91BBA3F1CCBC05F005477D4 /* Products */,
-				C4855A9123A60C370E9BF6C3 /* Pods */,
 				C23DA39CD5B838C11CD502A3 /* Frameworks */,
+				4694EBF53EEE23177F496A4D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -170,16 +162,12 @@
 		C95AC6441CCC180D0068EFEB /* model */ = {
 			isa = PBXGroup;
 			children = (
-				C9155A881CD0474300D6B995 /* SocioeconomicDAO.swift */,
-				C9C352171CD3E37D00392A99 /* SocioeconomicRecord.swift */,
-				C9155A861CD0171400D6B995 /* CriticalBusinessDAO.swift */,
-				C9C352151CD3E35400392A99 /* CriticalBusinessRecord.swift */,
-				C95AC6451CCC20F00068EFEB /* LicenseDAO.swift */,
-				C9C352191CD3E39F00392A99 /* LicenseRecord.swift */,
-				C999314E1CCC6BD700FB9701 /* PolygonDAO.swift */,
+				C9155A881CD0474300D6B995 /* SocioeconomicService.swift */,
+				C9155A861CD0171400D6B995 /* CriticalBusinessService.swift */,
+				C95AC6451CCC20F00068EFEB /* LicenseService.swift */,
+				C999314E1CCC6BD700FB9701 /* PolygonService.swift */,
 				C9C3521B1CD3E3B200392A99 /* Polygon.swift */,
-				C99931581CCD88F500FB9701 /* AccessibilityDAO.swift */,
-				C9C3521D1CD3E3C800392A99 /* AccessibilityRecord.swift */,
+				C99931581CCD88F500FB9701 /* AccessibilityService.swift */,
 				C999315A1CCD898D00FB9701 /* MapType.swift */,
 			);
 			name = model;
@@ -201,13 +189,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C91BBA681CCBC060005477D4 /* Build configuration list for PBXNativeTarget "Chicago Oasis" */;
 			buildPhases = (
-				CE9AF5BC753CC9BEAABFC919 /* Check Pods Manifest.lock */,
+				FB5A0C6264854A03DB4C61B4 /* [CP] Check Pods Manifest.lock */,
 				C91BBA3A1CCBC05F005477D4 /* Sources */,
 				C91BBA3B1CCBC05F005477D4 /* Frameworks */,
 				C91BBA3C1CCBC05F005477D4 /* Resources */,
-				D143FE2476A26D2BEF792EA1 /* Embed Pods Frameworks */,
-				9228542FEFA64B5C734AD648 /* Copy Pods Resources */,
 				C9C352231CD563BD00392A99 /* ShellScript */,
+				C5BAFB541761AA969B4C7E93 /* [CP] Embed Pods Frameworks */,
+				924514F14DED288B30864234 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -225,12 +213,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Matt DeFano";
 				TargetAttributes = {
 					C91BBA3D1CCBC05F005477D4 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 5KS4BNQW58;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -275,19 +264,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9228542FEFA64B5C734AD648 /* Copy Pods Resources */ = {
+		924514F14DED288B30864234 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chicago Oasis/Pods-Chicago Oasis-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5BAFB541761AA969B4C7E93 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chicago Oasis/Pods-Chicago Oasis-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C9C352231CD563BD00392A99 /* ShellScript */ = {
@@ -303,34 +307,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" ad023fbc3daa1d73711964511b6c6e602c25046a 62921c369b327e959af13be043875afe7e99a1b6f769e98373f6ad5faa41d9b4";
 		};
-		CE9AF5BC753CC9BEAABFC919 /* Check Pods Manifest.lock */ = {
+		FB5A0C6264854A03DB4C61B4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		D143FE2476A26D2BEF792EA1 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chicago Oasis/Pods-Chicago Oasis-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -340,30 +329,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9155A871CD0171400D6B995 /* CriticalBusinessDAO.swift in Sources */,
+				C9155A871CD0171400D6B995 /* CriticalBusinessService.swift in Sources */,
 				C9C352201CD4076900392A99 /* BusinessPopoverController.swift in Sources */,
 				C996919B1CD2F4F9007DE451 /* AreaPopoverController.swift in Sources */,
 				C91BBA461CCBC05F005477D4 /* DetailViewController.swift in Sources */,
 				C944D8A61CCEF0BA005D136E /* LaunchViewController.swift in Sources */,
 				C944D8A81CCEF3F9005D136E /* SplitViewController.swift in Sources */,
-				C9C352161CD3E35400392A99 /* CriticalBusinessRecord.swift in Sources */,
 				C9C3521C1CD3E3B200392A99 /* Polygon.swift in Sources */,
 				C91BBA441CCBC05F005477D4 /* MasterViewController.swift in Sources */,
 				C956BD941CD2740D00B080E6 /* NeighborhoodPopoverController.swift in Sources */,
 				C99931571CCD862600FB9701 /* AboutViewController.swift in Sources */,
-				C95AC6461CCC20F00068EFEB /* LicenseDAO.swift in Sources */,
+				C95AC6461CCC20F00068EFEB /* LicenseService.swift in Sources */,
 				C99691991CD2F4D2007DE451 /* CensusPopoverController.swift in Sources */,
-				C99931591CCD88F500FB9701 /* AccessibilityDAO.swift in Sources */,
+				C99931591CCD88F500FB9701 /* AccessibilityService.swift in Sources */,
 				C943D1EF1CDE317F00941B5C /* UserDefaults.swift in Sources */,
-				C9C352181CD3E37D00392A99 /* SocioeconomicRecord.swift in Sources */,
-				C999314F1CCC6BD700FB9701 /* PolygonDAO.swift in Sources */,
-				C9C3521E1CD3E3C800392A99 /* AccessibilityRecord.swift in Sources */,
+				C999314F1CCC6BD700FB9701 /* PolygonService.swift in Sources */,
 				C95BBF521CECE06C00E44F18 /* String+Localized.swift in Sources */,
 				C91BBA421CCBC05F005477D4 /* AppDelegate.swift in Sources */,
 				C9C352221CD50DAA00392A99 /* AlertFacade.swift in Sources */,
 				C999315B1CCD898D00FB9701 /* MapType.swift in Sources */,
-				C9C3521A1CD3E39F00392A99 /* LicenseRecord.swift in Sources */,
-				C9155A891CD0474300D6B995 /* SocioeconomicDAO.swift in Sources */,
+				C9155A891CD0474300D6B995 /* SocioeconomicService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,8 +388,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -449,8 +436,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -469,6 +458,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -476,8 +466,9 @@
 		};
 		C91BBA691CCBC060005477D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 479286B830A68E12BDF87D7C /* Pods-Chicago Oasis.debug.xcconfig */;
+			baseConfigurationReference = 36D7E4676CFCDEF9D1DC7228 /* Pods-Chicago Oasis.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -488,13 +479,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.defano.chicagooasis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		C91BBA6A1CCBC060005477D4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FE7FD2AED55C3EBDF6983B64 /* Pods-Chicago Oasis.release.xcconfig */;
+			baseConfigurationReference = A5DE96D6D90A735B6FD07E6D /* Pods-Chicago Oasis.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -503,6 +496,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.defano.chicagooasis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

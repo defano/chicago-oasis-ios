@@ -20,16 +20,16 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
    
     // MARK: - UIVIewController
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return false
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
     }
     
     override func viewDidLoad() {
@@ -37,37 +37,37 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
         
         todoTable.dataSource = self
         todoTable.reloadData()
-        todoTable.separatorColor = UIColor.clearColor()
-        todoTable.backgroundColor = UIColor.clearColor() // Fix for some iPad models that override the UI builder values. Doh!
+        todoTable.separatorColor = UIColor.clear
+        todoTable.backgroundColor = UIColor.clear // Fix for some iPad models that override the UI builder values. Doh!
         todoTable.rowHeight = 20.0
     }
     
-    override func viewDidAppear(animated: Bool)  {
+    override func viewDidAppear(_ animated: Bool)  {
         super.viewDidAppear(animated)
         
-        LicenseDAO.loadLicenses(
+        LicenseService.sharedInstance.loadLicenses(
             {
                 self.licensesReady = true
                 self.segue()
             },
             onFailure: {
-                AlertFacade.alertFatal(FatalError.CantLoadRequiredData, from: self)
+                AlertFacade.alertFatal(FatalError.cantLoadRequiredData, from: self)
             })
         
-        SocioeconomicDAO.load(
+        SocioeconomicService.sharedInstance.load(
             {
                 self.socioeconomicReady = true
                 self.segue()
             }) {
-                AlertFacade.alertFatal(FatalError.CantLoadRequiredData, from: self)
+                AlertFacade.alertFatal(FatalError.cantLoadRequiredData, from: self)
             }
         
-        PolygonDAO.loadCensusTractBoundaries {
+        PolygonService.sharedInstance.loadCensusTractBoundaries {
             self.censusReady = true
             self.segue()
         }
         
-        PolygonDAO.loadNeighborhoodBoundaries {
+        PolygonService.sharedInstance.loadNeighborhoodBoundaries {
             self.neighborhoodsReady = true
             self.segue()
         }
@@ -75,30 +75,30 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
     
     // MARK: - UITableViewDataSource
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-        cell.backgroundColor = UIColor.clearColor()  // Fix for some iPad models that override the UI builder values. Doh!
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        cell.backgroundColor = UIColor.clear  // Fix for some iPad models that override the UI builder values. Doh!
         
-        switch indexPath.row {
+        switch (indexPath as NSIndexPath).row {
         case 2:
             cell.textLabel?.text = "Precomputing neighborhoods".localized
-            cell.accessoryType = neighborhoodsReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
+            cell.accessoryType = neighborhoodsReady ? UITableViewCellAccessoryType.checkmark : UITableViewCellAccessoryType.none
             break;
         case 3:
             cell.textLabel?.text = "Precomputing census tracts".localized
-            cell.accessoryType = censusReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
+            cell.accessoryType = censusReady ? UITableViewCellAccessoryType.checkmark : UITableViewCellAccessoryType.none
             break;
         case 1:
             cell.textLabel?.text = "Getting socioeconomic data".localized
-            cell.accessoryType = socioeconomicReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
+            cell.accessoryType = socioeconomicReady ? UITableViewCellAccessoryType.checkmark : UITableViewCellAccessoryType.none
             break;
         default:
             cell.textLabel?.text = "Getting business licenses".localized
-            cell.accessoryType = licensesReady ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
+            cell.accessoryType = licensesReady ? UITableViewCellAccessoryType.checkmark : UITableViewCellAccessoryType.none
             break;
         }
 
@@ -111,8 +111,8 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
         todoTable.reloadData()
         
         if (censusReady && neighborhoodsReady && licensesReady && socioeconomicReady) {
-            dispatch_async(dispatch_get_main_queue()){
-                self.performSegueWithIdentifier("next", sender: self)
+            DispatchQueue.main.async{
+                self.performSegue(withIdentifier: "next", sender: self)
             }
         }
     }

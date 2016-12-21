@@ -14,7 +14,7 @@ class UserDefaults {
     
     static var polygonCacheEnabled:Bool {
         get {
-            return NSUserDefaults.standardUserDefaults().boolForKey(polygonCacheEnabledIdentifier)
+            return Foundation.UserDefaults.standard.bool(forKey: polygonCacheEnabledIdentifier)
         }
     }
 }

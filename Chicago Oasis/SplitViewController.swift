@@ -13,11 +13,11 @@ class SplitViewController : UISplitViewController, UISplitViewControllerDelegate
  
     override func viewDidLoad() {
         let navigationController = self.viewControllers[self.viewControllers.count-1] as! UINavigationController
-        navigationController.topViewController!.navigationItem.leftBarButtonItem = self.displayModeButtonItem()
+        navigationController.topViewController!.navigationItem.leftBarButtonItem = self.displayModeButtonItem
         self.delegate = self
     }
     
-    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
         
         guard let secondaryAsNavController = secondaryViewController as? UINavigationController else {
             return false
