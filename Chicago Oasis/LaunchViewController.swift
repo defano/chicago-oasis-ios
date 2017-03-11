@@ -48,7 +48,7 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
         LicenseService.sharedInstance.loadLicenses(
             {
                 self.licensesReady = true
-                self.segue()
+                self.onWorkItemCompleted()
             },
             onFailure: {
                 AlertFacade.alertFatal(FatalError.cantLoadRequiredData, from: self)
@@ -57,26 +57,26 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
         SocioeconomicService.sharedInstance.load(
             {
                 self.socioeconomicReady = true
-                self.segue()
+                self.onWorkItemCompleted()
             }) {
                 AlertFacade.alertFatal(FatalError.cantLoadRequiredData, from: self)
             }
         
         PolygonService.sharedInstance.loadCensusTractBoundaries {
             self.censusReady = true
-            self.segue()
+            self.onWorkItemCompleted()
         }
         
         PolygonService.sharedInstance.loadNeighborhoodBoundaries {
             self.neighborhoodsReady = true
-            self.segue()
+            self.onWorkItemCompleted()
         }
     }
     
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return WorkItems.allValues.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -84,22 +84,25 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
         cell.backgroundColor = UIColor.clear  // Fix for some iPad models that override the UI builder values. Doh!
         
         switch (indexPath as NSIndexPath).row {
-        case 2:
+        case WorkItems.PrecomputingNeighborhoods.rawValue:
             cell.textLabel?.text = "Precomputing neighborhoods".localized
             cell.accessoryType = neighborhoodsReady ? UITableViewCellAccessoryType.checkmark : UITableViewCellAccessoryType.none
             break;
-        case 3:
+        case WorkItems.PrecomputingCensusTracts.rawValue:
             cell.textLabel?.text = "Precomputing census tracts".localized
             cell.accessoryType = censusReady ? UITableViewCellAccessoryType.checkmark : UITableViewCellAccessoryType.none
             break;
-        case 1:
+        case WorkItems.FetchingSocioeconomicData.rawValue:
             cell.textLabel?.text = "Getting socioeconomic data".localized
             cell.accessoryType = socioeconomicReady ? UITableViewCellAccessoryType.checkmark : UITableViewCellAccessoryType.none
             break;
-        default:
+        case WorkItems.FetchingBusinessLicenses.rawValue:
             cell.textLabel?.text = "Getting business licenses".localized
             cell.accessoryType = licensesReady ? UITableViewCellAccessoryType.checkmark : UITableViewCellAccessoryType.none
             break;
+            
+        default:
+            assertionFailure("Bug! Implemented work item for row.")
         }
 
         return cell
@@ -107,7 +110,7 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
 
     // MARK: - Segue
     
-    private func segue() {
+    private func onWorkItemCompleted() {
         todoTable.reloadData()
         
         if (censusReady && neighborhoodsReady && licensesReady && socioeconomicReady) {
@@ -115,5 +118,14 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
                 self.performSegue(withIdentifier: "next", sender: self)
             }
         }
+    }
+  
+    private enum WorkItems: Int {
+        case FetchingBusinessLicenses = 0
+        case FetchingSocioeconomicData
+        case PrecomputingNeighborhoods
+        case PrecomputingCensusTracts
+        
+        static let allValues = [FetchingBusinessLicenses, FetchingSocioeconomicData, PrecomputingNeighborhoods, PrecomputingCensusTracts]
     }
 }

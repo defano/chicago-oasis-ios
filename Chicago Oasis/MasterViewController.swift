@@ -32,8 +32,6 @@ class MasterViewController: UITableViewController, UISearchBarDelegate {
         super.viewWillAppear(animated)
     }
 
-    // MARK: - Segues
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
@@ -46,7 +44,7 @@ class MasterViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    // MARK: - Search Bar
+    // MARK: - UISearchBarDelegate
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         visibleLicenses = []

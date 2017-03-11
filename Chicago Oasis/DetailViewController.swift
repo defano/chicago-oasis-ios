@@ -17,8 +17,13 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     // Default centerpoint of the displayed map; Chicago Loop
     let chicagoLatitude = 41.870311265875358, chicagoLongitude = -87.68412364213323
     
-    let zoomMeters = 20000.0   // Zoom level of the map; number of meters visible in the longest visible dimension
-    let bucketCount = 5.0      // Number of distinct shades used when coloring the map
+    let zoomMeters = 20000.0                    // Zoom level of the map; number of meters visible in the longest visible dimension
+    let bucketCount = 5.0                       // Number of distinct shades used when coloring the map
+    let polygonBorderWidth: CGFloat = 2.0       // Outline stroke width of polygons
+    let disabledPolyAlpha: CGFloat = 0.5        // Transparency of disabled (greyed out) polys
+    let polygonRedComp: CGFloat = 0.4           // Red color component of shaded polygons
+    let polygonGreenComp: CGFloat = 0.6         // Green color component of shaded polygons
+    let polygonBlueComp: CGFloat = 1.0          // Blue color component of shaded polygons
     
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var mapTypeSelection: UISegmentedControl!
@@ -132,7 +137,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         
         // Instantiate the popover
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        var areaPopover: AreaPopoverController?
+        var areaPopover: AreaPopoverController
         
         guard accessibilityForArea(polygon.id) != nil else {
             // Nothing to show if no data available for this polygon
@@ -149,14 +154,14 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         var minIndex = 0.0, maxIndex = 0.0
         indexRangeForPolygons(PolygonService.sharedInstance.getPolygons(selectedMap), minIndex: &minIndex, maxIndex: &maxIndex)
             
-        areaPopover!.record = SocioeconomicService.sharedInstance.data[polygon.id]
-        areaPopover!.accessibilityRecord = accessibilityForArea(polygon.id)
-        areaPopover!.polygon = polygon
-        areaPopover!.accessibilityAlpha = alphaForAccessibilityIndex(accessibilityForArea(polygon.id)?.index, minIndex: minIndex, maxIndex: maxIndex)
-        areaPopover!.selectedYear = Int(yearSelection.value)
+        areaPopover.record = SocioeconomicService.sharedInstance.data[polygon.id]
+        areaPopover.accessibilityRecord = accessibilityForArea(polygon.id)
+        areaPopover.polygon = polygon
+        areaPopover.accessibilityAlpha = alphaForAccessibilityIndex(accessibilityForArea(polygon.id)?.index, minIndex: minIndex, maxIndex: maxIndex)
+        areaPopover.selectedYear = Int(yearSelection.value)
         
         // ... and display it
-        presentPolygonPopover(areaPopover!, polygon: polygon)
+        presentPolygonPopover(areaPopover, polygon: polygon)
     }
     
     func presentAnnotationPopover(_ popover: UIViewController, annotation: MKAnnotationView) {
@@ -220,8 +225,8 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         
         // By default, area polys are shaded grey; if they don't change color its because we're missing data
         polygonView.strokeColor = UIColor.gray
-        polygonView.lineWidth=2.0
-        polygonView.fillColor = UIColor.gray.withAlphaComponent(0.5)
+        polygonView.lineWidth = polygonBorderWidth
+        polygonView.fillColor = UIColor.gray.withAlphaComponent(disabledPolyAlpha)
         
         return polygonView
     }
@@ -257,7 +262,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
                 if let renderer = self.map.renderer(for: poly.overlay!) as? MKPolygonRenderer, let index = self.accessibilityForArea(poly.id)?.index {
                     renderer.strokeColor = UIColor.white
                     renderer.lineWidth=2.0
-                    renderer.fillColor = UIColor(red:0.4, green:0.6, blue:1.0, alpha:CGFloat(self.alphaForAccessibilityIndex(index, minIndex: minIndex, maxIndex: maxIndex)))
+                    renderer.fillColor = UIColor(red:self.polygonRedComp, green:self.polygonGreenComp, blue:self.polygonBlueComp, alpha:CGFloat(self.alphaForAccessibilityIndex(index, minIndex: minIndex, maxIndex: maxIndex)))
                 }
             }
         }
@@ -291,8 +296,8 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         earliestYearLabel.text = license?.earliestYear.description
         latestYearLabel.text = license?.latestYear.description
         
-        selectedYear = (license!.earliestYear + license!.latestYear) / 2
-        yearSelection.setValue(Float(selectedYear), animated: false)
+        selectedYear = (license!.earliestYear + license!.latestYear) / 2        // Initialize selection midway through available data
+        yearSelection.setValue(Float(selectedYear), animated: true)
     }
 
     /*
@@ -354,10 +359,6 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
         }
     }
     
-    private func redrawMapNoData (_ redrawPolygons: Bool) {
-        
-    }
-    
     // MARK: - Data Utilities
     
     /*
@@ -406,7 +407,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
      * the number alphaBuckets. The intent is to bucket each index so that each polygon/area 
      * drawn on the map is assigned one of 'bucketCount' shades.
      */
-    func alphaForAccessibilityIndex (_ index: Double?, minIndex: Double, maxIndex: Double) -> Double {
+    func alphaForAccessibilityIndex (_ index: Double?, minIndex: Double, maxIndex: Double) -> Double {        
         guard index != nil else {
             return 0.0
         }

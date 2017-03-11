@@ -35,7 +35,7 @@ class NeighborhoodPopoverController : AreaPopoverController, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return SocioField.allValues.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,32 +49,44 @@ class NeighborhoodPopoverController : AreaPopoverController, UITableViewDataSour
             let hardshipIndex = super.record?.hardshipIndex
         {
             switch (indexPath as NSIndexPath).row {
-            case 0:
+            case SocioField.PerCapitaIncome.rawValue:
                 cell?.textLabel?.text = "Per-capita income"
                 let currencyFormatter = NumberFormatter()
                 currencyFormatter.numberStyle = NumberFormatter.Style.currency
                 cell?.detailTextLabel?.text = currencyFormatter.string(from: NSNumber(value: perCapitaIncome))
                 break
-            case 1:
+            case SocioField.BelowPoverty.rawValue:
                 cell?.textLabel?.text = "Below poverty"
                 cell?.detailTextLabel?.text = percentPoverty.description + "%"
                 break
-            case 2:
+            case SocioField.Unemployed16.rawValue:
                 cell?.textLabel?.text = "Unemployed (ages 16+)"
                 cell?.detailTextLabel?.text = percent16Unemployed.description + "%"
                 break
-            case 3:
+            case SocioField.Unemployed25.rawValue:
                 cell?.textLabel?.text = "Unemployed (ages 25+)"
                 cell?.detailTextLabel?.text = percent25Unemployed.description + "%"
                 break
-            default:
+            case SocioField.Hardship.rawValue:
                 cell?.textLabel?.text = "Hardship index"
                 cell?.detailTextLabel?.text = hardshipIndex.description
                 break
+                
+            default:
+                assertionFailure("Bug! Unimplemented socioeconomic field.")
             }
         }
         
         return cell!
     }
 
+    private enum SocioField: Int {
+        case PerCapitaIncome = 0
+        case BelowPoverty
+        case Unemployed16
+        case Unemployed25
+        case Hardship
+        
+        static let allValues = [PerCapitaIncome, BelowPoverty, Unemployed16, Unemployed25, Hardship]
+    }
 }
