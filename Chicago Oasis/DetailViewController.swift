@@ -27,8 +27,6 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var mapTypeSelection: UISegmentedControl!
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
-    @IBOutlet weak var selectionLabel: UILabel!
     @IBOutlet weak var earliestYearLabel: UILabel!
     @IBOutlet weak var latestYearLabel: UILabel!
     @IBOutlet weak var criticalBusinessSelection: UISwitch!
@@ -97,7 +95,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
     
     // MARK: - Map Interaction
     
-    func onMapWasTapped (_ tap: UIGestureRecognizer) {
+  @objc func onMapWasTapped (_ tap: UIGestureRecognizer) {
         let tapPoint:CGPoint = tap.location(in: map)
         let tapCoordinate:CLLocationCoordinate2D = map.convert(tapPoint, toCoordinateFrom: map)
         let tapCoordinateRegion: MKCoordinateRegion = MKCoordinateRegionMake(tapCoordinate, MKCoordinateSpanMake(0, 0))
@@ -243,27 +241,25 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
      * Updates the selection label (at the top of the map) to represent current selections.
      */
     private func updateSelectionLabel() {
-        selectionLabel.text = "\((license?.title)!) accessibility in \(selectedYear)"
+        self.navigationItem.title = "\((license?.title)!) - \(selectedYear)"
     }
     
     /*
      * Reshades (colors) polygons visible on the map using current data selections
      */
     func reshadeVisiblePolygons() {
-        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async {
-            let visiblePolygons = self.visiblePolygons()
-            let activePolygons = self.relativeShadingSelection.isOn ? visiblePolygons : PolygonService.sharedInstance.getPolygons(self.selectedMap)
-            
-            var minIndex = 0.0, maxIndex = 0.0
-            
-            self.indexRangeForPolygons(activePolygons, minIndex: &minIndex, maxIndex: &maxIndex)
-            
-            for poly in visiblePolygons {
-                if let renderer = self.map.renderer(for: poly.overlay!) as? MKPolygonRenderer, let index = self.accessibilityForArea(poly.id)?.index {
-                    renderer.strokeColor = UIColor.white
-                    renderer.lineWidth=2.0
-                    renderer.fillColor = UIColor(red:self.polygonRedComp, green:self.polygonGreenComp, blue:self.polygonBlueComp, alpha:CGFloat(self.alphaForAccessibilityIndex(index, minIndex: minIndex, maxIndex: maxIndex)))
-                }
+        let visiblePolygons = self.visiblePolygons()
+        let activePolygons = self.relativeShadingSelection.isOn ? visiblePolygons : PolygonService.sharedInstance.getPolygons(self.selectedMap)
+      
+        var minIndex = 0.0, maxIndex = 0.0
+      
+        self.indexRangeForPolygons(activePolygons, minIndex: &minIndex, maxIndex: &maxIndex)
+      
+        for poly in visiblePolygons {
+            if let renderer = self.map.renderer(for: poly.overlay!) as? MKPolygonRenderer, let index = self.accessibilityForArea(poly.id)?.index {
+                renderer.strokeColor = UIColor.white
+                renderer.lineWidth=2.0
+                renderer.fillColor = UIColor(red:self.polygonRedComp, green:self.polygonGreenComp, blue:self.polygonBlueComp, alpha:CGFloat(self.alphaForAccessibilityIndex(index, minIndex: minIndex, maxIndex: maxIndex)))
             }
         }
     }
@@ -355,7 +351,7 @@ class DetailViewController: UIViewController, MKMapViewDelegate, UIPopoverPresen
                 self.updateCriticalBusinesses()
                 self.updateSelectionLabel()
             }) {
-                logger.error("Failed to get accessibility data for \(self.selectedMap) in year \(self.selectedYear) for license type \(self.license?.id)")
+              logger.error("Failed to get accessibility data for \(self.selectedMap) in year \(self.selectedYear) for license type \(self.license?.id ?? "(Unknown)")")
         }
     }
     

@@ -62,7 +62,7 @@ class PolygonService {
                             return name
                         },
                      onComplete:
-                        { _ in
+                        { 
                             logger.debug("Loaded neighborhood boundaries from KML. Archiving to cache.")
                             DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
                                 NSKeyedArchiver.archiveRootObject(self.neighborhoods.data, toFile: self.neighborhoodCachePath)
@@ -94,7 +94,7 @@ class PolygonService {
                             return self.normalizeTractId(name)
                         },
                      onComplete:
-                        { _ in
+                        { 
                             logger.debug("Loaded census boundaries from KML. Archiving to cache.")
                             DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
                                 NSKeyedArchiver.archiveRootObject(self.tracts.data, toFile: self.censusCachePath)
@@ -161,7 +161,7 @@ class PolygonService {
      * translates a KML-encoded ID to a JSON-recognized on.
      * 
      * Two differences: a) KML ID is prefixed with "Census Tract " and b) tract numbers under
-     * 1000 lack a preceedinging '0'. (i.e., 719 -> 0719)
+     * 1000 lack a preceedinging '0'. Thus, "Census Tract 719" becomes "0719"
      */
     private func normalizeTractId (_ id: String) -> String {
         var normalizedId = id
@@ -170,10 +170,10 @@ class PolygonService {
         normalizedId.removeSubrange(normalizedId.startIndex..<normalizedId.characters.index(normalizedId.startIndex, offsetBy: "Census Tract ".characters.count))
         
         // And add a leading zero for sub-1000 tract ids
-        if (Int(normalizedId) ?? 1000) < 1000 {
+        if (Double(normalizedId) ?? 1000) < 1000 {
             normalizedId = "0" + normalizedId
         }
-        
+      
         return normalizedId
     }
 }

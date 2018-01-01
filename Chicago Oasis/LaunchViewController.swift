@@ -51,7 +51,7 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
                 self.onWorkItemCompleted()
             },
             onFailure: {
-                AlertFacade.alertFatal(FatalError.cantLoadRequiredData, from: self)
+                AlertFacade.alertFatal(FatalError.CantLoadRequiredData, from: self)
             })
         
         SocioeconomicService.sharedInstance.load(
@@ -59,7 +59,7 @@ class LaunchViewController : UIViewController, UITableViewDataSource {
                 self.socioeconomicReady = true
                 self.onWorkItemCompleted()
             }) {
-                AlertFacade.alertFatal(FatalError.cantLoadRequiredData, from: self)
+                AlertFacade.alertFatal(FatalError.CantLoadRequiredData, from: self)
             }
         
         PolygonService.sharedInstance.loadCensusTractBoundaries {

@@ -14,7 +14,6 @@
 		C91BBA441CCBC05F005477D4 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BBA431CCBC05F005477D4 /* MasterViewController.swift */; };
 		C91BBA461CCBC05F005477D4 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91BBA451CCBC05F005477D4 /* DetailViewController.swift */; };
 		C91BBA491CCBC05F005477D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C91BBA471CCBC05F005477D4 /* Main.storyboard */; };
-		C91BBA4B1CCBC060005477D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C91BBA4A1CCBC060005477D4 /* Assets.xcassets */; };
 		C91BBA4E1CCBC060005477D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C91BBA4C1CCBC060005477D4 /* LaunchScreen.storyboard */; };
 		C943D1EF1CDE317F00941B5C /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C943D1EE1CDE317F00941B5C /* UserDefaults.swift */; };
 		C943D1F51CDE361B00941B5C /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C943D1F41CDE361B00941B5C /* Settings.bundle */; };
@@ -36,6 +35,7 @@
 		C9C3521C1CD3E3B200392A99 /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C3521B1CD3E3B200392A99 /* Polygon.swift */; };
 		C9C352201CD4076900392A99 /* BusinessPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C3521F1CD4076900392A99 /* BusinessPopoverController.swift */; };
 		C9C352221CD50DAA00392A99 /* AlertFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C352211CD50DAA00392A99 /* AlertFacade.swift */; };
+		C9FA06691FEF0ECF00451C3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9FA06681FEF0ECF00451C3B /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,7 +49,6 @@
 		C91BBA431CCBC05F005477D4 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		C91BBA451CCBC05F005477D4 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C91BBA481CCBC05F005477D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C91BBA4A1CCBC060005477D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C91BBA4D1CCBC060005477D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C91BBA4F1CCBC060005477D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C943D1EE1CDE317F00941B5C /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
@@ -72,6 +71,7 @@
 		C9C3521B1CD3E3B200392A99 /* Polygon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
 		C9C3521F1CD4076900392A99 /* BusinessPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessPopoverController.swift; sourceTree = "<group>"; };
 		C9C352211CD50DAA00392A99 /* AlertFacade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertFacade.swift; sourceTree = "<group>"; };
+		C9FA06681FEF0ECF00451C3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../.Trash/Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,7 +145,6 @@
 		C91BBA401CCBC05F005477D4 /* Chicago Oasis */ = {
 			isa = PBXGroup;
 			children = (
-				C91BBA4A1CCBC060005477D4 /* Assets.xcassets */,
 				C943D1F41CDE361B00941B5C /* Settings.bundle */,
 				C91BBA411CCBC05F005477D4 /* AppDelegate.swift */,
 				C943D1EE1CDE317F00941B5C /* UserDefaults.swift */,
@@ -155,6 +154,7 @@
 				C95AC6441CCC180D0068EFEB /* model */,
 				C91BBA4F1CCBC060005477D4 /* Info.plist */,
 				C95BBF531CECE23600E44F18 /* Localizable.strings */,
+				C9FA06681FEF0ECF00451C3B /* Assets.xcassets */,
 			);
 			path = "Chicago Oasis";
 			sourceTree = "<group>";
@@ -213,13 +213,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Matt DeFano";
 				TargetAttributes = {
 					C91BBA3D1CCBC05F005477D4 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 5KS4BNQW58;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0920;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -252,10 +252,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C91BBA4E1CCBC060005477D4 /* LaunchScreen.storyboard in Resources */,
-				C91BBA4B1CCBC060005477D4 /* Assets.xcassets in Resources */,
 				C91BBA491CCBC05F005477D4 /* Main.storyboard in Resources */,
 				C95BBF541CECE23600E44F18 /* Localizable.strings in Resources */,
 				C99931551CCD1A3800FB9701 /* census.kml in Resources */,
+				C9FA06691FEF0ECF00451C3B /* Assets.xcassets in Resources */,
 				C943D1F51CDE361B00941B5C /* Settings.bundle in Resources */,
 				C99931511CCC6EE900FB9701 /* neighborhoods.kml in Resources */,
 			);
@@ -383,14 +383,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -431,14 +437,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -470,16 +482,19 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				"DEBUG_INFORMATION_FORMAT[sdk=*]" = "dwarf-with-dsym";
 				INFOPLIST_FILE = "Chicago Oasis/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.defano.chicagooasis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -489,14 +504,17 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Chicago Oasis/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.defano.chicagooasis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

@@ -22,15 +22,15 @@ struct AlertFacade {
     
     static func messageForFatalError(_ fatalError: FatalError) -> String {
         switch fatalError {
-        case .cantLoadPolys:
+        case .CantLoadPolys:
             return "An error occured loading neighborhood and census tract boundaries. Please reinstall the app and try again.".localized
-        case .cantLoadRequiredData:
+        case .CantLoadRequiredData:
             return "An error occured fetching data from the server. Check that you have a working internet connection and that the chicago-oasis.org site is accessible.".localized
         }
     }
 }
 
 enum FatalError {
-    case cantLoadPolys
-    case cantLoadRequiredData
+    case CantLoadPolys
+    case CantLoadRequiredData
 }
