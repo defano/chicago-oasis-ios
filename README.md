@@ -1,12 +1,15 @@
 # Chicago Oasis for iOS
 
-Download from the [iTunes App Store](https://itunes.apple.com/us/app/chicago-oasis/id1115492310).
+A fully-native Swift implementation of the Chicago Oasis project for iOS devices. This "universal" app runs on both iPhones and iPads (including full-screen on iPhone X) where it pulls business accessibility and socioeconomic data from the Chicago Oasis web app and renders it using Apple's MapKit.
 
-![Screenshot](https://github.com/defano/chicago-oasis-ios/blob/master/Release%20Assets/Screen%20Shots/iPad/12.9%20inch/bedbreakfast-by-census.png)
+<img src="https://github.com/defano/chicago-oasis-ios/blob/master/Release%20Assets/hero.jpg" width=350/>
 
-A fully-native Swift implementation of the Chicago Oasis project for iOS devices. This "universal" app runs on both iPhones and iPads (including full-screen on iPhone X) pulls demographic, critical business, and accessibility data from the http://chicago-oasis.org website and renders it using Apple's MapKit.
+Available on the [iTunes App Store](https://itunes.apple.com/us/app/chicago-oasis/id1115492310).
 
-See the [Chicago Oasis project](https://github.com/defano/chicago-oasis) for a general overview of the project and details about how the data was generated.
+### Related Projects
+
+* [Chicago Oasis Data](https://github.com/defano/chicago-oasis-data) - The data analysis scripts (written in Python) that pull down and analyze source data from the City of Chicago and US Census Bureau. Based on Ben Galewsky's original [Apache Pig implementation](https://github.com/BenGalewsky/oasis).
+* [Chicago Oasis](https://github.com/defano/chicago-oasis) - The web front-end and server infrastructure responsible for serving analysis files to visualization clients like this.
 
 ## Features
 
@@ -14,19 +17,17 @@ See the [Chicago Oasis project](https://github.com/defano/chicago-oasis) for a g
 * Mixes sociographic information (including income and unemployment rates) for all 77 city neighborhoods
 * Finds "critical businesses," that is, those whose dissapearance would create a business desert
 * Visualizes business accessibility across the city as a whole, or within the area visible on the map ("relative shading")
-* Renders data across time (up to twenty years)
+* Renders data across time (over twenty years worth, in some cases)
 
 ## Building
 
-Build and run this project in XCode 9 using Swift 4; your mileage may vary with other versions:
+This project was created in XCode 9.2 and written in Swift 4. Your mileage may vary with other versions. To build the app locally,
 
 1. Clone this repository
 ```
 $ git clone https://github.com/defano/chicago-oasis-ios.git
 ```
-2. Open XCode and open the project workspace (`Chicago Oasis.xcworspace`).
-
-If you open the `Chicago Oasis.xcodeproj` file instead of the workspace third party dependencies imported through CocoaPods will not be visible to XCode.
+2. Open the project workspace (`Chicago Oasis.xcworspace`) in XCode. Note that this project uses CocoaPods; if you open the project file (`Chicago Oasis.xcodeproj`) instead of the workspace, third party dependencies imported through CocoaPods will not be visible to XCode and the project will not build.
 
 #### Updating Dependencies
 
@@ -44,4 +45,4 @@ Or, if you added or removed dependencies,
 ```
 $ pod install
 ```
-3. Clean and rebuild the project from within XCode.
+3. Finally, clean and rebuild the project from within XCode.
